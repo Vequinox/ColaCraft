@@ -1,18 +1,15 @@
 {
   "pattern": [
-    " i ",
-    " i ",
-    "   "
+    "i",
+    "i"
   ],
   "type": "minecraft:crafting_shaped",
   "key": {
     "i": {
-      "type": "forge:ore_dict",
-      "ore": "ingotIron"
+      "item": "cm:cinerium_ingot"
     }
   },
   "result": {
-    "item": "cm:items/can",
-    "count": 1
+    "item": "cm:can"
   }
 }
