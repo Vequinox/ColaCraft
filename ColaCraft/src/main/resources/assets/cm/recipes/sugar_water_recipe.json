@@ -1,0 +1,18 @@
+{
+  "pattern": [
+    "x",
+    "y"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "x": {
+        "item": "minecraft:sugar"
+    },
+    "y": {
+      "item": "minecraft:potion"
+    }
+  },
+  "result": {
+    "item": "cm:sugar_water"
+  }
+}
