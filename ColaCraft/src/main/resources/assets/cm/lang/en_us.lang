@@ -5,8 +5,12 @@ item.luxium_ingot.name=Luxium Ingot
 item.albium_ingot.name=Albium Ingot
 item.cerasium_ingot.name=Cerasium Ingot
 item.tenebrium_ingot.name=Tenebrium Ingot
+
 tile.ore_cinerium.name=Cinerium Ore
 tile.ore_luxium.name=Luxium Ore
 tile.ore_albium.name=Albium Ore
 tile.ore_cerasium.name=Cerasium Ore
 tile.ore_tenebrium.name=Tenebrium Ore
+tile.carbonizer.name=Carbonizer
+
+container.carbonizer=Carbonizer

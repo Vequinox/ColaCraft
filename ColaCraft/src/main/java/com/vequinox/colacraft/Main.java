@@ -3,6 +3,7 @@ package com.vequinox.colacraft;
 import com.vequinox.colacraft.proxy.CommonProxy;
 import com.vequinox.colacraft.recipe.ModRecipes;
 import com.vequinox.colacraft.util.Reference;
+import com.vequinox.colacraft.util.handlers.RegistryHandler;
 import com.vequinox.colacraft.world.ModWorldGen;
 
 import net.minecraftforge.fml.common.Mod;
@@ -31,6 +32,7 @@ public class Main {
 	@EventHandler
 	public static void init(FMLInitializationEvent event) {
 		ModRecipes.init();
+		RegistryHandler.initRegistries(event);
 	}
 
 	@EventHandler

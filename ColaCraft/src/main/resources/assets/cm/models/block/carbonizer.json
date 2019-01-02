@@ -1,0 +1,13 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "particle":"cm:blocks/carbonizer_top",
+    "up":"cm:blocks/carbonizer_top",
+    "down":"cm:blocks/carbonizer_top",
+    "north":"cm:blocks/carbonizer_front",
+    "east":"cm:blocks/carbonizer_side",
+    "south":"cm:blocks/carbonizer_side",
+    "west":"cm:blocks/carbonizer_side"
+  }
+}
+
