@@ -120,13 +120,6 @@ public class BlockCarbonizer extends BlockBase implements ITileEntityProvider{
 	}
 	
 	@Override
-	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-		TileEntityCarbonizer tileEntity = (TileEntityCarbonizer)worldIn.getTileEntity(pos);
-		InventoryHelper.dropInventoryItems(worldIn, pos, tileEntity);
-		super.breakBlock(worldIn, pos, state);
-	}
-	
-	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.MODEL;
 	}
