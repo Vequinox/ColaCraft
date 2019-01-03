@@ -5,7 +5,6 @@ import com.vequinox.colacraft.init.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -20,6 +19,7 @@ import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
@@ -30,7 +30,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 
 public class TileEntityCarbonizer extends TileEntity implements IInventory, ITickable{
 	private NonNullList<ItemStack> inventory = NonNullList.<ItemStack>withSize(8, ItemStack.EMPTY);
@@ -257,8 +256,8 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 			ItemStack input2 = (ItemStack)this.inventory.get(1);
 			ItemStack input3 = (ItemStack)this.inventory.get(2);
 			ItemStack input4 = (ItemStack)this.inventory.get(3);
-			ItemStack bottle = (ItemStack)this.inventory.get(3);
-			ItemStack emptyCan = (ItemStack)this.inventory.get(3);
+			ItemStack bottle = (ItemStack)this.inventory.get(4);
+			ItemStack emptyCan = (ItemStack)this.inventory.get(5);
 			ItemStack result = CarbonizerRecipes.getInstance().getCarbonizingResult(input1, input2, input3, input4);
 			ItemStack output = (ItemStack)this.inventory.get(7);
 			
@@ -274,6 +273,7 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 			input4.shrink(1);
 			bottle.shrink(1);
 			emptyCan.shrink(1);
+			System.out.println("smelted item");
 		}
 	}
 
@@ -414,8 +414,4 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 	public void clear() {
 		this.inventory.clear();
 	}
-
-	@Override
-	public void tick() {}
-
 }

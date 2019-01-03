@@ -27,10 +27,10 @@ public class CarbonizerRecipes {
 		addCarbonizingRecipe(
 				new ItemStack(Items.CARROT),
 				new ItemStack(Items.APPLE),
-				new ItemStack(Items.GOLDEN_AXE),
+				new ItemStack(ModItems.ALBIUM_INGOT),
 				new ItemStack(Items.BAKED_POTATO),
 				new ItemStack(Items.ARROW),
-				5.0F
+				4.0F
 		);
 	}
 	
@@ -60,6 +60,15 @@ public class CarbonizerRecipes {
 				
 				result = this.smeltingList.get(recipeItemStacks);
 			}
+		}
+		
+		for(List<ItemStack> recipeItemStacks : this.smeltingList.keySet()) {
+			List<ItemStack> ingredients = new ArrayList<ItemStack>();
+			ingredients.add(input1);
+			ingredients.add(input2);
+			ingredients.add(input3);
+			ingredients.add(input4);
+			System.out.println("Does this contain all?: " + recipeItemStacks.containsAll(ingredients));
 		}
 		
 		return result;

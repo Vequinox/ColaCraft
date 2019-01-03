@@ -4,10 +4,10 @@
     "particle":"cm:blocks/carbonizer_top",
     "up":"cm:blocks/carbonizer_top",
     "down":"cm:blocks/carbonizer_top",
-    "north":"cm:blocks/carbonizer_front_off",
-    "east":"cm:blocks/carbonizer_side_off",
+    "north":"cm:blocks/carbonizer_front_on",
+    "east":"cm:blocks/carbonizer_side_on",
     "south":"cm:blocks/carbonizer_top",
-    "west":"cm:blocks/carbonizer_side_off"
+    "west":"cm:blocks/carbonizer_side_on"
   }
 }
 
