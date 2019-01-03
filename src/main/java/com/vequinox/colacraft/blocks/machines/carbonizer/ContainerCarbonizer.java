@@ -22,17 +22,16 @@ public class ContainerCarbonizer extends Container{
 	
 	public ContainerCarbonizer(InventoryPlayer player, TileEntityCarbonizer tileEntity) {
 		this.tileEntity = tileEntity;
-		IItemHandler handler = tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 		
-		this.addSlotToContainer(new SlotItemHandler(handler, 0, 50, 30));
-		this.addSlotToContainer(new SlotItemHandler(handler, 1, 68, 30));
-		this.addSlotToContainer(new SlotItemHandler(handler, 2, 50, 48));
-		this.addSlotToContainer(new SlotItemHandler(handler, 3, 68, 48));
-		this.addSlotToContainer(new SlotItemHandler(handler, 4, 92, 30));
-		this.addSlotToContainer(new SlotItemHandler(handler, 5, 92, 48));
+		this.addSlotToContainer(new Slot(tileEntity, 0, 50, 30));
+		this.addSlotToContainer(new Slot(tileEntity, 1, 68, 30));
+		this.addSlotToContainer(new Slot(tileEntity, 2, 50, 48));
+		this.addSlotToContainer(new Slot(tileEntity, 3, 68, 48));
+		this.addSlotToContainer(new Slot(tileEntity, 4, 92, 30));
+		this.addSlotToContainer(new Slot(tileEntity, 5, 92, 48));
 		
-		this.addSlotToContainer(new SlotItemHandler(handler, 6, 19, 48));
-		this.addSlotToContainer(new SlotItemHandler(handler, 7, 145, 39));
+		this.addSlotToContainer(new SlotCarbonizerFuel(tileEntity, 6, 19, 48));
+		this.addSlotToContainer(new SlotCarbonizerOutput(player.player, tileEntity, 7, 145, 39));
 		
 		for(int y = 0; y < 3; y++) {
 			for(int x = 0; x < 9; x++) {
