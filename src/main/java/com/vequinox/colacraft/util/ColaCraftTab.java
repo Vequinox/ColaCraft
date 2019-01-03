@@ -9,9 +9,9 @@ public class ColaCraftTab extends CreativeTabs{
 	public ColaCraftTab() {
 		super(Reference.NAME);
 	}
-	
+
 	@Override
-	public ItemStack getTabIconItem() {
+	public ItemStack createIcon() {
 		return new ItemStack(ModItems.CAN);
 	}
 }
