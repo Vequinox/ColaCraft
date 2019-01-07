@@ -12,5 +12,9 @@ tile.ore_albium.name=Albium Ore
 tile.ore_cerasium.name=Cerasium Ore
 tile.ore_tenebrium.name=Tenebrium Ore
 tile.carbonizer.name=Carbonizer
+tile.carbonizer_tier_2.name=Carbonizer Tier II
+tile.carbonizer_tier_3.name=Carbonizer Tier III
 
 container.carbonizer=Carbonizer
+container.carbonizer_tier_2=Carbonizer
+container.carbonizer_tier_3=Carbonizer

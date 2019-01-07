@@ -21,5 +21,7 @@ public class ModBlocks {
 	public static BlockOre ORE_CERASIUM = new BlockOre("ore_cerasium", 3f, 5f, 2);
 	public static BlockOre ORE_TENEBRIUM = new BlockOre("ore_tenebrium", 3f, 5f, 3);
 	
-	public static Block CARBONIZER = new BlockCarbonizer("carbonizer");
+	public static Block CARBONIZER = new BlockCarbonizer("carbonizer", 200);
+	public static Block CARBONIZER_TIER_2 = new BlockCarbonizer("carbonizer_tier_2", 100);
+	public static Block CARBONIZER_TIER_3 = new BlockCarbonizer("carbonizer_tier_3", 50);
 }

@@ -7,6 +7,7 @@ import com.vequinox.colacraft.blocks.BlockBase;
 import com.vequinox.colacraft.init.ModBlocks;
 import com.vequinox.colacraft.util.Reference;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
@@ -37,10 +38,15 @@ public class BlockCarbonizer extends BlockBase implements ITileEntityProvider{
 	public static final PropertyDirection FACING = BlockHorizontal.FACING;
 	public static final PropertyBool CARBONIZING = PropertyBool.create("carbonizing");
 	
-	public BlockCarbonizer(String name) {
+	private int cookTime;
+	private String name;
+	
+	public BlockCarbonizer(String name, int cookTime) {
 		super(name, Material.ROCK);
+		this.name = name;
 		setHardness(3.5f);
 		setResistance(5f);
+		this.cookTime = cookTime;
 		setSoundType(SoundType.STONE);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(CARBONIZING, false));
 	}
@@ -87,14 +93,14 @@ public class BlockCarbonizer extends BlockBase implements ITileEntityProvider{
 		}
 	}
 	
-	public static void setState(boolean active, World worldIn, BlockPos pos) {
+	public static void setState(boolean active, World worldIn, BlockPos pos, Block carbonizerType) {
 		IBlockState state = worldIn.getBlockState(pos);
 		TileEntity tileEntity = worldIn.getTileEntity(pos);
 		
 		if(active) {
-			worldIn.setBlockState(pos, ModBlocks.CARBONIZER.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(CARBONIZING, true), 3);
+			worldIn.setBlockState(pos, carbonizerType.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(CARBONIZING, true), 3);
 		}else {
-			worldIn.setBlockState(pos, ModBlocks.CARBONIZER.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(CARBONIZING, false), 3);
+			worldIn.setBlockState(pos, carbonizerType.getDefaultState().withProperty(FACING, state.getValue(FACING)).withProperty(CARBONIZING, false), 3);
 		}
 		
 		if(tileEntity != null) {
@@ -110,7 +116,7 @@ public class BlockCarbonizer extends BlockBase implements ITileEntityProvider{
 	
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityCarbonizer();
+		return new TileEntityCarbonizer(this.cookTime);
 	}
 	
 	@Override
@@ -120,7 +126,6 @@ public class BlockCarbonizer extends BlockBase implements ITileEntityProvider{
 	
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-		Minecraft.getMinecraft().player.sendChatMessage(CarbonizerRecipes.getInstance().getCarbonizingResult(new ItemStack(Items.CARROT), new ItemStack(Items.APPLE), new ItemStack(Items.GOLDEN_AXE), new ItemStack(Items.BAKED_POTATO)).toString());
 		worldIn.setBlockState(pos, this.getDefaultState().withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
 	}
 	

@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "carbonizing=false,facing=north": { "model": "cm:carbonizer_tier_3" },
+    "carbonizing=false,facing=south": { "model": "cm:carbonizer_tier_3", "y": 180 },
+    "carbonizing=false,facing=west":  { "model": "cm:carbonizer_tier_3", "y": 270 },
+    "carbonizing=false,facing=east":  { "model": "cm:carbonizer_tier_3", "y": 90 },
+    "carbonizing=true,facing=north": { "model": "cm:lit_carbonizer_tier_3" },
+    "carbonizing=true,facing=south": { "model": "cm:lit_carbonizer_tier_3", "y": 180 },
+    "carbonizing=true,facing=west":  { "model": "cm:lit_carbonizer_tier_3", "y": 270 },
+    "carbonizing=true,facing=east":  { "model": "cm:lit_carbonizer_tier_3", "y": 90 }
+  }
+}

@@ -1,6 +1,8 @@
 package com.vequinox.colacraft.blocks.machines.carbonizer;
 
+import com.vequinox.colacraft.init.ModBlocks;
 import com.vequinox.colacraft.init.ModItems;
+import com.vequinox.colacraft.items.ItemSoda;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -40,6 +42,10 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 	private int currentBurnTime;
 	private int cookTime;
 	private int totalCookTime;
+	
+	public TileEntityCarbonizer(int tierCookTime) {
+		this.totalCookTime = tierCookTime;
+	}
 
 	@Override
 	public String getName() {
@@ -101,14 +107,6 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 		}
 
 		if(index == 0 && index + 1 == 1 && index + 2 == 2 && index + 3 == 3 && index + 4 == 4 && index + 5 == 5 && !flag) {
-			this.totalCookTime = this.getCookTime(
-					stack, 
-					(ItemStack)this.inventory.get(index + 1),
-					(ItemStack)this.inventory.get(index + 2),
-					(ItemStack)this.inventory.get(index + 3),
-					(ItemStack)this.inventory.get(index + 4),
-					(ItemStack)this.inventory.get(index + 5)
-			);
 			this.cookTime = 0;
 			this.markDirty();
 		}
@@ -158,6 +156,7 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 		return tileEntity.getField(0) > 0;
 	}
 
+	@Override
 	public void update() {
 		boolean flag = this.isBurning();
 		boolean flag1 = false;
@@ -169,7 +168,7 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 		if(!this.world.isRemote) {
 			ItemStack fuel = (ItemStack)this.inventory.get(6);//fuel slot
 			
-			if(this.isBurning() || !fuel.isEmpty() && !((((ItemStack)this.inventory.get(0)).isEmpty()) || ((ItemStack)this.inventory.get(1)).isEmpty() || ((ItemStack)this.inventory.get(2)).isEmpty() || ((ItemStack)this.inventory.get(3)).isEmpty() || ((ItemStack)this.inventory.get(4)).isEmpty() || ((ItemStack)this.inventory.get(5)).isEmpty())){
+			if(this.isBurning() || !fuel.isEmpty() && !((((ItemStack)this.inventory.get(0)).isEmpty()) || ((ItemStack)this.inventory.get(1)).isEmpty() || ((ItemStack)this.inventory.get(4)).isEmpty() || ((ItemStack)this.inventory.get(5)).isEmpty())){
 				if(!this.isBurning() && this.canSmelt()) {
 					this.burnTime = getItemBurnTime(fuel);
 					this.currentBurnTime = this.burnTime;
@@ -194,7 +193,6 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 					
 					if(this.cookTime == this.totalCookTime) {
 						this.cookTime = 0;
-						this.totalCookTime = this.getCookTime((ItemStack)this.inventory.get(0), (ItemStack)this.inventory.get(1), (ItemStack)this.inventory.get(2), (ItemStack)this.inventory.get(3), (ItemStack)this.inventory.get(4), (ItemStack)this.inventory.get(5));
 						this.smeltItem();
 						flag1 = true;
 					}
@@ -207,7 +205,7 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 			
 			if(flag != this.isBurning()) {
 				flag1 = true;
-				BlockCarbonizer.setState(this.isBurning(), this.world, this.pos);
+				BlockCarbonizer.setState(this.isBurning(), this.world, this.pos, getCarbonizerType());
 			}
 		}
 		
@@ -216,61 +214,61 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 		}
 	}
 	
-	public int getCookTime(ItemStack input1, ItemStack input2, ItemStack input3, ItemStack input4, ItemStack input5, ItemStack input6) {
-		return 200;
+	private Block getCarbonizerType() {
+		return this.totalCookTime == 200 ? ModBlocks.CARBONIZER : this.totalCookTime == 100 ? ModBlocks.CARBONIZER_TIER_2 : ModBlocks.CARBONIZER_TIER_3;
 	}
 
 	private boolean canSmelt() {
 		if(((ItemStack)this.inventory.get(0)).isEmpty() || ((ItemStack)this.inventory.get(1)).isEmpty() ||
-				((ItemStack)this.inventory.get(2)).isEmpty() || ((ItemStack)this.inventory.get(3)).isEmpty() ||
-				((ItemStack)this.inventory.get(4)).isEmpty() || ((ItemStack)this.inventory.get(5)).isEmpty()) {
+			((ItemStack)this.inventory.get(4)).isEmpty() || ((ItemStack)this.inventory.get(5)).isEmpty() || !((ItemStack)this.inventory.get(7)).isEmpty()){
+			System.out.println("Can't smelt, something is empty or output is not empty");
 			return false;
 		}else {
-			ItemStack result = CarbonizerRecipes.getInstance().getCarbonizingResult(
-					(ItemStack)this.inventory.get(0), 
+			ItemSoda result = CarbonizerRecipes.getInstance().getCarbonizingResult(
+					(ItemStack)this.inventory.get(0),
 					(ItemStack)this.inventory.get(1),
 					(ItemStack)this.inventory.get(2),
 					(ItemStack)this.inventory.get(3));
-
-			if(result.isEmpty()) {
-				return false;
-			}else {
-				ItemStack output = (ItemStack)this.inventory.get(7);
-				if(output.isEmpty()) {
-					return true;
-				}
-
-				if(!output.isItemEqual(result)) {
-					return false;
-				}
-
-				int res = output.getCount() + result.getCount();
-				return res <= getInventoryStackLimit() && res <= output.getMaxStackSize();
-			}
+			System.out.println("Can smelt!!!!");
+			return result != null;
 		}
 	}
 	
 	public void smeltItem() {
 		if(this.canSmelt()) {
-			ItemStack input1 = (ItemStack)this.inventory.get(0);
-			ItemStack input2 = (ItemStack)this.inventory.get(1);
-			ItemStack input3 = (ItemStack)this.inventory.get(2);
-			ItemStack input4 = (ItemStack)this.inventory.get(3);
+			ItemStack baseIngredient = (ItemStack)this.inventory.get(0);
+			ItemStack fillerIngredient = (ItemStack)this.inventory.get(1);
+			ItemStack augmentIngredient = (ItemStack)this.inventory.get(2);
+			ItemStack modifierIngredient = (ItemStack)this.inventory.get(3);
 			ItemStack bottle = (ItemStack)this.inventory.get(4);
 			ItemStack emptyCan = (ItemStack)this.inventory.get(5);
-			ItemStack result = CarbonizerRecipes.getInstance().getCarbonizingResult(input1, input2, input3, input4);
+			ItemSoda result = CarbonizerRecipes.getInstance().getCarbonizingResult(baseIngredient, fillerIngredient, augmentIngredient, modifierIngredient);
 			ItemStack output = (ItemStack)this.inventory.get(7);
 			
 			if(output.isEmpty()) {
-				this.inventory.set(7, result.copy());
-			}else if(output.getItem() == result.getItem()) {
-				output.grow(result.getCount());
+				this.inventory.set(7, new ItemStack(result));
 			}
 			
-			input1.shrink(1);
-			input2.shrink(1);
-			input3.shrink(1);
-			input4.shrink(1);
+			baseIngredient.shrink(1);
+			fillerIngredient.shrink(1);
+			
+			if(!augmentIngredient.isEmpty()) {
+				augmentIngredient.shrink(augmentIngredient.getCount());
+			}
+			
+			if(!modifierIngredient.isEmpty()) {
+				int shrinkAmt = modifierIngredient.getCount();
+				if(shrinkAmt > 15 && shrinkAmt < 32) {
+					shrinkAmt = 16;
+				}else if(shrinkAmt > 31 && shrinkAmt < 48) {
+					shrinkAmt = 32;
+				}else if(shrinkAmt > 47 && shrinkAmt < 64) {
+					shrinkAmt = 48;
+				}
+					
+				modifierIngredient.shrink(shrinkAmt);
+			}
+			
 			bottle.shrink(1);
 			emptyCan.shrink(1);
 			System.out.println("smelted item");
