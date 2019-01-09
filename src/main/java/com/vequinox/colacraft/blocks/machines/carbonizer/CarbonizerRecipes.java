@@ -33,162 +33,151 @@ public class CarbonizerRecipes {
 		return INSTANCE;
 	}
 	
-	private CarbonizerRecipes() {
-//		addCarbonizingRecipe(
-//				new ItemStack(Items.CARROT),
-//				new ItemStack(Items.APPLE),
-//				new ItemStack(ModItems.ALBIUM_INGOT),
-//				new ItemStack(Items.BAKED_POTATO),
-//				4.0F
-//		);
-		
-		//Ink Sac + Spider Eye + Mushroom + Modifier
-//		addCarbonizerRecipe(new ItemStack(Items.DYE, 1, EnumDyeColor.BLACK.getDyeDamage()),
-//				new ItemStack(Items.SPIDER_EYE),
-//				new ItemStack(Blocks.BROWN_MUSHROOM),
-//				new ItemStack);
-	}
+	private CarbonizerRecipes() {}
 	
 	private int randInt(int itemCount) {
 		int min = 0;
 		int max = 0;
 		
-		if(itemCount < 17) {
+		if(itemCount < 11) {
 			max = 1;
-		}else if(itemCount < 33) {
+		}else if(itemCount < 21) {
 			max = 2;
-		}else if(itemCount < 49) {
+		}else if(itemCount < 31) {
 			min = 1;
 			max = 3;
-		}else {
+		}else if(itemCount < 41){
 			min = 2;
 			max = 4;
+		}else if(itemCount < 51) {
+			min = 4;
+			max = 6;
+		}else if(itemCount < 61) {
+			min = 6;
+			max = 8;
+		}else {
+			min = 8;
+			max = 10;
 		}
 		
 		return min + (int)(Math.random()*((max-min) + 1));
 	}
 	
-	private Potion getPotionEffectFromIngredients(ItemStack baseIngredient, ItemStack fillerIngredient) {
-		if((baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.RED.getDyeDamage()).getItem()
-				&& fillerIngredient.getItem() == Items.SPECKLED_MELON) /* TODO || baseIngredient.getItem() == augment item*/) {
-			return MobEffects.INSTANT_HEALTH;
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.YELLOW.getDyeDamage()).getItem()
-				&& fillerIngredient.getItem() == Items.POISONOUS_POTATO) {
-			return MobEffects.POISON;
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.GREEN.getDyeDamage()).getItem()
-				&& fillerIngredient.getItem() == Items.ROTTEN_FLESH) {
-			return MobEffects.HUNGER;
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.BLUE.getDyeDamage()).getItem()
-				&& fillerIngredient.getItem() == Items.FISH) {
-			return MobEffects.WATER_BREATHING;
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.WHITE.getDyeDamage()).getItem()
-				&& fillerIngredient.getItem() == Items.COOKED_RABBIT) {
-			return MobEffects.SPEED;
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.BLACK.getDyeDamage()).getItem()
-				&& fillerIngredient.getItem() == Items.SPIDER_EYE) {
+	private ItemSoda getBaseSodaFromIngredients(ItemStack baseIngredient, ItemStack fillerIngredient) {
+		if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.RED.getDyeDamage()).getItem() && fillerIngredient.getItem() == Items.SPECKLED_MELON) {
+			return ModItems.RED_SODA;
+		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.YELLOW.getDyeDamage()).getItem() && fillerIngredient.getItem() == Items.POISONOUS_POTATO) {
+			return ModItems.YELLOW_SODA;
+		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.GREEN.getDyeDamage()).getItem() && fillerIngredient.getItem() == Items.ROTTEN_FLESH) {
+			return ModItems.GREEN_SODA;
+		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.BLUE.getDyeDamage()).getItem() && fillerIngredient.getItem() == Items.FISH) {
+			return ModItems.BLUE_SODA;
+		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.WHITE.getDyeDamage()).getItem() && fillerIngredient.getItem() == Items.COOKED_RABBIT) {
+			return ModItems.WHITE_SODA;
+		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.BLACK.getDyeDamage()).getItem() && fillerIngredient.getItem() == Items.SPIDER_EYE) {
+			return ModItems.BLACK_SODA;
+		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.BROWN.getDyeDamage()).getItem() && fillerIngredient.getItem() == Items.BEETROOT) {
+			return ModItems.BROWN_SODA;
+		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.ORANGE.getDyeDamage()).getItem() && fillerIngredient.getItem() == Items.LAVA_BUCKET) {
+			return ModItems.ORANGE_SODA;
+		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.LIGHT_BLUE.getDyeDamage()).getItem() && fillerIngredient.getItem() == Items.FEATHER) {
+			return ModItems.LIGHT_BLUE_SODA;
+		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.MAGENTA.getDyeDamage()).getItem() && fillerIngredient.getItem() == Items.SLIME_BALL) {
+			return ModItems.MAGENTA_SODA;
+		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.PINK.getDyeDamage()).getItem() && fillerIngredient.getItem() == Items.RABBIT_STEW) {
+			return ModItems.PINK_SODA;
+		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.GRAY.getDyeDamage()).getItem() && fillerIngredient.getItem() == Items.FERMENTED_SPIDER_EYE) {
+			return ModItems.GREY_SODA;
+		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.LIME.getDyeDamage()).getItem() && fillerIngredient.getItem() == Items.GOLDEN_CARROT) {
+			return ModItems.LIME_SODA;
+		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.CYAN.getDyeDamage()).getItem() && fillerIngredient.getItem() == Items.CHICKEN) {
+			return ModItems.CYAN_SODA;
+		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.PURPLE.getDyeDamage()).getItem() && fillerIngredient.getItem() == Items.COOKIE) {
+			return ModItems.PURPLE_SODA;
+		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.SILVER.getDyeDamage()).getItem() && fillerIngredient.getItem() == new ItemStack(Blocks.TNT).getItem()){
+			return ModItems.LIGHT_GREY_SODA;
+		}else {
+			return null;
+		}
+	}
+	
+	private Potion getPotionEffectFromAugment(ItemStack augmentIngredient) {
+		if(augmentIngredient.getItem() == ModItems.BLACK_AUGMENT) {
 			return MobEffects.SLOWNESS;
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.BROWN.getDyeDamage()).getItem()
-				&& fillerIngredient.getItem() == Items.BEETROOT) {
+		}else if(augmentIngredient.getItem() == ModItems.BLUE_AUGMENT) {
+			return MobEffects.WATER_BREATHING;
+		}else if(augmentIngredient.getItem() == ModItems.BROWN_AUGMENT) {
 			return MobEffects.STRENGTH;
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.ORANGE.getDyeDamage()).getItem()) {
-			return MobEffects.FIRE_RESISTANCE;
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.LIGHT_BLUE.getDyeDamage()).getItem()) {
-			return MobEffects.HASTE;
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.MAGENTA.getDyeDamage()).getItem()) {
-			return MobEffects.MINING_FATIGUE;
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.PINK.getDyeDamage()).getItem()) {
-			return MobEffects.REGENERATION;
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.GRAY.getDyeDamage()).getItem()) {
-			return MobEffects.BLINDNESS;
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.LIME.getDyeDamage()).getItem()) {
-			return MobEffects.NIGHT_VISION;
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.CYAN.getDyeDamage()).getItem()) {
+		}else if(augmentIngredient.getItem() == ModItems.CYAN_AUGMENT) {
 			return MobEffects.NAUSEA;
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.PURPLE.getDyeDamage()).getItem()) {
-			return MobEffects.WEAKNESS;
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.SILVER.getDyeDamage()).getItem()) {
+		}else if(augmentIngredient.getItem() == ModItems.GREEN_AUGMENT) {
+			return MobEffects.HUNGER;
+		}else if(augmentIngredient.getItem() == ModItems.GREY_AUGMENT) {
+			return MobEffects.BLINDNESS;
+		}else if(augmentIngredient.getItem() == ModItems.LIGHT_BLUE_AUGMENT) {
+			return MobEffects.HASTE;
+		}else if(augmentIngredient.getItem() == ModItems.LIGHT_GREY_AUGMENT) {
 			return MobEffects.WITHER;
+		}else if(augmentIngredient.getItem() == ModItems.LIME_AUGMENT) {
+			return MobEffects.NIGHT_VISION;
+		}else if(augmentIngredient.getItem() == ModItems.MAGENTA_AUGMENT) {
+			return MobEffects.MINING_FATIGUE;
+		}else if(augmentIngredient.getItem() == ModItems.ORANGE_AUGMENT) {
+			return MobEffects.FIRE_RESISTANCE;
+		}else if(augmentIngredient.getItem() == ModItems.PINK_AUGMENT) {
+			return MobEffects.REGENERATION;
+		}else if(augmentIngredient.getItem() == ModItems.PURPLE_AUGMENT) {
+			return MobEffects.WEAKNESS;
+		}else if(augmentIngredient.getItem() == ModItems.RED_AUGMENT) {
+			return MobEffects.INSTANT_HEALTH;
+		}else if(augmentIngredient.getItem() == ModItems.WHITE_AUGMENT) {
+			return MobEffects.SPEED;
+		}else if(augmentIngredient.getItem() == ModItems.YELLOW_AUGMENT) {
+			return MobEffects.POISON;
 		}else {
 			return null;
 		}
 	}
 	
-	private String getSodaNameFromBaseIngredient(ItemStack baseIngredient) {
-		if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.RED.getDyeDamage()).getItem()) {
-			return "Red Soda";
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.YELLOW.getDyeDamage()).getItem()) {
-			return "Yellow Soda";
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.GREEN.getDyeDamage()).getItem()) {
-			return "Green Soda";
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.BLUE.getDyeDamage()).getItem()) {
-			return "Blue Soda";
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.WHITE.getDyeDamage()).getItem()) {
-			return "White Soda";
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.BLACK.getDyeDamage()).getItem()) {
-			return "Black Soda";
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.BROWN.getDyeDamage()).getItem()) {
-			return "Brown Soda";
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.ORANGE.getDyeDamage()).getItem()) {
-			return "Orange Soda";
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.LIGHT_BLUE.getDyeDamage()).getItem()) {
-			return "Light Blue Soda";
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.MAGENTA.getDyeDamage()).getItem()) {
-			return "Magenta Soda";
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.PINK.getDyeDamage()).getItem()) {
-			return "Pink Soda";
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.GRAY.getDyeDamage()).getItem()) {
-			return "Grey Soda";
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.LIME.getDyeDamage()).getItem()) {
-			return "Lime Soda";
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.CYAN.getDyeDamage()).getItem()) {
-			return "Cyan Soda";
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.PURPLE.getDyeDamage()).getItem()) {
-			return "Purple Soda";
-		}else if(baseIngredient.getItem() == new ItemStack(Items.DYE, 1, EnumDyeColor.SILVER.getDyeDamage()).getItem()) {
-			return "Light Grey Soda";
-		}else {
-			return null;
-		}
-	}
-	
-	private Potion getPotionEffectFromAugment(ItemStack augment) {
-		return getPotionEffectFromIngredients(augment, null);
-	}
-	
-	public ItemSoda getCarbonizingResult(ItemStack baseIngredient, ItemStack fillerIngredient, ItemStack augmentIngredient, ItemStack modifierIngredient) {
-		List<Potion> potionEffects = new ArrayList<Potion>();
+	public ItemStack getCarbonizingResult(ItemStack baseIngredient, ItemStack fillerIngredient, ItemStack augmentIngredient, ItemStack modifierIngredient) {
+		List<Potion> extraPotionEffects = new ArrayList<Potion>();
 		
-		Potion effect = getPotionEffectFromIngredients(baseIngredient, fillerIngredient);
-		if(effect != null) {
-			ItemSoda soda = new ItemSoda(getSodaNameFromBaseIngredient(baseIngredient), 1, 0.6F, false);
-			potionEffects.add(effect);
+		ItemSoda baseSoda = getBaseSodaFromIngredients(baseIngredient, fillerIngredient);
+		
+		if(!augmentIngredient.isEmpty()){
+			double percentage = augmentIngredient.getCount() / 64;
 			
-			if(!augmentIngredient.isEmpty()){ // TODO && is a correct augment item) {
-				double percentage = augmentIngredient.getCount() / 64;
-				
-				if(percentage >= Math.random()) {
-					potionEffects.add(getPotionEffectFromAugment(augmentIngredient));
-				}
+			if(percentage >= Math.random()) {
+				extraPotionEffects.add(getPotionEffectFromAugment(augmentIngredient));
 			}
-			
-			int duration = 1200;
-			int amplifier = 0;
-			if(!modifierIngredient.isEmpty()) {
-				Item modifier = modifierIngredient.getItem();
-				
-				if(modifier == Items.SUGAR) {
-					amplifier = randInt(modifierIngredient.getCount());
-				}else if(modifier == Items.REDSTONE) {
-					duration = (randInt(modifierIngredient.getCount())+1)*1200;
-				}else if(modifier == Items.GUNPOWDER) {
-					//make pressurized
-				}
-			}
-			
-			return (ItemSoda)soda.addPotionEffects(potionEffects, duration, amplifier);
-		}else {
-			return null;
 		}
+		
+		int duration = 1200;
+		int amplifier = 0;
+		if(!modifierIngredient.isEmpty()) {
+			Item modifier = modifierIngredient.getItem();
+			
+			if(modifier == Items.SUGAR) {
+				amplifier = randInt(modifierIngredient.getCount());
+			}else if(modifier == Items.REDSTONE) {
+				duration = (randInt(modifierIngredient.getCount())+1)*1200;
+			}else if(modifier == Items.GUNPOWDER) {
+				//make pressurized
+			}
+		}
+		
+		if(duration > 1200 || amplifier > 0) {
+			baseSoda.addPotionEffect(baseSoda.getBasePotionEffect(), duration, amplifier);
+		}
+		
+		if(!extraPotionEffects.isEmpty()) {
+			for(Potion effect : extraPotionEffects) {
+				baseSoda.addPotionEffect(effect, 1200, 0);
+			}
+		}
+		
+		ItemStack soda = new ItemStack(baseSoda);
+		return soda;
 	}
 	
 	private boolean compareItemStacks(ItemStack stack1, ItemStack stack2) {

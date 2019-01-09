@@ -18,6 +18,12 @@ import net.minecraft.world.World;
 public class ItemSoda extends ItemFood implements IHasModel{
 	
 	private List<PotionEffect> potionEffects = new ArrayList<PotionEffect>();
+	private String name;
+	private int hunger;
+	private float saturation;
+	private boolean isWolfFood;
+	
+	private Potion basePotionEffect;
 
 	public ItemSoda(String name, int hunger, float saturation, boolean isWolfFood) {
 		super(hunger, saturation, isWolfFood);
@@ -27,16 +33,21 @@ public class ItemSoda extends ItemFood implements IHasModel{
 		ModItems.ITEMS.add(this);
 	}
 	
-	public ItemFood addPotionEffects(List<Potion> effects, int duration, int amplifier) {
-		for(Potion effect : effects) {
-			this.potionEffects.add(new PotionEffect(effect, duration, amplifier));
+	public ItemFood addPotionEffect(Potion effect, int duration, int amplifier) {
+		if(potionEffects.isEmpty()) {
+			this.basePotionEffect = effect;
 		}
+		this.potionEffects.add(new PotionEffect(effect, duration, amplifier));
         return this;
     }
 	
+	public Potion getBasePotionEffect() {
+		return this.basePotionEffect;
+	}
+	
 	@Override
 	protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player) {
-		System.out.println("POTION EFFECTS: " + potionEffects.toString());
+		System.out.println("POTION EFFECTS: " + this.potionEffects.toString());
 		
 		if (!worldIn.isRemote && !this.potionEffects.isEmpty()){
 			for(PotionEffect effect : potionEffects) {
@@ -44,7 +55,7 @@ public class ItemSoda extends ItemFood implements IHasModel{
 			}
         }
 	}
-
+	
 	@Override
 	public void registerModels() {
 		Main.proxy.registerItemRenderer(this, 0, "inventory");

@@ -5,8 +5,10 @@ import java.util.List;
 
 import com.vequinox.colacraft.items.ItemAugment;
 import com.vequinox.colacraft.items.ItemBase;
+import com.vequinox.colacraft.items.ItemSoda;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 
 public class ModItems {
@@ -36,4 +38,43 @@ public class ModItems {
 	public static final Item LIME_AUGMENT = new ItemBase("lime_augment");
 	public static final Item MAGENTA_AUGMENT = new ItemBase("magenta_augment");
 	public static final Item LIGHT_GREY_AUGMENT = new ItemBase("light_grey_augment");
+	
+	public static final ItemSoda BLACK_SODA = new ItemSoda("black_soda", 2, 0.6F, false);
+	public static final ItemSoda WHITE_SODA = new ItemSoda("white_soda", 2, 0.6F, false);
+	public static final ItemSoda RED_SODA = new ItemSoda("red_soda", 2, 0.6F, false);
+	public static final ItemSoda BLUE_SODA = new ItemSoda("blue_soda", 2, 0.6F, false);
+	public static final ItemSoda GREEN_SODA = new ItemSoda("green_soda", 2, 0.6F, false);
+	public static final ItemSoda YELLOW_SODA = new ItemSoda("yellow_soda", 2, 0.6F, false);
+	public static final ItemSoda BROWN_SODA = new ItemSoda("brown_soda", 2, 0.6F, false);
+	public static final ItemSoda ORANGE_SODA = new ItemSoda("orange_soda", 2, 0.6F, false);
+	public static final ItemSoda CYAN_SODA = new ItemSoda("cyan_soda", 2, 0.6F, false);
+	public static final ItemSoda PURPLE_SODA = new ItemSoda("purple_soda", 2, 0.6F, false);
+	public static final ItemSoda GREY_SODA = new ItemSoda("grey_soda", 2, 0.6F, false);
+	public static final ItemSoda LIGHT_BLUE_SODA = new ItemSoda("light_blue_soda", 2, 0.6F, false);
+	public static final ItemSoda PINK_SODA = new ItemSoda("pink_soda", 2, 0.6F, false);
+	public static final ItemSoda LIME_SODA = new ItemSoda("lime_soda", 2, 0.6F, false);
+	public static final ItemSoda MAGENTA_SODA = new ItemSoda("magenta_soda", 2, 0.6F, false);
+	public static final ItemSoda LIGHT_GREY_SODA = new ItemSoda("light_grey_soda", 2, 0.6F, false);
+	
+	public static void setBasePotionEffects() {
+		int duration = 1200;
+		int amplifier = 0;
+		
+		BLACK_SODA.addPotionEffect(MobEffects.SLOWNESS, duration, amplifier);
+		WHITE_SODA.addPotionEffect(MobEffects.SPEED, duration, amplifier);
+		RED_SODA.addPotionEffect(MobEffects.INSTANT_HEALTH, duration, amplifier);
+		BLUE_SODA.addPotionEffect(MobEffects.WATER_BREATHING, duration, amplifier);
+		GREEN_SODA.addPotionEffect(MobEffects.HUNGER, duration, amplifier);
+		YELLOW_SODA.addPotionEffect(MobEffects.POISON, duration, amplifier);
+		BROWN_SODA.addPotionEffect(MobEffects.STRENGTH, duration, amplifier);
+		ORANGE_SODA.addPotionEffect(MobEffects.FIRE_RESISTANCE, duration, amplifier);
+		CYAN_SODA.addPotionEffect(MobEffects.NAUSEA, duration, amplifier);
+		PURPLE_SODA.addPotionEffect(MobEffects.WEAKNESS, duration, amplifier);
+		GREY_SODA.addPotionEffect(MobEffects.BLINDNESS, duration, amplifier);
+		LIGHT_BLUE_SODA.addPotionEffect(MobEffects.HASTE, duration, amplifier);
+		PINK_SODA.addPotionEffect(MobEffects.REGENERATION, duration, amplifier);
+		LIME_SODA.addPotionEffect(MobEffects.NIGHT_VISION, duration, amplifier);
+		MAGENTA_SODA.addPotionEffect(MobEffects.MINING_FATIGUE, duration, amplifier);
+		LIGHT_GREY_SODA.addPotionEffect(MobEffects.WITHER, duration, amplifier);
+	}
 }

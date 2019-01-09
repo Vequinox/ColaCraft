@@ -8,8 +8,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
@@ -221,15 +223,13 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 	private boolean canSmelt() {
 		if(((ItemStack)this.inventory.get(0)).isEmpty() || ((ItemStack)this.inventory.get(1)).isEmpty() ||
 			((ItemStack)this.inventory.get(4)).isEmpty() || ((ItemStack)this.inventory.get(5)).isEmpty() || !((ItemStack)this.inventory.get(7)).isEmpty()){
-			System.out.println("Can't smelt, something is empty or output is not empty");
 			return false;
 		}else {
-			ItemSoda result = CarbonizerRecipes.getInstance().getCarbonizingResult(
+			ItemStack result = CarbonizerRecipes.getInstance().getCarbonizingResult(
 					(ItemStack)this.inventory.get(0),
 					(ItemStack)this.inventory.get(1),
 					(ItemStack)this.inventory.get(2),
 					(ItemStack)this.inventory.get(3));
-			System.out.println("Can smelt!!!!");
 			return result != null;
 		}
 	}
@@ -242,15 +242,22 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 			ItemStack modifierIngredient = (ItemStack)this.inventory.get(3);
 			ItemStack bottle = (ItemStack)this.inventory.get(4);
 			ItemStack emptyCan = (ItemStack)this.inventory.get(5);
-			ItemSoda result = CarbonizerRecipes.getInstance().getCarbonizingResult(baseIngredient, fillerIngredient, augmentIngredient, modifierIngredient);
+			ItemStack result = CarbonizerRecipes.getInstance().getCarbonizingResult(baseIngredient, fillerIngredient, augmentIngredient, modifierIngredient);
 			ItemStack output = (ItemStack)this.inventory.get(7);
 			
 			if(output.isEmpty()) {
-				this.inventory.set(7, new ItemStack(result));
+				this.inventory.set(7, result);
 			}
 			
 			baseIngredient.shrink(1);
-			fillerIngredient.shrink(1);
+			
+			if(fillerIngredient.getItem() == Items.LAVA_BUCKET) {
+				fillerIngredient.shrink(1);
+				this.inventory.set(1, new ItemStack(Items.BUCKET));
+			}else {
+				fillerIngredient.shrink(1);
+			}
+			
 			
 			if(!augmentIngredient.isEmpty()) {
 				augmentIngredient.shrink(augmentIngredient.getCount());
@@ -271,7 +278,6 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 			
 			bottle.shrink(1);
 			emptyCan.shrink(1);
-			System.out.println("smelted item");
 		}
 	}
 
