@@ -1,10 +1,6 @@
 item.can.name=Can
 item.sugar_water.name=Sugar Water
-item.cinerium_ingot.name=Cinerium Ingot
-item.luxium_ingot.name=Luxium Ingot
-item.albium_ingot.name=Albium Ingot
-item.cerasium_ingot.name=Cerasium Ingot
-item.tenebrium_ingot.name=Tenebrium Ingot
+item.aluminum_ingot.name=Aluminum Ingot
 
 item.black_soda.name=Black Soda
 item.white_soda.name=White Soda
@@ -28,6 +24,8 @@ tile.ore_luxium.name=Luxium Ore
 tile.ore_albium.name=Albium Ore
 tile.ore_cerasium.name=Cerasium Ore
 tile.ore_tenebrium.name=Tenebrium Ore
+tile.ore_aluminum.name=Aluminum Ore
+
 tile.carbonizer.name=Carbonizer
 tile.carbonizer_tier_2.name=Carbonizer Tier II
 tile.carbonizer_tier_3.name=Carbonizer Tier III

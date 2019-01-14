@@ -8,6 +8,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class TileEntityHandler {
 	public static void registerTileEntities() {
-		GameRegistry.registerTileEntity(TileEntityCarbonizer.class, new ResourceLocation(Reference.MOD_ID + ":carbonizer"));
+		GameRegistry.registerTileEntity(TileEntityCarbonizer.class, new ResourceLocation(Reference.MOD_ID, "carbonizer"));
 	}
 }

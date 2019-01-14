@@ -1,5 +1,7 @@
 package com.vequinox.colacraft.blocks.machines.carbonizer;
 
+import javax.annotation.Nonnull;
+
 import com.vequinox.colacraft.init.ModBlocks;
 import com.vequinox.colacraft.init.ModItems;
 import com.vequinox.colacraft.items.ItemSoda;
@@ -12,6 +14,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ContainerFurnace;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
@@ -22,6 +25,7 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
@@ -36,7 +40,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 public class TileEntityCarbonizer extends TileEntity implements IInventory, ITickable{
-	private NonNullList<ItemStack> inventory = NonNullList.<ItemStack>withSize(8, ItemStack.EMPTY);
+	private NonNullList<ItemStack> inventory = NonNullList.withSize(8, ItemStack.EMPTY);
 	private String customName;
 	private ItemStack smelting = ItemStack.EMPTY;
 
@@ -45,8 +49,13 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 	private int cookTime;
 	private int totalCookTime;
 	
-	public TileEntityCarbonizer(int tierCookTime) {
+	public TileEntityCarbonizer() {
+		
+	}
+	
+	public TileEntity setTotalCookTime(int tierCookTime) {
 		this.totalCookTime = tierCookTime;
+		return this;
 	}
 
 	@Override
@@ -117,7 +126,7 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
-		this.inventory = NonNullList.<ItemStack>withSize(this.getSizeInventory(), ItemStack.EMPTY);
+		this.inventory = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
 		ItemStackHelper.loadAllItems(compound, this.inventory);
 		this.burnTime = compound.getInteger("BurnTime");
 		this.cookTime = compound.getInteger("CookTime");
@@ -371,6 +380,11 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 		}else {
 			return isItemFuel(stack);
 		}
+	}
+	
+	@Nonnull
+	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer player) {
+		return new ContainerCarbonizer(playerInventory, this);
 	}
 
 	public String getGuiID() {

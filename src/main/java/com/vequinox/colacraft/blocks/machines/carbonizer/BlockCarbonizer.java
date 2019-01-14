@@ -53,12 +53,24 @@ public class BlockCarbonizer extends BlockBase implements ITileEntityProvider{
 	
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		return Item.getItemFromBlock(ModBlocks.CARBONIZER);
+		if(this.name.equalsIgnoreCase("carbonizer_tier_2")) {
+			return Item.getItemFromBlock(ModBlocks.CARBONIZER_TIER_2);
+		}else if(this.name.equalsIgnoreCase("carbonizer_tier_3")) {
+			return Item.getItemFromBlock(ModBlocks.CARBONIZER_TIER_3);
+		}else {
+			return Item.getItemFromBlock(ModBlocks.CARBONIZER);
+		}
 	}
 	
 	@Override
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-		return new ItemStack(ModBlocks.CARBONIZER);
+		if(this.name.equalsIgnoreCase("carbonizer_tier_2")) {
+			return new ItemStack(ModBlocks.CARBONIZER_TIER_2);
+		}else if(this.name.equalsIgnoreCase("carbonizer_tier_3")) {
+			return new ItemStack(ModBlocks.CARBONIZER_TIER_3);
+		}else {
+			return new ItemStack(ModBlocks.CARBONIZER);
+		}
 	}
 	
 	@Override
@@ -116,7 +128,7 @@ public class BlockCarbonizer extends BlockBase implements ITileEntityProvider{
 	
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityCarbonizer(this.cookTime);
+		return new TileEntityCarbonizer().setTotalCookTime(this.cookTime);
 	}
 	
 	@Override
@@ -130,8 +142,7 @@ public class BlockCarbonizer extends BlockBase implements ITileEntityProvider{
 	}
 	
 	@Override
-	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) 
-	{
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
 		TileEntityCarbonizer tileentity = (TileEntityCarbonizer)worldIn.getTileEntity(pos);
 		worldIn.spawnEntity(new EntityItem(worldIn, pos.getX(), pos.getY(), pos.getZ(), tileentity.getStackInSlot(0)));
 		worldIn.spawnEntity(new EntityItem(worldIn, pos.getX(), pos.getY(), pos.getZ(), tileentity.getStackInSlot(1)));
