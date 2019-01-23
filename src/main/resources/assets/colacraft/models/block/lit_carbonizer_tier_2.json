@@ -1,0 +1,13 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "particle":"colacraft:blocks/carbonizer_tier_2_top",
+    "up":"colacraft:blocks/carbonizer_tier_2_top",
+    "down":"colacraft:blocks/carbonizer_ttier_2_op",
+    "north":"colacraft:blocks/carbonizer_tier_2_front_on",
+    "east":"colacraft:blocks/carbonizer_tier_2_side_on",
+    "south":"colacraft:blocks/carbonizer_tier_2_top",
+    "west":"colacraft:blocks/carbonizer_tier_2_side_on"
+  }
+}
+

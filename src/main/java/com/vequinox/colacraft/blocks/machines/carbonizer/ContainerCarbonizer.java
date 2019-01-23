@@ -12,9 +12,6 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerCarbonizer extends Container{
 	private final TileEntityCarbonizer tileEntity;
@@ -101,7 +98,7 @@ public class ContainerCarbonizer extends Container{
 				
 				currentSlot.onSlotChange(currentSlotStack, stack);
 			}else if(index != 6 && index != 5 && index != 4 && index != 3 && index != 2 && index != 1 && index != 0) {// if the index is in player's inventory, not carbonizer
-				if(currentSlotStack.getItem() == ModItems.SUGAR_WATER) {
+				if(currentSlotStack.getItem() == ModItems.BASE_SOLUTION) {
 					if(!this.mergeItemStack(currentSlotStack, 4, 5, false)) return ItemStack.EMPTY;
 				}else if(currentSlotStack.getItem() == ModItems.CAN) {
 					if(!this.mergeItemStack(currentSlotStack, 5, 6, false)) return ItemStack.EMPTY;

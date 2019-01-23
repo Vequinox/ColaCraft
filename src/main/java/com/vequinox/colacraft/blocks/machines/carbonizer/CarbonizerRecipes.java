@@ -102,41 +102,43 @@ public class CarbonizerRecipes {
 	}
 	
 	private Potion getPotionEffectFromAugment(ItemStack augmentIngredient) {
-		if(augmentIngredient.getItem() == ModItems.BLACK_AUGMENT) {
-			return MobEffects.SLOWNESS;
-		}else if(augmentIngredient.getItem() == ModItems.BLUE_AUGMENT) {
-			return MobEffects.WATER_BREATHING;
-		}else if(augmentIngredient.getItem() == ModItems.BROWN_AUGMENT) {
-			return MobEffects.STRENGTH;
-		}else if(augmentIngredient.getItem() == ModItems.CYAN_AUGMENT) {
-			return MobEffects.NAUSEA;
-		}else if(augmentIngredient.getItem() == ModItems.GREEN_AUGMENT) {
-			return MobEffects.HUNGER;
-		}else if(augmentIngredient.getItem() == ModItems.GREY_AUGMENT) {
-			return MobEffects.BLINDNESS;
-		}else if(augmentIngredient.getItem() == ModItems.LIGHT_BLUE_AUGMENT) {
-			return MobEffects.HASTE;
-		}else if(augmentIngredient.getItem() == ModItems.LIGHT_GREY_AUGMENT) {
-			return MobEffects.WITHER;
-		}else if(augmentIngredient.getItem() == ModItems.LIME_AUGMENT) {
-			return MobEffects.NIGHT_VISION;
-		}else if(augmentIngredient.getItem() == ModItems.MAGENTA_AUGMENT) {
-			return MobEffects.MINING_FATIGUE;
-		}else if(augmentIngredient.getItem() == ModItems.ORANGE_AUGMENT) {
-			return MobEffects.FIRE_RESISTANCE;
-		}else if(augmentIngredient.getItem() == ModItems.PINK_AUGMENT) {
-			return MobEffects.REGENERATION;
-		}else if(augmentIngredient.getItem() == ModItems.PURPLE_AUGMENT) {
-			return MobEffects.WEAKNESS;
-		}else if(augmentIngredient.getItem() == ModItems.RED_AUGMENT) {
-			return MobEffects.INSTANT_HEALTH;
-		}else if(augmentIngredient.getItem() == ModItems.WHITE_AUGMENT) {
-			return MobEffects.SPEED;
-		}else if(augmentIngredient.getItem() == ModItems.YELLOW_AUGMENT) {
-			return MobEffects.POISON;
-		}else {
-			return null;
-		}
+//		if(augmentIngredient.getItem() == ModItems.BLACK_AUGMENT) {
+//			return MobEffects.SLOWNESS;
+//		}else if(augmentIngredient.getItem() == ModItems.BLUE_AUGMENT) {
+//			return MobEffects.WATER_BREATHING;
+//		}else if(augmentIngredient.getItem() == ModItems.BROWN_AUGMENT) {
+//			return MobEffects.STRENGTH;
+//		}else if(augmentIngredient.getItem() == ModItems.CYAN_AUGMENT) {
+//			return MobEffects.NAUSEA;
+//		}else if(augmentIngredient.getItem() == ModItems.GREEN_AUGMENT) {
+//			return MobEffects.HUNGER;
+//		}else if(augmentIngredient.getItem() == ModItems.GREY_AUGMENT) {
+//			return MobEffects.BLINDNESS;
+//		}else if(augmentIngredient.getItem() == ModItems.LIGHT_BLUE_AUGMENT) {
+//			return MobEffects.HASTE;
+//		}else if(augmentIngredient.getItem() == ModItems.LIGHT_GREY_AUGMENT) {
+//			return MobEffects.WITHER;
+//		}else if(augmentIngredient.getItem() == ModItems.LIME_AUGMENT) {
+//			return MobEffects.NIGHT_VISION;
+//		}else if(augmentIngredient.getItem() == ModItems.MAGENTA_AUGMENT) {
+//			return MobEffects.MINING_FATIGUE;
+//		}else if(augmentIngredient.getItem() == ModItems.ORANGE_AUGMENT) {
+//			return MobEffects.FIRE_RESISTANCE;
+//		}else if(augmentIngredient.getItem() == ModItems.PINK_AUGMENT) {
+//			return MobEffects.REGENERATION;
+//		}else if(augmentIngredient.getItem() == ModItems.PURPLE_AUGMENT) {
+//			return MobEffects.WEAKNESS;
+//		}else if(augmentIngredient.getItem() == ModItems.RED_AUGMENT) {
+//			return MobEffects.INSTANT_HEALTH;
+//		}else if(augmentIngredient.getItem() == ModItems.WHITE_AUGMENT) {
+//			return MobEffects.SPEED;
+//		}else if(augmentIngredient.getItem() == ModItems.YELLOW_AUGMENT) {
+//			return MobEffects.POISON;
+//		}else {
+//			return null;
+//		}
+		
+		return null;
 	}
 	
 	public ItemStack getCarbonizingResult(ItemStack baseIngredient, ItemStack fillerIngredient, ItemStack augmentIngredient, ItemStack modifierIngredient) {

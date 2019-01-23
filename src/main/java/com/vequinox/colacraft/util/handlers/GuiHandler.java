@@ -3,6 +3,9 @@ package com.vequinox.colacraft.util.handlers;
 import com.vequinox.colacraft.blocks.machines.carbonizer.ContainerCarbonizer;
 import com.vequinox.colacraft.blocks.machines.carbonizer.GuiCarbonizer;
 import com.vequinox.colacraft.blocks.machines.carbonizer.TileEntityCarbonizer;
+import com.vequinox.colacraft.blocks.machines.mixer.ContainerMixer;
+import com.vequinox.colacraft.blocks.machines.mixer.GuiMixer;
+import com.vequinox.colacraft.blocks.machines.mixer.TileEntityMixer;
 import com.vequinox.colacraft.util.Reference;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,6 +18,8 @@ public class GuiHandler implements IGuiHandler{
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		if(ID == Reference.GUI_CARBONIZER) {
 			return new ContainerCarbonizer(player.inventory, (TileEntityCarbonizer)world.getTileEntity(new BlockPos(x,y,z)));
+		}else if(ID == Reference.GUI_MIXER) {
+			return new ContainerMixer(player.inventory, (TileEntityMixer)world.getTileEntity(new BlockPos(x,y,x)));
 		}
 		
 		return null;
@@ -24,6 +29,8 @@ public class GuiHandler implements IGuiHandler{
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		if(ID == Reference.GUI_CARBONIZER) {
 			return new GuiCarbonizer(player.inventory, (TileEntityCarbonizer)world.getTileEntity(new BlockPos(x,y,z)));
+		}else if(ID == Reference.GUI_MIXER) {
+			return new GuiMixer(player.inventory, (TileEntityMixer)world.getTileEntity(new BlockPos(x,y,x)));
 		}
 		
 		return null;

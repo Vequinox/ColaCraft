@@ -6,6 +6,7 @@ import java.util.List;
 import com.vequinox.colacraft.Main;
 import com.vequinox.colacraft.init.ModItems;
 import com.vequinox.colacraft.util.IHasModel;
+import com.vequinox.colacraft.util.PotionEffectWrapper;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
@@ -17,7 +18,7 @@ import net.minecraft.world.World;
 
 public class ItemSoda extends ItemFood implements IHasModel{
 	
-	private List<PotionEffect> potionEffects = new ArrayList<PotionEffect>();
+	private List<PotionEffectWrapper> potionEffects = new ArrayList<PotionEffectWrapper>();
 	private String name;
 	private int hunger;
 	private float saturation;
@@ -37,9 +38,13 @@ public class ItemSoda extends ItemFood implements IHasModel{
 		if(potionEffects.isEmpty()) {
 			this.basePotionEffect = effect;
 		}
-		this.potionEffects.add(new PotionEffect(effect, duration, amplifier));
+		this.potionEffects.add(new PotionEffectWrapper(new PotionEffect(effect, duration, amplifier)));
         return this;
     }
+	
+	public int numberOfPotionEffects() {
+		return potionEffects.size();
+	}
 	
 	public Potion getBasePotionEffect() {
 		return this.basePotionEffect;
@@ -50,8 +55,8 @@ public class ItemSoda extends ItemFood implements IHasModel{
 		System.out.println("POTION EFFECTS: " + this.potionEffects.toString());
 		
 		if (!worldIn.isRemote && !this.potionEffects.isEmpty()){
-			for(PotionEffect effect : potionEffects) {
-				player.addPotionEffect(new PotionEffect(effect));
+			for(PotionEffectWrapper effectWrapper : potionEffects) {
+				player.addPotionEffect(new PotionEffect(effectWrapper.getPotionEffect()));
 			}
         }
 	}

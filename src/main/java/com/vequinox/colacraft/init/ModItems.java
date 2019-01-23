@@ -3,7 +3,7 @@ package com.vequinox.colacraft.init;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.vequinox.colacraft.items.ItemAugment;
+import com.vequinox.colacraft.items.ItemFlavorPacket;
 import com.vequinox.colacraft.items.ItemBase;
 import com.vequinox.colacraft.items.ItemSoda;
 
@@ -14,26 +14,26 @@ import net.minecraft.item.Item;
 public class ModItems {
 	public static final List<Item> ITEMS = new ArrayList<Item>();
 	public static final Item CAN = new ItemBase("can");
-	public static final Item SUGAR_WATER = new ItemBase("sugar_water");
+	public static final Item BASE_SOLUTION = new ItemBase("base_solution");
 	
 	public static final Item ALUMINUM_INGOT = new ItemBase("aluminum_ingot");
 	
-	public static final Item BLACK_AUGMENT = new ItemBase("black_augment");
-	public static final Item WHITE_AUGMENT = new ItemBase("white_augment");
-	public static final Item RED_AUGMENT = new ItemBase("red_augment");
-	public static final Item BLUE_AUGMENT = new ItemBase("blue_augment");
-	public static final Item GREEN_AUGMENT = new ItemBase("green_augment");
-	public static final Item YELLOW_AUGMENT = new ItemBase("yellow_augment");
-	public static final Item BROWN_AUGMENT = new ItemBase("brown_augment");
-	public static final Item ORANGE_AUGMENT = new ItemBase("orange_augment");
-	public static final Item CYAN_AUGMENT = new ItemBase("cyan_augment");
-	public static final Item PURPLE_AUGMENT = new ItemBase("purple_augment");
-	public static final Item GREY_AUGMENT = new ItemBase("grey_augment");
-	public static final Item LIGHT_BLUE_AUGMENT = new ItemBase("light_blue_augment");
-	public static final Item PINK_AUGMENT = new ItemBase("pink_augment");
-	public static final Item LIME_AUGMENT = new ItemBase("lime_augment");
-	public static final Item MAGENTA_AUGMENT = new ItemBase("magenta_augment");
-	public static final Item LIGHT_GREY_AUGMENT = new ItemBase("light_grey_augment");
+	public static final Item BLACK_SOLUTION = new ItemBase("black_solution");
+	public static final Item WHITE_SOLUTION = new ItemBase("white_solution");
+	public static final Item RED_SOLUTION = new ItemBase("red_solution");
+	public static final Item BLUE_SOLUTION = new ItemBase("blue_solution");
+	public static final Item GREEN_SOLUTION = new ItemBase("green_solution");
+	public static final Item YELLOW_SOLUTION = new ItemBase("yellow_solution");
+	public static final Item BROWN_SOLUTION = new ItemBase("brown_solution");
+	public static final Item ORANGE_SOLUTION = new ItemBase("orange_solution");
+	public static final Item CYAN_SOLUTION = new ItemBase("cyan_solution");
+	public static final Item PURPLE_SOLUTION = new ItemBase("purple_solution");
+	public static final Item GRAY_SOLUTION = new ItemBase("gray_solution");
+	public static final Item LIGHT_BLUE_SOLUTION = new ItemBase("light_blue_solution");
+	public static final Item PINK_SOLUTION = new ItemBase("pink_solution");
+	public static final Item LIME_SOLUTION = new ItemBase("lime_solution");
+	public static final Item MAGENTA_SOLUTION = new ItemBase("magenta_solution");
+	public static final Item LIGHT_GRAY_SOLUTION = new ItemBase("light_gray_solution");
 	
 	public static final ItemSoda BLACK_SODA = new ItemSoda("black_soda", 2, 0.6F, false);
 	public static final ItemSoda WHITE_SODA = new ItemSoda("white_soda", 2, 0.6F, false);

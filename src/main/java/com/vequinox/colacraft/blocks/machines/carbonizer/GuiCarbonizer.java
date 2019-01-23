@@ -8,6 +8,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiCarbonizer extends GuiContainer{
+	
 	private static final ResourceLocation TEXTURES = new ResourceLocation(Reference.MOD_ID + ":textures/gui/carbonizer_gui.png");
 	private final InventoryPlayer player;
 	private final TileEntityCarbonizer tileEntity;

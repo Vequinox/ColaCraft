@@ -1,0 +1,15 @@
+{
+  "pattern": [
+    "i",
+    "i"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "i": {
+      "item": "colacraft:aluminum_ingot"
+    }
+  },
+  "result": {
+    "item": "colacraft:can"
+  }
+}

@@ -8,13 +8,11 @@ import com.vequinox.colacraft.items.ItemSoda;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ContainerFurnace;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
@@ -25,21 +23,18 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.items.CapabilityItemHandler;
 
 public class TileEntityCarbonizer extends TileEntity implements IInventory, ITickable{
+	
 	private NonNullList<ItemStack> inventory = NonNullList.withSize(8, ItemStack.EMPTY);
 	private String customName;
 	private ItemStack smelting = ItemStack.EMPTY;
@@ -388,7 +383,7 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 	}
 
 	public String getGuiID() {
-		return "cm:carbonizer";
+		return "colacraft:carbonizer";
 	}
 
 	public int getField(int id) {
