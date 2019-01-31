@@ -18,10 +18,14 @@ public class ItemSolution extends ItemBase{
 	
 	private List<PotionEffectWrapper> potionEffects = new ArrayList<PotionEffectWrapper>();
 	private Potion basePotionEffect;
+	private int waterParts;
+	private int maxPowderAmount;
 
-	public ItemSolution(String name) {
+	public ItemSolution(String name, int waterParts, int maxPowderAmount) {
 		super(name);
 		ModItems.ITEMS.add(this);
+		this.waterParts = waterParts;
+		this.maxPowderAmount = maxPowderAmount;
 	}
 	
 	public ItemBase addPotionEffect(Potion effect, int duration, int amplifier) {
@@ -44,8 +48,12 @@ public class ItemSolution extends ItemBase{
 		return this.basePotionEffect;
 	}
 	
-	public void applyDurationProgress(int modifierAmount) {
-		
+	public int getStartingWaterParts() {
+		return this.waterParts;
+	}
+	
+	public int getMaxPowderParts() {
+		return this.maxPowderAmount;
 	}
 
 }

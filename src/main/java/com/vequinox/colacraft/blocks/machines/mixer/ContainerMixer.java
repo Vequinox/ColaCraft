@@ -11,6 +11,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -22,13 +23,13 @@ public class ContainerMixer extends Container{
 	public ContainerMixer(InventoryPlayer player, TileEntityMixer tileEntity) {
 		this.tileEntity = tileEntity;
 		
-		this.addSlotToContainer(new Slot(tileEntity, 0, 50, 30));
-		this.addSlotToContainer(new Slot(tileEntity, 1, 68, 30));
-		this.addSlotToContainer(new Slot(tileEntity, 2, 92, 30));
-		this.addSlotToContainer(new Slot(tileEntity, 3, 92, 48));
+		this.addSlotToContainer(new Slot(tileEntity, 0, 51, 19));
+		this.addSlotToContainer(new Slot(tileEntity, 1, 74, 19));
+		this.addSlotToContainer(new Slot(tileEntity, 2, 92, 19));
+		this.addSlotToContainer(new Slot(tileEntity, 3, 110, 19));
 		
-		this.addSlotToContainer(new SlotMixerFuel(tileEntity, 4, 19, 48));
-		this.addSlotToContainer(new SlotMixerOutput(player.player, tileEntity, 5, 145, 39));
+		this.addSlotToContainer(new SlotMixerFuel(tileEntity, 4, 51, 56));
+		this.addSlotToContainer(new SlotMixerOutput(player.player, tileEntity, 5, 106, 52));
 		
 		
 		for(int y = 0; y < 3; y++) {
@@ -43,7 +44,7 @@ public class ContainerMixer extends Container{
 	}
 	
 	@Override
-	public void detectAndSendChanges() {//CHECK ItemStack itemstack = ((Slot)this.inventorySlots.get(i)).getStack(); null pointer
+	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
 		
 		for(int i = 0; i < this.listeners.size(); ++i) {
@@ -93,7 +94,7 @@ public class ContainerMixer extends Container{
 			stack = currentSlotStack.copy();
 			
 			if(index == 5) {//if the index is the output slot
-				if(!this.mergeItemStack(currentSlotStack, 5, 42, true)) {
+				if(!this.mergeItemStack(currentSlotStack, 6, 42, true)) {
 					return ItemStack.EMPTY;
 				}
 				
@@ -101,7 +102,11 @@ public class ContainerMixer extends Container{
 			}else if(index != 4 && index != 3 && index != 2 && index != 1 && index != 0) {
 				if(currentSlotStack.getItem() == ModItems.BASE_SOLUTION) {
 					if(!this.mergeItemStack(currentSlotStack, 0, 1, false)) return ItemStack.EMPTY;
-				}else if(currentSlotStack.getItem() instanceof ItemFlavorPacket || currentSlotStack.getItem() == Items.SUGAR || currentSlotStack.getItem() == Items.REDSTONE) {
+				}else if(currentSlotStack.getItem() instanceof ItemFlavorPacket || 
+						currentSlotStack.getItem() == Items.SUGAR || 
+						currentSlotStack.getItem() == Items.REDSTONE ||
+						currentSlotStack.getItem() == Items.GUNPOWDER ||
+						currentSlotStack.getItem() == Items.GLOWSTONE_DUST) {
 					if(!this.mergeItemStack(currentSlotStack, 1, 4, false)) { 
 						return ItemStack.EMPTY;
 					}

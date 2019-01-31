@@ -51,49 +51,26 @@ public class BlockMixer extends BlockBase implements ITileEntityProvider{
 	
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		if(this.tier == 2) {
-			return Item.getItemFromBlock(ModBlocks.MIXER_TIER_2);
-		}else if(this.tier == 3) {
-			return Item.getItemFromBlock(ModBlocks.MIXER_TIER_3);
-		}else {
-			return Item.getItemFromBlock(ModBlocks.MIXER);
-		}
+		return Item.getItemFromBlock(ModBlocks.MIXER);
 	}
 	
 	@Override
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-		if(this.tier == 2) {
-			return new ItemStack(ModBlocks.MIXER_TIER_2);
-		}else if(this.tier == 3) {
-			return new ItemStack(ModBlocks.MIXER_TIER_3);
-		}else {
-			return new ItemStack(ModBlocks.MIXER);
-		}
+		return new ItemStack(ModBlocks.MIXER);
 	}
 	
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if(!worldIn.isRemote) {
-			int gui = Reference.GUI_MIXER;
-			if(this.tier == 2) {
-				gui = Reference.GUI_MIXER_TIER_2;
-			}else if(this.tier == 3) {
-				gui = Reference.GUI_MIXER_TIER_3;
-			}
-			
-			System.out.println("worldIn: " + worldIn);
-			System.out.println("BlockPos: " + pos);
-			System.out.println("state: " + state);
-			System.out.println("playerIn: " + playerIn);
-			System.out.println("hand: " + hand);
-			System.out.println("facing: " + facing);
-			System.out.println("hitX: " + hitX + " | hitY: " + hitY + " | hitZ: " + hitZ);
-			if(gui == 1 || gui == 2 || gui == 3) {
-				playerIn.openGui(Main.instance, gui, worldIn, pos.getX(), pos.getY(), pos.getZ());
-			}
+		if(worldIn.isRemote) {
+			return true;
 		}
 		
-		return true;
+		TileEntity tileEntity = worldIn.getTileEntity(pos);
+		if(tileEntity instanceof TileEntityMixer) {
+			playerIn.openGui(Main.instance, Reference.GUI_MIXER, worldIn, pos.getX(), pos.getY(), pos.getZ());
+			return true;
+		}
+		return false;
 	}
 	
 	@Override
@@ -162,12 +139,8 @@ public class BlockMixer extends BlockBase implements ITileEntityProvider{
 		worldIn.spawnEntity(new EntityItem(worldIn, pos.getX(), pos.getY(), pos.getZ(), tileentity.getStackInSlot(1)));
 		worldIn.spawnEntity(new EntityItem(worldIn, pos.getX(), pos.getY(), pos.getZ(), tileentity.getStackInSlot(2)));
 		worldIn.spawnEntity(new EntityItem(worldIn, pos.getX(), pos.getY(), pos.getZ(), tileentity.getStackInSlot(3)));
-		if(this.tier >= 2) {
-			worldIn.spawnEntity(new EntityItem(worldIn, pos.getX(), pos.getY(), pos.getZ(), tileentity.getStackInSlot(4)));
-		}
-		if(this.tier == 3) {			
-			worldIn.spawnEntity(new EntityItem(worldIn, pos.getX(), pos.getY(), pos.getZ(), tileentity.getStackInSlot(5)));
-		}
+		worldIn.spawnEntity(new EntityItem(worldIn, pos.getX(), pos.getY(), pos.getZ(), tileentity.getStackInSlot(4)));
+		worldIn.spawnEntity(new EntityItem(worldIn, pos.getX(), pos.getY(), pos.getZ(), tileentity.getStackInSlot(5)));
 		super.breakBlock(worldIn, pos, state);
 	}
 	

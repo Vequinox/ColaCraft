@@ -1,0 +1,13 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "particle":"colacraft:blocks/mixer_front",
+    "up":"colacraft:blocks/mixer_top",
+    "down":"colacraft:blocks/mixer_front",
+    "north":"colacraft:blocks/mixer_front",
+    "east":"colacraft:blocks/mixer_side_off",
+    "south":"colacraft:blocks/mixer_side_off",
+    "west":"colacraft:blocks/mixer_side_off"
+  }
+}
+

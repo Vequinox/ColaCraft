@@ -47,7 +47,8 @@ tile.ore_aluminum.name=Aluminum Ore
 tile.carbonizer.name=Carbonizer
 tile.carbonizer_tier_2.name=Carbonizer Tier II
 tile.carbonizer_tier_3.name=Carbonizer Tier III
+tile.mixer.name=Mixer
 
 container.carbonizer=Carbonizer
 container.carbonizer_tier_2=Carbonizer
-container.carbonizer_tier_3=Carbonizer
+container.carbonizer_tier_3=Carbonizercontainer.mixer=Mixer

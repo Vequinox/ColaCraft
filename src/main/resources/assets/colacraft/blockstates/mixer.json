@@ -1,0 +1,12 @@
+{
+  "variants": {
+    "facing=north,mixing=false": { "model": "colacraft:mixer" },
+    "facing=south,mixing=false": { "model": "colacraft:mixer", "y": 180 },
+    "facing=west,mixing=false":  { "model": "colacraft:mixer", "y": 270 },
+    "facing=east,mixing=false":  { "model": "colacraft:mixer", "y": 90 },
+    "facing=north,mixing=true": { "model": "colacraft:mixer" },
+    "facing=south,mixing=true": { "model": "colacraft:mixer", "y": 180 },
+    "facing=west,mixing=true":  { "model": "colacraft:mixer", "y": 270 },
+    "facing=east,mixing=true":  { "model": "colacraft:mixer", "y": 90 }
+  }
+}

@@ -23,6 +23,4 @@ public class ModBlocks {
 	public static Block CARBONIZER_TIER_3 = new BlockCarbonizer("carbonizer_tier_3", 50);
 	
 	public static Block MIXER = new BlockMixer("mixer", 1);
-	public static Block MIXER_TIER_2 = new BlockMixer("mixer_tier_2", 2);
-	public static Block MIXER_TIER_3 = new BlockMixer("mixer_tier_3", 3);
 }

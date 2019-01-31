@@ -9,7 +9,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiMixer extends GuiContainer{
 
-	private final static ResourceLocation TEXTURES = new ResourceLocation(Reference.MOD_ID + ":textures/gui/mixer_tier_1_gui.png");
+	private final static ResourceLocation TEXTURES = new ResourceLocation(Reference.MOD_ID + ":textures/gui/mixer_gui.png");
 	private final InventoryPlayer player;
 	private final TileEntityMixer tileEntity;
 	
@@ -23,7 +23,7 @@ public class GuiMixer extends GuiContainer{
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		String tileName = this.tileEntity.getDisplayName().getUnformattedText();
 		this.fontRenderer.drawString(tileName, (this.xSize/2 - this.fontRenderer.getStringWidth(tileName)/2)+3, 8, 4210752);
-		this.fontRenderer.drawString(this.player.getDisplayName().getUnformattedText(), 122, this.ySize - 96 + 2, 4210752);
+		this.fontRenderer.drawString(this.player.getDisplayName().getUnformattedText(), 122, this.ySize - 96 + 5, 4210752);
 	}
 	
 	@Override
@@ -34,11 +34,11 @@ public class GuiMixer extends GuiContainer{
 		
 		if(TileEntityMixer.isBurning(tileEntity)) {
 			int k = this.getBurnLeftScaled(13);
-			this.drawTexturedModalRect(this.guiLeft + 20, this.guiTop + 31 + 12 - k, 176, 12 - k, 14, k + 1);
+			this.drawTexturedModalRect(this.guiLeft + 52, this.guiTop + 40 + 12 - k, 176, 12 - k, 14, k + 1);
 		}
 		
 		int l = this.getCookProgressScaled(24);
-		this.drawTexturedModalRect(this.guiLeft + 113, this.guiTop + 38, 176, 14, l + 1, 16);
+		this.drawTexturedModalRect(this.guiLeft + 73, this.guiTop + 52, 176, 14, l + 1, 16);
 	}
 	
 	private int getBurnLeftScaled(int pixels) {

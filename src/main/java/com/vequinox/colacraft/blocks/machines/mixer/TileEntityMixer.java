@@ -2,6 +2,7 @@ package com.vequinox.colacraft.blocks.machines.mixer;
 
 import javax.annotation.Nonnull;
 
+import com.vequinox.colacraft.blocks.machines.carbonizer.TileEntityCarbonizer;
 import com.vequinox.colacraft.init.ModBlocks;
 import com.vequinox.colacraft.init.ModItems;
 import com.vequinox.colacraft.items.ItemFlavorPacket;
@@ -24,6 +25,7 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.MathHelper;
@@ -48,13 +50,9 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 	private int burnTime;
 	private int currentBurnTime;
 	private int cookTime;
-	private int totalCookTime;
+	private int totalCookTime = 200;
 	
 	private int tier;
-	
-	public TileEntityMixer() {
-		
-	}
 	
 	public TileEntity setTier(int tier) {
 		this.tier = tier;
@@ -97,7 +95,7 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 
 	@Override
 	public ItemStack getStackInSlot(int index) {
-		return this.inventory.get(index);
+		return (ItemStack)this.inventory.get(index);
 	}
 
 	@Override
@@ -134,7 +132,7 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 		this.burnTime = compound.getInteger("BurnTime");
 		this.cookTime = compound.getInteger("CookTime");
 		this.totalCookTime = compound.getInteger("CookTimeTotal");
-		this.currentBurnTime = getItemBurnTime((ItemStack)this.inventory.get(4));
+		this.currentBurnTime = TileEntityFurnace.getItemBurnTime((ItemStack)this.inventory.get(4));
 
 		if(compound.hasKey("CustomName", 8)) {
 			this.setCustomName(compound.getString("CustomName"));
@@ -182,9 +180,9 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 		if(!this.world.isRemote) {
 			ItemStack fuel = this.inventory.get(4);//fuel slot
 			
-			if(this.isBurning() || !fuel.isEmpty() && !this.inventory.get(0).isEmpty()){
+			if(this.isBurning() || !fuel.isEmpty() && !this.inventory.get(0).isEmpty() && (!this.inventory.get(1).isEmpty() || !this.inventory.get(2).isEmpty() || !this.inventory.get(3).isEmpty())){
 				if(!this.isBurning() && this.canSmelt()) {
-					this.burnTime = getItemBurnTime(fuel);
+					this.burnTime = TileEntityFurnace.getItemBurnTime(fuel);
 					this.currentBurnTime = this.burnTime;
 
 					if(this.isBurning()) {
@@ -229,47 +227,116 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 	}
 	
 	private Block getMixerType() {
-		return this.tier == 3 ? ModBlocks.MIXER_TIER_3 : this.tier == 2 ? ModBlocks.MIXER_TIER_2 : ModBlocks.MIXER;
+		return ModBlocks.MIXER;
 	}
 
 	private boolean canSmelt() {
+		boolean canSmelt = true;
 		if((this.inventory.get(0)).isEmpty() || 
 				((this.inventory.get(1)).isEmpty() && this.inventory.get(2).isEmpty() && this.inventory.get(3).isEmpty())){
-			return false;
+			canSmelt = false;
+		}else if(StackHelper.hasKey(this.inventory.get(0),"powderparts") 
+				&& getPowderCount() > ((ItemSolution)this.inventory.get(0).getItem()).getMaxPowderParts() - StackHelper.getTag(this.inventory.get(0)).getInteger("powderparts")) {
+			canSmelt = false;
+		}else if(StackHelper.hasKey(this.inventory.get(0),"waterparts") && getFlavorPacketCount() > StackHelper.getTag(this.inventory.get(0)).getInteger("waterparts")) {
+			canSmelt = false;
 		}else {
-			List<ItemStack> ingredients = Arrays.asList(this.inventory.get(1), this.inventory.get(2), this.inventory.get(3));
-			ItemStack result = getNewSolution(this.inventory.get(0), ingredients);
-			return result != null;
+			for(int i = 1; i < 4; i++) {
+				ItemStack ingredient = this.inventory.get(i);
+				if(!ingredient.isEmpty()) {
+					if(!(ingredient.getItem() instanceof ItemFlavorPacket)
+							&& ingredient.getItem() != Items.SUGAR
+							&& ingredient.getItem() != Items.REDSTONE
+							&& ingredient.getItem() != Items.GUNPOWDER
+							&& ingredient.getItem() != Items.GLOWSTONE_DUST) {
+						canSmelt = false;
+					}
+				}
+			}
 		}
+		
+		return canSmelt;
+	}
+	
+	private int getPowderCount() {
+		int powderCount = 0;
+		for(int i = 1; i < 4; i++) {
+			Item inventoryItem = this.inventory.get(i).getItem();
+			if(inventoryItem == Items.SUGAR || inventoryItem == Items.REDSTONE || inventoryItem == Items.GUNPOWDER || inventoryItem == Items.GLOWSTONE_DUST) {
+				powderCount += this.inventory.get(i).getCount();
+			}
+		}
+		
+		return powderCount;
+	}
+	
+	private int getFlavorPacketCount() {
+		int flavorPacketCount = 0;
+		for(int i = 1; i < 4; i++) {
+			if(this.inventory.get(i).getItem() instanceof ItemFlavorPacket) {
+				flavorPacketCount++;
+			}
+		}
+		
+		return flavorPacketCount;
 	}
 	
 	private ItemStack getNewSolution(ItemStack solution, List<ItemStack> ingredients) {
 		ItemStack sol = solution.copy();
-		//get ingredients from slots
 		int sugarAmount = 0;
 		int redstoneAmount = 0;
+		int gunpowderAmount = 0;
+		int glowstoneAmount = 0;
+		int totalPowderAmount = 0;
 		List<ItemFlavorPacket> packets = new ArrayList<ItemFlavorPacket>();
-		boolean hasValidIngredients = true;
+		
+		NBTTagCompound solutionTag = StackHelper.getTag(sol);
+		if(!StackHelper.hasKey(sol, "waterparts")) {
+			solutionTag.setInteger("waterparts", ((ItemSolution)sol.getItem()).getStartingWaterParts());
+		}
+		
+		if(!StackHelper.hasKey(sol, "powderparts")) {
+			solutionTag.setInteger("powderparts", ((ItemSolution)sol.getItem()).getMaxPowderParts());
+		}
+		
 		for(ItemStack ingredient : ingredients) {
-			if(ingredient.getItem() instanceof ItemFlavorPacket) {
-				packets.add((ItemFlavorPacket)ingredient.getItem());
-			}else if(ingredient.getItem() == Items.SUGAR) {
-				sugarAmount += ingredient.getCount();
-			}else if(ingredient.getItem() == Items.REDSTONE) {
-				redstoneAmount += ingredient.getCount();
-			}else {
-				hasValidIngredients = false;
+			if(!ingredient.isEmpty()) {
+				if(ingredient.getItem() instanceof ItemFlavorPacket) {
+					packets.add((ItemFlavorPacket)ingredient.getItem());
+				}else if(ingredient.getItem() == Items.SUGAR) {
+					sugarAmount += ingredient.getCount();
+					totalPowderAmount += ingredient.getCount();
+				}else if(ingredient.getItem() == Items.REDSTONE) {
+					redstoneAmount += ingredient.getCount();
+					totalPowderAmount += ingredient.getCount();
+				}else if(ingredient.getItem() == Items.GUNPOWDER) {
+					gunpowderAmount += ingredient.getCount();
+					totalPowderAmount += ingredient.getCount();
+				}else if(ingredient.getItem() == Items.GLOWSTONE_DUST) {
+					glowstoneAmount += ingredient.getCount();
+				}
 			}
 		}
 		
-		if(!hasValidIngredients) return null;
-		
 		for(ItemFlavorPacket packet : packets) {
-			NBTTagCompound potionTag = StackHelper.getTag(sol).getCompoundTag(packet.getEffect().toString());
-			potionTag.setString("Potion", packet.getEffect().toString());
-			potionTag.setInteger("durationamount", potionTag.getInteger("durationamount") + sugarAmount);
-			potionTag.setInteger("amplifieramount", potionTag.getInteger("amplifieramount") + redstoneAmount);
+			String effectName = packet.getEffect().toString();
+			solutionTag.setInteger(effectName, solutionTag.getInteger(effectName) + 1);
 		}
+		
+		solutionTag.setInteger("sugaramount", solutionTag.getInteger("sugaramount") + sugarAmount);
+		solutionTag.setInteger("redstoneamount", solutionTag.getInteger("redstoneamount") + redstoneAmount);
+		solutionTag.setInteger("gunpowderamount", solutionTag.getInteger("gunpowderamount") + gunpowderAmount);
+		
+		if(solutionTag.getInteger("glowstoneamount") + glowstoneAmount > 96) {
+			int glowstoneAmountToAdd = solutionTag.getInteger("glowstoneamount") + (96 - (solutionTag.getInteger("glowstoneamount")));
+			solutionTag.setInteger("glowstoneamount", glowstoneAmountToAdd);
+			solutionTag.setInteger("powderparts", solutionTag.getInteger("powderparts") + glowstoneAmountToAdd);
+		}else {
+			solutionTag.setInteger("glowstoneamount", solutionTag.getInteger("glowstoneamount") + glowstoneAmount);
+			solutionTag.setInteger("powderparts", solutionTag.getInteger("powderparts") + glowstoneAmount);
+		}
+		
+		solutionTag.setInteger("powderparts", solutionTag.getInteger("powderparts") + totalPowderAmount);
 		
 		return sol;
 	}
@@ -288,80 +355,27 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 				this.inventory.set(5, result);
 			}
 			
-			
-			solution.shrink(1);
 			for(ItemStack ingredient : ingredients) {
 				if(!ingredient.isEmpty()) {
-					if(ingredient.getItem() == Items.SUGAR || ingredient.getItem() == Items.REDSTONE) {
+					if(ingredient.getItem() == Items.SUGAR || ingredient.getItem() == Items.REDSTONE || ingredient.getItem() == Items.GUNPOWDER) {
 						ingredient.shrink(ingredient.getCount());
+					}else if(ingredient.getItem() == Items.GLOWSTONE_DUST) {
+						if(StackHelper.getTag(result).getInteger("glowstoneamount") == 96) {
+							ingredient.shrink(96 - StackHelper.getTag(solution).getInteger("glowstoneamount"));
+						}else {
+							ingredient.shrink(ingredient.getCount());
+						}
 					}else {
 						ingredient.shrink(1);
 					}
 				}
 			}
-		}
-	}
-	
-	public static int getItemBurnTime(ItemStack fuel) {
-		if(fuel.isEmpty()) {
-			return 0;
-		}else {
-			Item item = fuel.getItem();
-
-			if(item instanceof ItemBlock && Block.getBlockFromItem(item) != Blocks.AIR) {
-				Block block = Block.getBlockFromItem(item);
-
-				if(block == Blocks.WOODEN_SLAB) {
-					return 150;
-				}
-
-				if(block.getDefaultState().getMaterial() == Material.WOOD) {
-					return 300;
-				}
-
-				if(block == Blocks.COAL_BLOCK) {
-					return 16000;
-				}
-			}
-
-			if(item instanceof ItemTool && "WOOD".equals(((ItemTool)item).getToolMaterialName())) {
-				return 200;
-			}
-
-			if(item instanceof ItemSword && "WOOD".equals(((ItemSword)item).getToolMaterialName())) {
-				return 200;
-			}
-
-			if(item instanceof ItemHoe && "WOOD".equals(((ItemHoe)item).getMaterialName())) {
-				return 200;
-			}
-
-			if(item == Items.STICK) {
-				return 100;
-			}
-
-			if(item == Items.COAL) {
-				return 1600;
-			}
-
-			if(item == Items.LAVA_BUCKET) {
-				return 20000;
-			}
-
-			if(item == Item.getItemFromBlock(Blocks.SAPLING)) {
-				return 100;
-			}
-
-			if(item == Items.BLAZE_ROD) {
-				return 2400;
-			}
-
-			return GameRegistry.getFuelValue(fuel);
+			solution.shrink(1);
 		}
 	}
 	
 	public static boolean isItemFuel(ItemStack fuel) {
-		return getItemBurnTime(fuel) > 0;
+		return TileEntityFurnace.getItemBurnTime(fuel) > 0;
 	}
 
 	@Override
@@ -382,7 +396,12 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 		}else if(index != 4) {
 			if(index == 0 && stack.getItem() == ModItems.BASE_SOLUTION) {
 				return true;
-			}else if((index == 1 || index == 2 || index == 3) && (stack.getItem() == Items.SUGAR || stack.getItem() == Items.REDSTONE || stack.getItem() instanceof ItemFlavorPacket)) {
+			}else if((index == 1 || index == 2 || index == 3) 
+					&& (stack.getItem() == Items.SUGAR || 
+					stack.getItem() == Items.REDSTONE || 
+					stack.getItem() == Items.GUNPOWDER || 
+					stack.getItem() == Items.GLOWSTONE_DUST ||
+					stack.getItem() instanceof ItemFlavorPacket)) {
 				return true;
 			}else {
 				return false;
