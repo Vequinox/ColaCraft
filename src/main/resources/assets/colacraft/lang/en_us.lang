@@ -37,11 +37,23 @@ item.lime_solution.name=Lime Solution
 item.magenta_solution.name=Magenta Solution
 item.light_gray_solution.name=Light Gray Solution
 
-tile.ore_cinerium.name=Cinerium Ore
-tile.ore_luxium.name=Luxium Ore
-tile.ore_albium.name=Albium Ore
-tile.ore_cerasium.name=Cerasium Ore
-tile.ore_tenebrium.name=Tenebrium Ore
+item.black_flavor_packet.name=Black Flavor Packet
+item.white_flavor_packet.name=White Flavor Packet
+item.red_flavor_packet.name=Red Flavor Packet
+item.blue_flavor_packet.name=Blue Flavor Packet
+item.green_flavor_packet.name=Green Flavor Packet
+item.yellow_flavor_packet.name=Yellow Flavor Packet
+item.brown_flavor_packet.name=Brown Flavor Packet
+item.orange_flavor_packet.name=Orange Flavor Packet
+item.cyan_flavor_packet.name=Cyan Flavor Packet
+item.purple_flavor_packet.name=Purple Flavor Packet
+item.gray_flavor_packet.name=Gray Flavor Packet
+item.light_blue_flavor_packet.name=Light Blue Flavor Packet
+item.pink_flavor_packet.name=Pink Flavor Packet
+item.lime_flavor_packet.name=Lime Flavor Packet
+item.magenta_flavor_packet.name=Magenta Flavor Packet
+item.light_gray_flavor_packet.name=Light Gray Flavor Packet
+
 tile.ore_aluminum.name=Aluminum Ore
 
 tile.carbonizer.name=Carbonizer
@@ -51,4 +63,5 @@ tile.mixer.name=Mixer
 
 container.carbonizer=Carbonizer
 container.carbonizer_tier_2=Carbonizer
-container.carbonizer_tier_3=Carbonizercontainer.mixer=Mixer
+container.carbonizer_tier_3=Carbonizer
+container.mixer=Mixer

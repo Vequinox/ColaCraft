@@ -1,5 +1,7 @@
 package com.vequinox.colacraft.items;
 
+import com.vequinox.colacraft.init.ModItems;
+
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 

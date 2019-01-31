@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+        "item": "minecraft:sugar"
+    },
+    {
+        "item": "minecraft:potion"
+    }
+  ],
+  "result": {
+    "item": "colacraft:base_solution"
+  }
+}
