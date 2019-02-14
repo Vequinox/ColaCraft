@@ -2,40 +2,9 @@ item.can.name=Can
 item.sugar_water.name=Sugar Water
 item.aluminum_ingot.name=Aluminum Ingot
 
-item.black_soda.name=Black Soda
-item.white_soda.name=White Soda
-item.red_soda.name=Red Soda
-item.blue_soda.name=Blue Soda
-item.green_soda.name=Green Soda
-item.yellow_soda.name=Yellow Soda
-item.brown_soda.name=Brown Soda
-item.orange_soda.name=Orange Soda
-item.cyan_soda.name=Cyan Soda
-item.purple_soda.name=Purple Soda
-item.grey_soda.name=Grey Soda
-item.light_blue_soda.name=Light Blue Soda
-item.pink_soda.name=Pink Soda
-item.lime_soda.name=Lime Soda
-item.magenta_soda.name=Magenta Soda
-item.light_grey_soda.name=Light Grey Soda
+item.soda.name=Soda
 
 item.base_solution.name=Base Solution
-item.black_solution.name=Black Solution
-item.white_solution.name=White Solution
-item.red_solution.name=Red Solution
-item.blue_solution.name=Blue Solution
-item.green_solution.name=Green Solution
-item.yellow_solution.name=Yellow Solution
-item.brown_solution.name=Brown Solution
-item.orange_solution.name=Orange Solution
-item.cyan_solution.name=Cyan Solution
-item.purple_solution.name=Purple Solution
-item.gray_solution.name=Gray Solution
-item.light_blue_solution.name=Light Blue Solution
-item.pink_solution.name=Pink Solution
-item.lime_solution.name=Lime Solution
-item.magenta_solution.name=Magenta Solution
-item.light_gray_solution.name=Light Gray Solution
 
 item.black_flavor_packet.name=Black Flavor Packet
 item.white_flavor_packet.name=White Flavor Packet
@@ -57,11 +26,9 @@ item.light_gray_flavor_packet.name=Light Gray Flavor Packet
 tile.ore_aluminum.name=Aluminum Ore
 
 tile.carbonizer.name=Carbonizer
-tile.carbonizer_tier_2.name=Carbonizer Tier II
-tile.carbonizer_tier_3.name=Carbonizer Tier III
 tile.mixer.name=Mixer
 
 container.carbonizer=Carbonizer
-container.carbonizer_tier_2=Carbonizer
-container.carbonizer_tier_3=Carbonizer
 container.mixer=Mixer
+
+itemGroup.colacraft=Cola Craft

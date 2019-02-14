@@ -6,6 +6,7 @@ import com.vequinox.colacraft.init.ModBlocks;
 import com.vequinox.colacraft.init.ModItems;
 import com.vequinox.colacraft.items.ItemSoda;
 
+import com.vequinox.colacraft.util.StackHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -33,9 +34,12 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class TileEntityCarbonizer extends TileEntity implements IInventory, ITickable{
 	
-	private NonNullList<ItemStack> inventory = NonNullList.withSize(8, ItemStack.EMPTY);
+	private NonNullList<ItemStack> inventory = NonNullList.withSize(4, ItemStack.EMPTY);
 	private String customName;
 	private ItemStack smelting = ItemStack.EMPTY;
 
@@ -46,11 +50,6 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 	
 	public TileEntityCarbonizer() {
 		
-	}
-	
-	public TileEntity setTotalCookTime(int tierCookTime) {
-		this.totalCookTime = tierCookTime;
-		return this;
 	}
 
 	@Override
@@ -112,7 +111,7 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 			stack.setCount(this.getInventoryStackLimit());
 		}
 
-		if(index == 0 && index + 1 == 1 && index + 2 == 2 && index + 3 == 3 && index + 4 == 4 && index + 5 == 5 && !flag) {
+		if(index == 0 && index + 1 == 1 && !flag) {
 			this.cookTime = 0;
 			this.markDirty();
 		}
@@ -126,7 +125,7 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 		this.burnTime = compound.getInteger("BurnTime");
 		this.cookTime = compound.getInteger("CookTime");
 		this.totalCookTime = compound.getInteger("CookTimeTotal");
-		this.currentBurnTime = getItemBurnTime((ItemStack)this.inventory.get(6));
+		this.currentBurnTime = getItemBurnTime((ItemStack)this.inventory.get(2));
 
 		if(compound.hasKey("CustomName", 8)) {
 			this.setCustomName(compound.getString("CustomName"));
@@ -172,9 +171,9 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 		}
 		
 		if(!this.world.isRemote) {
-			ItemStack fuel = (ItemStack)this.inventory.get(6);//fuel slot
+			ItemStack fuel = (ItemStack)this.inventory.get(2);//fuel slot
 			
-			if(this.isBurning() || !fuel.isEmpty() && !((((ItemStack)this.inventory.get(0)).isEmpty()) || ((ItemStack)this.inventory.get(1)).isEmpty() || ((ItemStack)this.inventory.get(4)).isEmpty() || ((ItemStack)this.inventory.get(5)).isEmpty())){
+			if(this.isBurning() || !fuel.isEmpty() && !((((ItemStack)this.inventory.get(0)).isEmpty()) || ((ItemStack)this.inventory.get(1)).isEmpty())){
 				if(!this.isBurning() && this.canSmelt()) {
 					this.burnTime = getItemBurnTime(fuel);
 					this.currentBurnTime = this.burnTime;
@@ -188,7 +187,7 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 	
 							if(fuel.isEmpty()) {
 								ItemStack item1 = fuelItem.getContainerItem(fuel);
-								this.inventory.set(6, item1);
+								this.inventory.set(2, item1);
 							}
 						}
 					}
@@ -211,7 +210,7 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 			
 			if(flag != this.isBurning()) {
 				flag1 = true;
-				BlockCarbonizer.setState(this.isBurning(), this.world, this.pos, getCarbonizerType());
+				BlockCarbonizer.setState(this.isBurning(), this.world, this.pos, ModBlocks.CARBONIZER);
 			}
 		}
 		
@@ -219,69 +218,56 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 			this.markDirty();
 		}
 	}
-	
-	private Block getCarbonizerType() {
-		return this.totalCookTime == 200 ? ModBlocks.CARBONIZER : this.totalCookTime == 100 ? ModBlocks.CARBONIZER_TIER_2 : ModBlocks.CARBONIZER_TIER_3;
-	}
 
 	private boolean canSmelt() {
-		if(((ItemStack)this.inventory.get(0)).isEmpty() || ((ItemStack)this.inventory.get(1)).isEmpty() ||
-			((ItemStack)this.inventory.get(4)).isEmpty() || ((ItemStack)this.inventory.get(5)).isEmpty() || !((ItemStack)this.inventory.get(7)).isEmpty()){
+		if(((ItemStack)this.inventory.get(0)).isEmpty() || ((ItemStack)this.inventory.get(1)).isEmpty()) {
+			return false;
+		}else if(this.inventory.get(0).getItem() != ModItems.CAN || this.inventory.get(1).getItem() != ModItems.BASE_SOLUTION){
 			return false;
 		}else {
-			ItemStack result = CarbonizerRecipes.getInstance().getCarbonizingResult(
-					(ItemStack)this.inventory.get(0),
-					(ItemStack)this.inventory.get(1),
-					(ItemStack)this.inventory.get(2),
-					(ItemStack)this.inventory.get(3));
-			return result != null;
+			//ItemStack result = CarbonizerRecipes.getInstance().getCarbonizingResult((ItemStack)this.inventory.get(0), (ItemStack)this.inventory.get(1));
+			return true;
 		}
+	}
+
+	private ItemStack getNewSoda(ItemStack solution){
+		ItemStack soda = new ItemStack(ModItems.SODA);
+		NBTTagCompound tagComp = StackHelper.getTag(soda);
+
+		int sugarAmount = solution.getTagCompound().getInteger("sugaramount");
+		int redstoneAmount = solution.getTagCompound().getInteger("redstoneamount");
+		Map<String, Integer> potionEffectProportionMap = getPotionEffectProportionMap(solution);
+
+		//algorithm here
+
+		return soda;
+	}
+
+	private Map<String, Integer> getPotionEffectProportionMap(ItemStack solution){
+		Map<String, Integer> potionEffectProportionMap = new HashMap<String, Integer>();
+		NBTTagCompound tagCompound = solution.getTagCompound();
+
+		for(String key : tagCompound.getKeySet()){
+			if(key.contains("minecraft:")){
+				potionEffectProportionMap.put(key, tagCompound.getInteger(key));
+			}
+		}
+
+		return potionEffectProportionMap;
 	}
 	
 	public void smeltItem() {
 		if(this.canSmelt()) {
-			ItemStack baseIngredient = (ItemStack)this.inventory.get(0);
-			ItemStack fillerIngredient = (ItemStack)this.inventory.get(1);
-			ItemStack augmentIngredient = (ItemStack)this.inventory.get(2);
-			ItemStack modifierIngredient = (ItemStack)this.inventory.get(3);
-			ItemStack bottle = (ItemStack)this.inventory.get(4);
-			ItemStack emptyCan = (ItemStack)this.inventory.get(5);
-			ItemStack result = CarbonizerRecipes.getInstance().getCarbonizingResult(baseIngredient, fillerIngredient, augmentIngredient, modifierIngredient);
-			ItemStack output = (ItemStack)this.inventory.get(7);
+			ItemStack can = (ItemStack)this.inventory.get(0);
+			ItemStack solution = (ItemStack)this.inventory.get(1);
+			ItemStack result = getNewSoda(solution);
+			ItemStack output = (ItemStack)this.inventory.get(4);
 			
 			if(output.isEmpty()) {
-				this.inventory.set(7, result);
+				this.inventory.set(4, result);
+			}else{
+				this.inventory.get(4).grow(1);
 			}
-			
-			baseIngredient.shrink(1);
-			
-			if(fillerIngredient.getItem() == Items.LAVA_BUCKET) {
-				fillerIngredient.shrink(1);
-				this.inventory.set(1, new ItemStack(Items.BUCKET));
-			}else {
-				fillerIngredient.shrink(1);
-			}
-			
-			
-			if(!augmentIngredient.isEmpty()) {
-				augmentIngredient.shrink(augmentIngredient.getCount());
-			}
-			
-			if(!modifierIngredient.isEmpty()) {
-				int shrinkAmt = modifierIngredient.getCount();
-				if(shrinkAmt > 15 && shrinkAmt < 32) {
-					shrinkAmt = 16;
-				}else if(shrinkAmt > 31 && shrinkAmt < 48) {
-					shrinkAmt = 32;
-				}else if(shrinkAmt > 47 && shrinkAmt < 64) {
-					shrinkAmt = 48;
-				}
-					
-				modifierIngredient.shrink(shrinkAmt);
-			}
-			
-			bottle.shrink(1);
-			emptyCan.shrink(1);
 		}
 	}
 
@@ -360,14 +346,12 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
-		if(index == 7) {
+		if(index == 3) {
 			return false;
-		}else if(index != 6) {
-			if(index == 4 && stack.getItem() == Items.POTIONITEM) {
+		}else if(index != 2) {
+			if(index == 0 && stack.getItem() == ModItems.CAN) {
 				return true;
-			}else if(index == 5 && stack.getItem() == ModItems.CAN) {
-				return true;
-			}else if(index != 4 && index != 5) {
+			}else if(index == 1 && stack.getItem() == ModItems.BASE_SOLUTION) {
 				return true;
 			}else {
 				return false;

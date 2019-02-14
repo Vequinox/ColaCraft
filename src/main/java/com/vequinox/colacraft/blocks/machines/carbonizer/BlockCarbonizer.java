@@ -41,45 +41,37 @@ public class BlockCarbonizer extends BlockBase implements ITileEntityProvider{
 	private int cookTime;
 	private String name;
 	
-	public BlockCarbonizer(String name, int cookTime) {
+	public BlockCarbonizer(String name) {
 		super(name, Material.ROCK);
 		this.name = name;
 		setHardness(3.5f);
 		setResistance(5f);
-		this.cookTime = cookTime;
 		setSoundType(SoundType.STONE);
 		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(CARBONIZING, false));
 	}
 	
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-		if(this.name.equalsIgnoreCase("carbonizer_tier_2")) {
-			return Item.getItemFromBlock(ModBlocks.CARBONIZER_TIER_2);
-		}else if(this.name.equalsIgnoreCase("carbonizer_tier_3")) {
-			return Item.getItemFromBlock(ModBlocks.CARBONIZER_TIER_3);
-		}else {
-			return Item.getItemFromBlock(ModBlocks.CARBONIZER);
-		}
+		return Item.getItemFromBlock(ModBlocks.CARBONIZER);
 	}
 	
 	@Override
 	public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-		if(this.name.equalsIgnoreCase("carbonizer_tier_2")) {
-			return new ItemStack(ModBlocks.CARBONIZER_TIER_2);
-		}else if(this.name.equalsIgnoreCase("carbonizer_tier_3")) {
-			return new ItemStack(ModBlocks.CARBONIZER_TIER_3);
-		}else {
-			return new ItemStack(ModBlocks.CARBONIZER);
-		}
+		return new ItemStack(ModBlocks.CARBONIZER);
 	}
 	
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if(!worldIn.isRemote) {
-			playerIn.openGui(Main.instance, Reference.GUI_CARBONIZER, worldIn, pos.getX(), pos.getY(), pos.getZ());
+		if(worldIn.isRemote) {
+			return true;
 		}
-		
-		return true;
+
+		TileEntity tileEntity = worldIn.getTileEntity(pos);
+		if(tileEntity instanceof TileEntityCarbonizer) {
+			playerIn.openGui(Main.instance, Reference.GUI_CARBONIZER, worldIn, pos.getX(), pos.getY(), pos.getZ());
+			return true;
+		}
+		return false;
 	}
 	
 	@Override
@@ -128,7 +120,7 @@ public class BlockCarbonizer extends BlockBase implements ITileEntityProvider{
 	
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		return new TileEntityCarbonizer().setTotalCookTime(this.cookTime);
+		return new TileEntityCarbonizer();
 	}
 	
 	@Override

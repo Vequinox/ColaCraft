@@ -15,9 +15,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
 public class ItemSolution extends ItemBase{
-	
-	private List<PotionEffectWrapper> potionEffects = new ArrayList<PotionEffectWrapper>();
-	private Potion basePotionEffect;
+
 	private int waterParts;
 	private int maxPowderAmount;
 
@@ -26,26 +24,6 @@ public class ItemSolution extends ItemBase{
 		ModItems.ITEMS.add(this);
 		this.waterParts = waterParts;
 		this.maxPowderAmount = maxPowderAmount;
-	}
-	
-	public ItemBase addPotionEffect(Potion effect, int duration, int amplifier) {
-		if(potionEffects.isEmpty()) {
-			this.basePotionEffect = effect;
-		}
-		this.potionEffects.add(new PotionEffectWrapper(new PotionEffect(effect, duration, amplifier)));
-        return this;
-    }
-	
-	public ItemBase addPotionEffect(Potion effect) {
-		return addPotionEffect(effect, 200, 0);
-	}
-	
-	public int numberOfPotionEffects() {
-		return potionEffects.size();
-	}
-	
-	public Potion getBasePotionEffect() {
-		return this.basePotionEffect;
 	}
 	
 	public int getStartingWaterParts() {

@@ -33,7 +33,6 @@ public class Main {
 	@EventHandler
 	public static void init(FMLInitializationEvent event) {
 		ModRecipes.init();
-		ModItems.setBasePotionEffects();
 		RegistryHandler.initRegistries(event);
 	}
 

@@ -36,9 +36,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+
 import com.vequinox.colacraft.util.StackHelper;
 
 public class TileEntityMixer extends TileEntity implements IInventory, ITickable{
@@ -233,14 +232,26 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 	private boolean canSmelt() {
 		boolean canSmelt = true;
 		if((this.inventory.get(0)).isEmpty() || 
-				((this.inventory.get(1)).isEmpty() && this.inventory.get(2).isEmpty() && this.inventory.get(3).isEmpty())){
+				((this.inventory.get(1)).isEmpty() && this.inventory.get(2).isEmpty() && this.inventory.get(3).isEmpty())) {
 			canSmelt = false;
-		}else if(StackHelper.hasKey(this.inventory.get(0),"powderparts") 
-				&& getPowderCount() > ((ItemSolution)this.inventory.get(0).getItem()).getMaxPowderParts() - StackHelper.getTag(this.inventory.get(0)).getInteger("powderparts")) {
+		}else if(!(this.inventory.get(0).getItem() instanceof ItemSolution)){
+			canSmelt = false;
+		}else if(StackHelper.hasKey(this.inventory.get(0), "powderparts") && getPowderCount() > ((ItemSolution)this.inventory.get(0).getItem()).getMaxPowderParts() - StackHelper.getTag(this.inventory.get(0)).getInteger("powderparts")) {
+			canSmelt = false;
+		}else if(!StackHelper.hasKey(this.inventory.get(0), "powderparts") && getPowderCount() > ((ItemSolution)this.inventory.get(0).getItem()).getMaxPowderParts()){
 			canSmelt = false;
 		}else if(StackHelper.hasKey(this.inventory.get(0),"waterparts") && getFlavorPacketCount() > StackHelper.getTag(this.inventory.get(0)).getInteger("waterparts")) {
 			canSmelt = false;
+		}else if(!StackHelper.hasKey(this.inventory.get(0), "waterparts") && getFlavorPacketCount() > ((ItemSolution)this.inventory.get(0).getItem()).getStartingWaterParts()) {
+			canSmelt = false;
+		}else if(!this.inventory.get(5).isEmpty()){
+			List<ItemStack> ingredients = Arrays.asList(this.inventory.get(1), this.inventory.get(2), this.inventory.get(3));
+			ItemStack potentialResult = getNewSolution(this.inventory.get(0), ingredients);
+			if(!ItemStack.areItemStackTagsEqual(potentialResult, this.inventory.get(5))){
+				canSmelt = false;
+			}
 		}else {
+
 			for(int i = 1; i < 4; i++) {
 				ItemStack ingredient = this.inventory.get(i);
 				if(!ingredient.isEmpty()) {
@@ -266,43 +277,44 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 				powderCount += this.inventory.get(i).getCount();
 			}
 		}
-		
+
 		return powderCount;
 	}
-	
+
 	private int getFlavorPacketCount() {
 		int flavorPacketCount = 0;
 		for(int i = 1; i < 4; i++) {
 			if(this.inventory.get(i).getItem() instanceof ItemFlavorPacket) {
-				flavorPacketCount++;
+				flavorPacketCount += this.inventory.get(i).getCount();
 			}
 		}
-		
+
 		return flavorPacketCount;
 	}
 	
 	private ItemStack getNewSolution(ItemStack solution, List<ItemStack> ingredients) {
 		ItemStack sol = solution.copy();
+		sol.setCount(1);
 		int sugarAmount = 0;
 		int redstoneAmount = 0;
 		int gunpowderAmount = 0;
 		int glowstoneAmount = 0;
 		int totalPowderAmount = 0;
-		List<ItemFlavorPacket> packets = new ArrayList<ItemFlavorPacket>();
+		Map<ItemFlavorPacket, Integer> packets = new HashMap<>();
 		
 		NBTTagCompound solutionTag = StackHelper.getTag(sol);
 		if(!StackHelper.hasKey(sol, "waterparts")) {
-			solutionTag.setInteger("waterparts", ((ItemSolution)sol.getItem()).getStartingWaterParts());
+			solutionTag.setInteger("waterparts", ((ItemSolution) sol.getItem()).getStartingWaterParts());
 		}
 		
 		if(!StackHelper.hasKey(sol, "powderparts")) {
-			solutionTag.setInteger("powderparts", ((ItemSolution)sol.getItem()).getMaxPowderParts());
+			solutionTag.setInteger("powderparts", 0);
 		}
 		
 		for(ItemStack ingredient : ingredients) {
 			if(!ingredient.isEmpty()) {
 				if(ingredient.getItem() instanceof ItemFlavorPacket) {
-					packets.add((ItemFlavorPacket)ingredient.getItem());
+					packets.put((ItemFlavorPacket)ingredient.getItem(), ingredient.getCount());
 				}else if(ingredient.getItem() == Items.SUGAR) {
 					sugarAmount += ingredient.getCount();
 					totalPowderAmount += ingredient.getCount();
@@ -317,12 +329,15 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 				}
 			}
 		}
-		
-		for(ItemFlavorPacket packet : packets) {
+
+		int totalWaterParts = getTotalWaterParts(sol, solutionTag);
+
+		for(ItemFlavorPacket packet : packets.keySet()) {
 			String effectName = packet.getEffect().toString();
-			solutionTag.setInteger(effectName, solutionTag.getInteger(effectName) + 1);
+			solutionTag.setInteger(effectName, solutionTag.getInteger(effectName) + packets.get(packet));
+			solutionTag.setInteger("waterparts", solutionTag.getInteger("waterparts") - packets.get(packet));
 		}
-		
+
 		solutionTag.setInteger("sugaramount", solutionTag.getInteger("sugaramount") + sugarAmount);
 		solutionTag.setInteger("redstoneamount", solutionTag.getInteger("redstoneamount") + redstoneAmount);
 		solutionTag.setInteger("gunpowderamount", solutionTag.getInteger("gunpowderamount") + gunpowderAmount);
@@ -337,8 +352,15 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 		}
 		
 		solutionTag.setInteger("powderparts", solutionTag.getInteger("powderparts") + totalPowderAmount);
+
+		int newTotalWaterParts = getTotalWaterParts(sol, solutionTag);
+		solutionTag.setInteger("waterparts", solutionTag.getInteger("waterparts") + (newTotalWaterParts - totalWaterParts));
 		
 		return sol;
+	}
+
+	private int getTotalWaterParts(ItemStack solution, NBTTagCompound solutionTag){
+		return ((ItemSolution)solution.getItem()).getStartingWaterParts() + solutionTag.getInteger("glowstoneamount")/16;
 	}
 	
 	public void smeltItem() {
@@ -353,6 +375,8 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 			
 			if(output.isEmpty()) {
 				this.inventory.set(5, result);
+			}else{
+				this.inventory.get(5).grow(1);
 			}
 			
 			for(ItemStack ingredient : ingredients) {

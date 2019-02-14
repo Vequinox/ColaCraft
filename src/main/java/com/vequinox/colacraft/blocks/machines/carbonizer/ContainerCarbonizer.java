@@ -20,15 +20,11 @@ public class ContainerCarbonizer extends Container{
 	public ContainerCarbonizer(InventoryPlayer player, TileEntityCarbonizer tileEntity) {
 		this.tileEntity = tileEntity;
 		
-		this.addSlotToContainer(new Slot(tileEntity, 0, 50, 30));
-		this.addSlotToContainer(new Slot(tileEntity, 1, 68, 30));
-		this.addSlotToContainer(new Slot(tileEntity, 2, 50, 48));
-		this.addSlotToContainer(new Slot(tileEntity, 3, 68, 48));
-		this.addSlotToContainer(new Slot(tileEntity, 4, 92, 30));
-		this.addSlotToContainer(new Slot(tileEntity, 5, 92, 48));
+		this.addSlotToContainer(new Slot(tileEntity, 0, 44, 22));
+		this.addSlotToContainer(new Slot(tileEntity, 1, 62, 22));
 		
-		this.addSlotToContainer(new SlotCarbonizerFuel(tileEntity, 6, 19, 48));
-		this.addSlotToContainer(new SlotCarbonizerOutput(player.player, tileEntity, 7, 145, 39));
+		this.addSlotToContainer(new SlotCarbonizerFuel(tileEntity, 2, 53, 58));
+		this.addSlotToContainer(new SlotCarbonizerOutput(player.player, tileEntity, 3, 123, 39));
 		
 		for(int y = 0; y < 3; y++) {
 			for(int x = 0; x < 9; x++) {
@@ -91,25 +87,25 @@ public class ContainerCarbonizer extends Container{
 			ItemStack currentSlotStack = currentSlot.getStack();
 			stack = currentSlotStack.copy();
 			
-			if(index == 7) {//if the index is the output slot
-				if(!this.mergeItemStack(currentSlotStack, 8, 44, true)) {
+			if(index == 3) {//if the index is the output slot
+				if(!this.mergeItemStack(currentSlotStack, 4, 40, true)) {
 					return ItemStack.EMPTY;
 				}
 				
 				currentSlot.onSlotChange(currentSlotStack, stack);
-			}else if(index != 6 && index != 5 && index != 4 && index != 3 && index != 2 && index != 1 && index != 0) {// if the index is in player's inventory, not carbonizer
+			}else if(index != 2 && index != 1 && index != 0) {// if the index is in player's inventory, not carbonizer
 				if(currentSlotStack.getItem() == ModItems.BASE_SOLUTION) {
-					if(!this.mergeItemStack(currentSlotStack, 4, 5, false)) return ItemStack.EMPTY;
+					if(!this.mergeItemStack(currentSlotStack, 1, 2, false)) return ItemStack.EMPTY;
 				}else if(currentSlotStack.getItem() == ModItems.CAN) {
-					if(!this.mergeItemStack(currentSlotStack, 5, 6, false)) return ItemStack.EMPTY;
+					if(!this.mergeItemStack(currentSlotStack, 0, 1, false)) return ItemStack.EMPTY;
 				}else if(TileEntityCarbonizer.isItemFuel(currentSlotStack)){
-					if(!this.mergeItemStack(currentSlotStack, 6, 7, false)) return ItemStack.EMPTY;
-				}else if(index >= 8 && index < 35){
-					if(!this.mergeItemStack(currentSlotStack, 35, 44, false)) return ItemStack.EMPTY;
-				}else if(index >= 35 && index < 44 && !this.mergeItemStack(currentSlotStack, 8, 35, false)){
+					if(!this.mergeItemStack(currentSlotStack, 2, 3, false)) return ItemStack.EMPTY;
+				}else if(index >= 4 && index < 31){
+					if(!this.mergeItemStack(currentSlotStack, 31, 40, false)) return ItemStack.EMPTY;
+				}else if(index >= 31 && index < 40 && !this.mergeItemStack(currentSlotStack, 4, 31, false)){
 					return ItemStack.EMPTY;
 				}
-			}else if(!this.mergeItemStack(currentSlotStack, 8, 44, false)) {
+			}else if(!this.mergeItemStack(currentSlotStack, 4, 40, false)) {
 				return ItemStack.EMPTY;
 			}
 			

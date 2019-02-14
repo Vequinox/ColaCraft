@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 
 public class ColaCraftTab extends CreativeTabs{
 	public ColaCraftTab() {
-		super(Reference.NAME);
+		super(Reference.MOD_ID);
 	}
 
 	@Override

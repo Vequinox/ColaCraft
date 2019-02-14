@@ -34,7 +34,7 @@ public class GuiCarbonizer extends GuiContainer{
 		
 		if(TileEntityCarbonizer.isBurning(tileEntity)) {
 			int k = this.getBurnLeftScaled(13);
-			this.drawTexturedModalRect(this.guiLeft + 20, this.guiTop + 31 + 12 - k, 176, 12 - k, 14, k + 1);
+			this.drawTexturedModalRect(this.guiLeft + 54, this.guiTop + 42 + 12 - k, 176, 12 - k, 14, k + 1);
 		}
 		
 		int l = this.getCookProgressScaled(24);
