@@ -257,7 +257,7 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 
 		for(String key : potionEffectProportionMap.keySet()){
 			if(!key.equals("water_parts")) {
-				potionEffectLevelMap.put(key, Math.floorDiv((int)Math.round(sugarAmount * (potionEffectProportionMap.get(key) / (double)totalLiquidParts)), 16));
+				potionEffectLevelMap.put(key, Math.floorDiv((int)Math.round(sugarAmount * (potionEffectProportionMap.get(key) / (double)totalLiquidParts)), SUGAR_PER_LEVEL_RATIO));
 			}
 		}
 
@@ -265,7 +265,7 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 			tagComp.setInteger(key+"_level", potionEffectLevelMap.get(key));
 		}
 
-		tagComp.setInteger("duration", redstoneAmount + ((ItemCan)can.getItem()).getBaseDuration());
+		tagComp.setInteger("duration", (redstoneAmount * 20) + ((ItemCan)can.getItem()).getBaseDuration());
 
 		for(String key : solution.getTagCompound().getKeySet()){
 			tagComp.setInteger(key, solution.getTagCompound().getInteger(key));
