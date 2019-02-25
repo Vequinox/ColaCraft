@@ -1,0 +1,25 @@
+{
+  "pattern": [
+    "sss",
+    "gGg",
+    "rrr"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "r": {
+      "item": "colacraft:crystallized_redstone"
+    },
+    "g": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "s": {
+      "item": "colacraft:crystallized_sugar"
+    },
+    "G": {
+      "item": "minecraft:gold_nugget"
+    }
+  },
+  "result": {
+    "item": "colacraft:electrodust"
+  }
+}

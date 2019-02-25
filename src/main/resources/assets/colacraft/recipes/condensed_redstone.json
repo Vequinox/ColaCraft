@@ -1,0 +1,16 @@
+{
+  "pattern": [
+    "rrr",
+    "r r",
+    "rrr"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "r": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "item": "colacraft:condensed_redstone"
+  }
+}

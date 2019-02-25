@@ -1,0 +1,16 @@
+{
+  "pattern": [
+    "sss",
+    "s s",
+    "sss"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "s": {
+      "item": "minecraft:sugar"
+    }
+  },
+  "result": {
+    "item": "colacraft:condensed_sugar"
+  }
+}

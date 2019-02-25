@@ -3,23 +3,24 @@ package com.vequinox.colacraft.init;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.vequinox.colacraft.items.ItemFlavorPacket;
-import com.vequinox.colacraft.items.ItemBase;
-import com.vequinox.colacraft.items.ItemSoda;
 import com.vequinox.colacraft.items.*;
 
-import com.vequinox.colacraft.items.ItemSolution;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 
 public class ModItems {
 	public static final List<Item> ITEMS = new ArrayList<Item>();
-	public static final Item CAN = new ItemBase("can");
 	public static final Item CAN = new ItemCan("can", 200, 0);
 	public static final Item BASE_SOLUTION = new ItemSolution("base_solution", 3, 70);
 	public static final Item SODA = new ItemSoda("soda", 2, 0.6F, false);
 	
 	public static final Item ALUMINUM_INGOT = new ItemBase("aluminum_ingot");
+	public static final Item ELECTRODUST = new ItemBase("electrodust");
+	public static final Item HYDRODUST = new ItemBase("hydrodust");
+	public static final Item CONDENSED_SUGAR = new ItemBase("condensed_sugar");
+	public static final Item CRYSTALLIZED_SUGAR = new ItemBase("crystallized_sugar");
+	public static final Item CONDENSED_REDSTONE = new ItemBase("condensed_redstone");
+	public static final Item CRYSTALLIZED_REDSTONE = new ItemBase("crystallized_redstone");
 	
 	public static final ItemFlavorPacket BLACK_FLAVOR_PACKET = new ItemFlavorPacket("black_flavor_packet", MobEffects.SLOWNESS);
 	public static final ItemFlavorPacket WHITE_FLAVOR_PACKET = new ItemFlavorPacket("white_flavor_packet", MobEffects.SPEED);
