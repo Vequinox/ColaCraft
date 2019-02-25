@@ -4,6 +4,7 @@ import javax.annotation.Nonnull;
 
 import com.vequinox.colacraft.init.ModBlocks;
 import com.vequinox.colacraft.init.ModItems;
+import com.vequinox.colacraft.items.ItemCan;
 import com.vequinox.colacraft.items.ItemSoda;
 
 import com.vequinox.colacraft.util.StackHelper;
@@ -42,11 +43,12 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 	private NonNullList<ItemStack> inventory = NonNullList.withSize(4, ItemStack.EMPTY);
 	private String customName;
 	private ItemStack smelting = ItemStack.EMPTY;
+	private final int SUGAR_PER_LEVEL_RATIO = 16;
 
 	private int burnTime;
 	private int currentBurnTime;
 	private int cookTime;
-	private int totalCookTime;
+	private int totalCookTime = 200;
 	
 	public TileEntityCarbonizer() {
 		
@@ -195,7 +197,7 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 				
 				if(this.isBurning() && this.canSmelt()) {
 					++this.cookTime;
-					
+
 					if(this.cookTime == this.totalCookTime) {
 						this.cookTime = 0;
 						this.smeltItem();
@@ -220,25 +222,54 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 	}
 
 	private boolean canSmelt() {
-		if(((ItemStack)this.inventory.get(0)).isEmpty() || ((ItemStack)this.inventory.get(1)).isEmpty()) {
-			return false;
+		boolean canSmelt = true;
+		if(this.inventory.get(0).isEmpty() || this.inventory.get(1).isEmpty()) {
+			canSmelt = false;
 		}else if(this.inventory.get(0).getItem() != ModItems.CAN || this.inventory.get(1).getItem() != ModItems.BASE_SOLUTION){
-			return false;
-		}else {
-			//ItemStack result = CarbonizerRecipes.getInstance().getCarbonizingResult((ItemStack)this.inventory.get(0), (ItemStack)this.inventory.get(1));
-			return true;
+			canSmelt = false;
+		}else if(!this.inventory.get(3).isEmpty()) {
+			ItemStack potentialSoda = getNewSoda(this.inventory.get(0), this.inventory.get(1));
+			if (!ItemStack.areItemStackTagsEqual(potentialSoda, this.inventory.get(3))) {
+				canSmelt = false;
+			}
 		}
+
+		return canSmelt;
 	}
 
-	private ItemStack getNewSoda(ItemStack solution){
+	private ItemStack getNewSoda(ItemStack can, ItemStack solution){
 		ItemStack soda = new ItemStack(ModItems.SODA);
 		NBTTagCompound tagComp = StackHelper.getTag(soda);
 
-		int sugarAmount = solution.getTagCompound().getInteger("sugaramount");
-		int redstoneAmount = solution.getTagCompound().getInteger("redstoneamount");
+		int sugarAmount = solution.getTagCompound().getInteger("sugar_amount");
+		int redstoneAmount = solution.getTagCompound().getInteger("redstone_amount");
 		Map<String, Integer> potionEffectProportionMap = getPotionEffectProportionMap(solution);
+		Map<String, Integer> potionEffectLevelMap = new HashMap<String, Integer>();
 
 		//algorithm here
+		//base solution: 0-70 powder parts, 0-3 water parts
+
+		//split sugar and redstone amongst the potion effects depending on proportionality
+		int totalLiquidParts = 0;
+		for(String key : potionEffectProportionMap.keySet()){
+			totalLiquidParts += potionEffectProportionMap.get(key);
+		}
+
+		for(String key : potionEffectProportionMap.keySet()){
+			if(!key.equals("water_parts")) {
+				potionEffectLevelMap.put(key, Math.floorDiv((int)Math.round(sugarAmount * (potionEffectProportionMap.get(key) / (double)totalLiquidParts)), 16));
+			}
+		}
+
+		for(String key : potionEffectLevelMap.keySet()){
+			tagComp.setInteger(key+"_level", potionEffectLevelMap.get(key));
+		}
+
+		tagComp.setInteger("duration", redstoneAmount + ((ItemCan)can.getItem()).getBaseDuration());
+
+		for(String key : solution.getTagCompound().getKeySet()){
+			tagComp.setInteger(key, solution.getTagCompound().getInteger(key));
+		}
 
 		return soda;
 	}
@@ -248,7 +279,7 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 		NBTTagCompound tagCompound = solution.getTagCompound();
 
 		for(String key : tagCompound.getKeySet()){
-			if(key.contains("minecraft:")){
+			if(key.contains("flavor_packet") || key.contains("water_parts")){
 				potionEffectProportionMap.put(key, tagCompound.getInteger(key));
 			}
 		}
@@ -260,14 +291,17 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 		if(this.canSmelt()) {
 			ItemStack can = (ItemStack)this.inventory.get(0);
 			ItemStack solution = (ItemStack)this.inventory.get(1);
-			ItemStack result = getNewSoda(solution);
-			ItemStack output = (ItemStack)this.inventory.get(4);
+			ItemStack result = getNewSoda(can, solution);
+			ItemStack output = (ItemStack)this.inventory.get(3);
 			
 			if(output.isEmpty()) {
-				this.inventory.set(4, result);
-			}else{
-				this.inventory.get(4).grow(1);
+				this.inventory.set(3, result);
+			}else {
+				this.inventory.get(3).grow(1);
 			}
+
+			can.shrink(1);
+			solution.shrink(1);
 		}
 	}
 
