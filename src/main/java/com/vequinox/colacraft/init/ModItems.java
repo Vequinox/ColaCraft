@@ -11,8 +11,13 @@ import net.minecraft.item.Item;
 public class ModItems {
 	public static final List<Item> ITEMS = new ArrayList<Item>();
 	public static final Item CAN = new ItemCan("can", 200, 0);
-	public static final Item BASE_SOLUTION = new ItemSolution("base_solution", 3, 70);
 	public static final Item SODA = new ItemSoda("soda", 2, 0.6F, false);
+	public static final Item EMPTY_SMALL_VIAL = new ItemBase("empty_small_vial");
+	public static final Item EMPTY_VIAL = new ItemBase("empty_vial");
+	public static final Item EMPTY_LARGE_VIAL = new ItemBase("empty_large_vial");
+	public static final Item SMALL_VIAL_WATER = new ItemSolution("small_vial_water", 3, 70);
+	public static final Item VIAL_WATER = new ItemSolution("vial_water", 5, 100);
+	public static final Item LARGE_VIAL_WATER = new ItemSolution("large_vial_water", 7, 200);
 	
 	public static final Item ALUMINUM_INGOT = new ItemBase("aluminum_ingot");
 	public static final Item ELECTRODUST = new ItemBase("electrodust");

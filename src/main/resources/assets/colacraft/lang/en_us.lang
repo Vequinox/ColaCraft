@@ -1,5 +1,13 @@
 item.can.name=Can
 item.aluminum_ingot.name=Aluminum Ingot
+
+item.empty_small_vial.name=Small Vial
+item.empty_vial.name=Vial
+item.empty_large_vial.name=Large Vial
+item.small_vial_water.name=Small Vial of Water
+item.vial_water.name=Vial of Water
+item.large_vial_water.name=Large Vial of Water
+
 item.electrodust.name=Electrodust
 item.hydrodust.name=Hydrodust
 item.condensed_sugar.name=Condensed Sugar
