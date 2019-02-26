@@ -38,7 +38,7 @@ public class GuiCarbonizer extends GuiContainer{
 		}
 		
 		int l = this.getCookProgressScaled(24);
-		this.drawTexturedModalRect(this.guiLeft + 113, this.guiTop + 38, 176, 14, l + 1, 16);
+		this.drawTexturedModalRect(this.guiLeft + 87, this.guiTop + 38, 176, 14, l + 1, 16);
 	}
 	
 	private int getBurnLeftScaled(int pixels) {
