@@ -7,6 +7,7 @@ import com.vequinox.colacraft.init.ModItems;
 import com.vequinox.colacraft.items.ItemCan;
 import com.vequinox.colacraft.items.ItemSoda;
 
+import com.vequinox.colacraft.items.ItemSolution;
 import com.vequinox.colacraft.util.StackHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -225,7 +226,7 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 		boolean canSmelt = true;
 		if(this.inventory.get(0).isEmpty() || this.inventory.get(1).isEmpty()) {
 			canSmelt = false;
-		}else if(this.inventory.get(0).getItem() != ModItems.CAN || this.inventory.get(1).getItem() != ModItems.BASE_SOLUTION){
+		}else if(this.inventory.get(0).getItem() != ModItems.CAN || !(this.inventory.get(1).getItem() instanceof ItemSolution)){
 			canSmelt = false;
 		}else if(!this.inventory.get(3).isEmpty()) {
 			ItemStack potentialSoda = getNewSoda(this.inventory.get(0), this.inventory.get(1));
@@ -385,7 +386,7 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 		}else if(index != 2) {
 			if(index == 0 && stack.getItem() == ModItems.CAN) {
 				return true;
-			}else if(index == 1 && stack.getItem() == ModItems.BASE_SOLUTION) {
+			}else if(index == 1 && stack.getItem() instanceof ItemSolution) {
 				return true;
 			}else {
 				return false;

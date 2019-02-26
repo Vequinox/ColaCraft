@@ -4,6 +4,7 @@ import com.vequinox.colacraft.blocks.machines.carbonizer.slots.SlotCarbonizerFue
 import com.vequinox.colacraft.blocks.machines.carbonizer.slots.SlotCarbonizerOutput;
 import com.vequinox.colacraft.init.ModItems;
 
+import com.vequinox.colacraft.items.ItemSolution;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -94,7 +95,7 @@ public class ContainerCarbonizer extends Container{
 				
 				currentSlot.onSlotChange(currentSlotStack, stack);
 			}else if(index != 2 && index != 1 && index != 0) {// if the index is in player's inventory, not carbonizer
-				if(currentSlotStack.getItem() == ModItems.BASE_SOLUTION) {
+				if(currentSlotStack.getItem() instanceof ItemSolution) {
 					if(!this.mergeItemStack(currentSlotStack, 1, 2, false)) return ItemStack.EMPTY;
 				}else if(currentSlotStack.getItem() == ModItems.CAN) {
 					if(!this.mergeItemStack(currentSlotStack, 0, 1, false)) return ItemStack.EMPTY;
