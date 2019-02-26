@@ -107,7 +107,15 @@ public class ContainerMixer extends Container{
 						currentSlotStack.getItem() == Items.SUGAR || 
 						currentSlotStack.getItem() == Items.REDSTONE ||
 						currentSlotStack.getItem() == Items.GUNPOWDER ||
-						currentSlotStack.getItem() == Items.GLOWSTONE_DUST) {
+						currentSlotStack.getItem() == Items.GLOWSTONE_DUST ||
+						currentSlotStack.getItem() == ModItems.HYDRODUST ||
+						currentSlotStack.getItem() == ModItems.CONDENSED_REDSTONE ||
+						currentSlotStack.getItem() == ModItems.CONDENSED_SUGAR ||
+						currentSlotStack.getItem() == ModItems.CRYSTALLIZED_REDSTONE ||
+						currentSlotStack.getItem() == ModItems.CRYSTALLIZED_SUGAR ||
+						currentSlotStack.getItem() == ModItems.GHOST_REDSTONE ||
+						currentSlotStack.getItem() == ModItems.GHOST_SUGAR
+				) {
 					if(!this.mergeItemStack(currentSlotStack, 1, 4, false)) { 
 						return ItemStack.EMPTY;
 					}

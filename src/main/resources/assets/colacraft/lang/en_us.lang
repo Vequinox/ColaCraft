@@ -1,5 +1,4 @@
 item.can.name=Can
-item.sugar_water.name=Sugar Water
 item.aluminum_ingot.name=Aluminum Ingot
 item.electrodust.name=Electrodust
 item.hydrodust.name=Hydrodust
@@ -7,10 +6,10 @@ item.condensed_sugar.name=Condensed Sugar
 item.condensed_redstone.name=Condensed Redstone
 item.crystallized_sugar.name=Crystallized Sugar
 item.crystallized_redstone.name=Crystallized Redstone
+item.ghost_sugar.name=Ghost Sugar
+item.ghost_redstone.name=Ghost Redstone
 
 item.soda.name=Soda
-
-item.base_solution.name=Base Solution
 
 item.black_flavor_packet.name=Black Flavor Packet
 item.white_flavor_packet.name=White Flavor Packet

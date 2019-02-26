@@ -43,8 +43,12 @@ import com.vequinox.colacraft.util.StackHelper;
 public class TileEntityMixer extends TileEntity implements IInventory, ITickable{
 
 	private NonNullList<ItemStack> inventory = NonNullList.withSize(6, ItemStack.EMPTY);
+	private List<Item> allowedDusts = getAllowedDusts();
 	private String customName;
 	private ItemStack smelting = ItemStack.EMPTY;
+
+	private final int MAX_HYDRODUST_AMOUNT = 24;
+	private final int HYDRODUST_PER_WATER_LEVEL = 4;
 	
 	private int burnTime;
 	private int currentBurnTime;
@@ -52,6 +56,22 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 	private int totalCookTime = 200;
 	
 	private int tier;
+
+	private List<Item> getAllowedDusts(){
+		List<Item> dusts = new ArrayList<>();
+		dusts.add(Items.GUNPOWDER);
+		dusts.add(Items.REDSTONE);
+		dusts.add(Items.SUGAR);
+		dusts.add(ModItems.CONDENSED_REDSTONE);
+		dusts.add(ModItems.CONDENSED_SUGAR);
+		dusts.add(ModItems.CRYSTALLIZED_REDSTONE);
+		dusts.add(ModItems.CRYSTALLIZED_SUGAR);
+		dusts.add(ModItems.HYDRODUST);
+		dusts.add(ModItems.GHOST_REDSTONE);
+		dusts.add(ModItems.GHOST_SUGAR);
+
+		return dusts;
+	}
 	
 	public TileEntity setTier(int tier) {
 		this.tier = tier;
@@ -236,9 +256,9 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 			canSmelt = false;
 		}else if(!(this.inventory.get(0).getItem() instanceof ItemSolution)){
 			canSmelt = false;
-		}else if(StackHelper.hasKey(this.inventory.get(0), "powder_parts") && getPowderCount() > ((ItemSolution)this.inventory.get(0).getItem()).getMaxPowderParts() - StackHelper.getTag(this.inventory.get(0)).getInteger("powder_parts")) {
+		}else if(StackHelper.hasKey(this.inventory.get(0), "powder_parts") && getPotentialPowderCount() > ((ItemSolution)this.inventory.get(0).getItem()).getMaxPowderParts() - StackHelper.getTag(this.inventory.get(0)).getInteger("powder_parts")) {
 			canSmelt = false;
-		}else if(!StackHelper.hasKey(this.inventory.get(0), "powder_parts") && getPowderCount() > ((ItemSolution)this.inventory.get(0).getItem()).getMaxPowderParts()){
+		}else if(!StackHelper.hasKey(this.inventory.get(0), "powder_parts") && getPotentialPowderCount() > ((ItemSolution)this.inventory.get(0).getItem()).getMaxPowderParts()){
 			canSmelt = false;
 		}else if(StackHelper.hasKey(this.inventory.get(0),"water_parts") && getFlavorPacketCount() > StackHelper.getTag(this.inventory.get(0)).getInteger("water_parts")) {
 			canSmelt = false;
@@ -255,11 +275,7 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 			for(int i = 1; i < 4; i++) {
 				ItemStack ingredient = this.inventory.get(i);
 				if(!ingredient.isEmpty()) {
-					if(!(ingredient.getItem() instanceof ItemFlavorPacket)
-							&& ingredient.getItem() != Items.SUGAR
-							&& ingredient.getItem() != Items.REDSTONE
-							&& ingredient.getItem() != Items.GUNPOWDER
-							&& ingredient.getItem() != Items.GLOWSTONE_DUST) {
+					if(!(ingredient.getItem() instanceof ItemFlavorPacket) && !allowedDusts.contains(ingredient.getItem())) {
 						canSmelt = false;
 					}
 				}
@@ -269,12 +285,18 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 		return canSmelt;
 	}
 	
-	private int getPowderCount() {
+	private int getPotentialPowderCount() {
 		int powderCount = 0;
 		for(int i = 1; i < 4; i++) {
 			Item inventoryItem = this.inventory.get(i).getItem();
-			if(inventoryItem == Items.SUGAR || inventoryItem == Items.REDSTONE || inventoryItem == Items.GUNPOWDER || inventoryItem == Items.GLOWSTONE_DUST) {
-				powderCount += this.inventory.get(i).getCount();
+			if(allowedDusts.contains(inventoryItem)) {
+				if(inventoryItem == ModItems.CONDENSED_REDSTONE || inventoryItem == ModItems.CONDENSED_SUGAR || inventoryItem == ModItems.CRYSTALLIZED_SUGAR || inventoryItem == ModItems.CRYSTALLIZED_REDSTONE){
+					powderCount += (this.inventory.get(i).getCount() * 8);
+				}else if(inventoryItem == ModItems.HYDRODUST){
+					powderCount += (this.inventory.get(i).getCount() * 4);
+				}else if(inventoryItem != ModItems.GHOST_REDSTONE && inventoryItem != ModItems.GHOST_SUGAR){
+					powderCount += this.inventory.get(i).getCount();
+				}
 			}
 		}
 
@@ -298,7 +320,7 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 		int sugarAmount = 0;
 		int redstoneAmount = 0;
 		int gunpowderAmount = 0;
-		int glowstoneAmount = 0;
+		int hydrodustAmount = 0;
 		int totalPowderAmount = 0;
 		Map<ItemFlavorPacket, Integer> packets = new HashMap<>();
 		
@@ -318,14 +340,30 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 				}else if(ingredient.getItem() == Items.SUGAR) {
 					sugarAmount += ingredient.getCount();
 					totalPowderAmount += ingredient.getCount();
+				}else if(ingredient.getItem() == ModItems.CONDENSED_SUGAR){
+					sugarAmount += (ingredient.getCount() * 8);
+					totalPowderAmount += (ingredient.getCount() * 8);
+				}else if(ingredient.getItem() == ModItems.CRYSTALLIZED_SUGAR) {
+					sugarAmount += (ingredient.getCount() * 16);
+					totalPowderAmount += (ingredient.getCount() * 8);
+				}else if(ingredient.getItem() == ModItems.GHOST_SUGAR){
+					sugarAmount += ingredient.getCount();
 				}else if(ingredient.getItem() == Items.REDSTONE) {
 					redstoneAmount += ingredient.getCount();
 					totalPowderAmount += ingredient.getCount();
+				}else if(ingredient.getItem() == ModItems.CONDENSED_REDSTONE) {
+					redstoneAmount += (ingredient.getCount() * 8);
+					totalPowderAmount += (ingredient.getCount() * 8);
+				}else if(ingredient.getItem() == ModItems.CRYSTALLIZED_REDSTONE) {
+					redstoneAmount += (ingredient.getCount() * 40);
+					totalPowderAmount += (ingredient.getCount() * 8);
+				}else if(ingredient.getItem() == ModItems.GHOST_REDSTONE){
+					redstoneAmount += ingredient.getCount();
 				}else if(ingredient.getItem() == Items.GUNPOWDER) {
 					gunpowderAmount += ingredient.getCount();
 					totalPowderAmount += ingredient.getCount();
-				}else if(ingredient.getItem() == Items.GLOWSTONE_DUST) {
-					glowstoneAmount += ingredient.getCount();
+				}else if(ingredient.getItem() == ModItems.HYDRODUST) {
+					hydrodustAmount += ingredient.getCount();
 				}
 			}
 		}
@@ -342,13 +380,13 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 		solutionTag.setInteger("redstone_amount", solutionTag.getInteger("redstone_amount") + redstoneAmount);
 		solutionTag.setInteger("gunpowder_amount", solutionTag.getInteger("gunpowder_amount") + gunpowderAmount);
 		
-		if(solutionTag.getInteger("glowstone_amount") + glowstoneAmount > 96) {
-			int glowstoneAmountToAdd = solutionTag.getInteger("glowstone_amount") + (96 - (solutionTag.getInteger("glowstone_amount")));
-			solutionTag.setInteger("glowstone_amount", glowstoneAmountToAdd);
-			solutionTag.setInteger("powder_parts", solutionTag.getInteger("powder_parts") + glowstoneAmountToAdd);
+		if(solutionTag.getInteger("hydro_amount") + hydrodustAmount > MAX_HYDRODUST_AMOUNT) {
+			int hydrodustAmountToAdd = MAX_HYDRODUST_AMOUNT - (solutionTag.getInteger("hydrodust_amount"));
+			solutionTag.setInteger("hydrodust_amount", MAX_HYDRODUST_AMOUNT);
+			solutionTag.setInteger("powder_parts", solutionTag.getInteger("powder_parts") + (hydrodustAmountToAdd * 4));
 		}else {
-			solutionTag.setInteger("glowstone_amount", solutionTag.getInteger("glowstone_amount") + glowstoneAmount);
-			solutionTag.setInteger("powder_parts", solutionTag.getInteger("powder_parts") + glowstoneAmount);
+			solutionTag.setInteger("hydrodust_amount", solutionTag.getInteger("hydrodust_amount") + hydrodustAmount);
+			solutionTag.setInteger("powder_parts", solutionTag.getInteger("powder_parts") + (hydrodustAmount * 4));
 		}
 		
 		solutionTag.setInteger("powder_parts", solutionTag.getInteger("powder_parts") + totalPowderAmount);
@@ -360,7 +398,7 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 	}
 
 	private int getTotalWaterParts(ItemStack solution, NBTTagCompound solutionTag){
-		return ((ItemSolution)solution.getItem()).getStartingWaterParts() + solutionTag.getInteger("glowstone_amount")/16;
+		return ((ItemSolution)solution.getItem()).getStartingWaterParts() + solutionTag.getInteger("hydrodust_amount") / HYDRODUST_PER_WATER_LEVEL;
 	}
 	
 	public void smeltItem() {
@@ -381,9 +419,9 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 			
 			for(ItemStack ingredient : ingredients) {
 				if (!ingredient.isEmpty()) {
-					if (ingredient.getItem() == Items.GLOWSTONE_DUST) {
-						if (StackHelper.getTag(result).getInteger("glowstone_amount") == 96) {
-							ingredient.shrink(96 - StackHelper.getTag(solution).getInteger("glowstone_amount"));
+					if (ingredient.getItem() == ModItems.HYDRODUST) {
+						if (StackHelper.getTag(result).getInteger("hydrodust_amount") == MAX_HYDRODUST_AMOUNT) {
+							ingredient.shrink(MAX_HYDRODUST_AMOUNT - StackHelper.getTag(solution).getInteger("hydrodust_amount"));
 						} else {
 							ingredient.shrink(ingredient.getCount());
 						}
@@ -416,14 +454,9 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 		if(index == 5) {
 			return false;
 		}else if(index != 4) {
-			if(index == 0 && stack.getItem() == ModItems.BASE_SOLUTION) {
+			if(index == 0 && stack.getItem() instanceof ItemSolution) {
 				return true;
-			}else if((index == 1 || index == 2 || index == 3) 
-					&& (stack.getItem() == Items.SUGAR || 
-					stack.getItem() == Items.REDSTONE || 
-					stack.getItem() == Items.GUNPOWDER || 
-					stack.getItem() == Items.GLOWSTONE_DUST ||
-					stack.getItem() instanceof ItemFlavorPacket)) {
+			}else if((index == 1 || index == 2 || index == 3) && (allowedDusts.contains(stack.getItem()) || stack.getItem() instanceof ItemFlavorPacket)) {
 				return true;
 			}else {
 				return false;

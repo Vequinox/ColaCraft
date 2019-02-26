@@ -1,0 +1,20 @@
+{
+  "pattern": [
+    "ccc",
+    "cec",
+    "ccc"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "c": {
+      "item": "colacraft:crystallized_sugar"
+    },
+    "e": {
+      "item": "minecraft:ender_pearl"
+    }
+  },
+  "result": {
+    "item": "colacraft:ghost_sugar",
+    "count": 8
+  }
+}

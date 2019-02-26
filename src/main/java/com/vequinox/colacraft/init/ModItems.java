@@ -19,8 +19,10 @@ public class ModItems {
 	public static final Item HYDRODUST = new ItemBase("hydrodust");
 	public static final Item CONDENSED_SUGAR = new ItemBase("condensed_sugar");
 	public static final Item CRYSTALLIZED_SUGAR = new ItemBase("crystallized_sugar");
+	public static final Item GHOST_SUGAR = new ItemBase("ghost_sugar");
 	public static final Item CONDENSED_REDSTONE = new ItemBase("condensed_redstone");
 	public static final Item CRYSTALLIZED_REDSTONE = new ItemBase("crystallized_redstone");
+	public static final Item GHOST_REDSTONE = new ItemBase("ghost_redstone");
 	
 	public static final ItemFlavorPacket BLACK_FLAVOR_PACKET = new ItemFlavorPacket("black_flavor_packet", MobEffects.SLOWNESS);
 	public static final ItemFlavorPacket WHITE_FLAVOR_PACKET = new ItemFlavorPacket("white_flavor_packet", MobEffects.SPEED);
