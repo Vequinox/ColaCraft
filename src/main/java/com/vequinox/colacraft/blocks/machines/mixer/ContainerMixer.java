@@ -5,6 +5,7 @@ import com.vequinox.colacraft.blocks.machines.mixer.slots.SlotMixerOutput;
 import com.vequinox.colacraft.init.ModItems;
 import com.vequinox.colacraft.items.ItemFlavorPacket;
 
+import com.vequinox.colacraft.items.ItemSolution;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Items;
@@ -100,7 +101,7 @@ public class ContainerMixer extends Container{
 				
 				currentSlot.onSlotChange(currentSlotStack, stack);
 			}else if(index != 4 && index != 3 && index != 2 && index != 1 && index != 0) {
-				if(currentSlotStack.getItem() == ModItems.BASE_SOLUTION) {
+				if(currentSlotStack.getItem() instanceof ItemSolution) {
 					if(!this.mergeItemStack(currentSlotStack, 0, 1, false)) return ItemStack.EMPTY;
 				}else if(currentSlotStack.getItem() instanceof ItemFlavorPacket || 
 						currentSlotStack.getItem() == Items.SUGAR || 
