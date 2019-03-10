@@ -10,8 +10,13 @@ import com.vequinox.colacraft.util.PotionEffectWrapper;
 
 import com.vequinox.colacraft.util.Reference;
 import com.vequinox.colacraft.util.StackHelper;
+import net.minecraft.client.renderer.ItemMeshDefinition;
+import net.minecraft.client.renderer.block.model.ModelBakery;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -19,11 +24,16 @@ import net.minecraft.nbt.NBTTagString;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemSoda extends ItemFood implements IHasModel{
+	private String name;
 
 	public ItemSoda(String name, int hunger, float saturation, boolean isWolfFood) {
 		super(hunger, saturation, isWolfFood);
+		this.name = name;
 		setAlwaysEdible();
 		setTranslationKey(name);
 		setRegistryName(name);
@@ -42,12 +52,38 @@ public class ItemSoda extends ItemFood implements IHasModel{
 					}
 				}
 			}
+			Item emptyCan = ((ItemSoda)stack.getItem()).getCanType();
+			if(!player.inventory.addItemStackToInventory(new ItemStack(emptyCan))){
+				player.dropItem(new ItemStack(emptyCan), false);
+			}
         }
+	}
+
+	@Override
+	public EnumAction getItemUseAction(ItemStack stack) {
+		return EnumAction.DRINK;
 	}
 
 	@Override
 	public void registerModels() {
 		Main.proxy.registerItemRenderer(this, 0, "inventory");
+	}
+
+	private Item getCanType(){
+		switch(this.name){
+			case "soda":
+				return ModItems.CAN;
+			//case "gold_soda":
+			//	return ModItems.GOLD_CAN;
+			//case "holy_soda":
+			//	return ModItems.HOLY_CAN;
+			//case "demonic_soda":
+			//	return ModItems.DEMONIC_CAN;
+			//case "ancient_soda":
+			//	return ModItems.ANCIENT_CAN;
+			default:
+				return ModItems.CAN;
+		}
 	}
 
 	private Potion getMobEffect(String key){
@@ -64,21 +100,21 @@ public class ItemSoda extends ItemFood implements IHasModel{
 				return MobEffects.STRENGTH;
 			case "red_flavor_packet_level":
 				return MobEffects.INSTANT_HEALTH;
-			case "minecraft:instant_damage"://does not exist yet as a flavor packet
+			case "instant_damage_flavor_packet_level":
 				return MobEffects.INSTANT_DAMAGE;
-			case "minecraft:jump_boost"://does not exist yet as a flavor packet
+			case "jump_boost_flavor_packet_level":
 				return MobEffects.JUMP_BOOST;
 			case "cyan_flavor_packet_level":
 				return MobEffects.NAUSEA;
 			case "pink_flavor_packet_level":
 				return MobEffects.REGENERATION;
-			case "minecraft:resistance"://does not exist yet as a flavor packet
+			case "resistance_flavor_packet_level":
 				return MobEffects.RESISTANCE;
 			case "orange_flavor_packet_level":
 				return MobEffects.FIRE_RESISTANCE;
 			case "blue_flavor_packet_level":
 				return MobEffects.WATER_BREATHING;
-			case "minecraft:invisibility"://does not exist yet as a flavor packet
+			case "invisibility_flavor_packet_level":
 				return MobEffects.INVISIBILITY;
 			case "gray_flavor_packet_level":
 				return MobEffects.BLINDNESS;
@@ -92,19 +128,19 @@ public class ItemSoda extends ItemFood implements IHasModel{
 				return MobEffects.POISON;
 			case "light_gray_flavor_packet_level":
 				return MobEffects.WITHER;
-			case "minecraft:health_boost"://does not exist yet as a flavor packet
+			case "health_boost_flavor_packet_level":
 				return MobEffects.HEALTH_BOOST;
-			case "minecraft:absorption"://does not exist yet as a flavor packet
+			case "absorption_flavor_packet_level":
 				return MobEffects.ABSORPTION;
-			case "minecraft:saturation"://does not exist yet as a flavor packet
+			case "saturation_flavor_packet_level":
 				return MobEffects.SATURATION;
-			case "minecraft:glowing"://does not exist yet as a flavor packet
+			case "glowing_flavor_packet_level":
 				return MobEffects.GLOWING;
-			case "minecraft:levitation"://does not exist yet as a flavor packet
+			case "levitation_flavor_packet_level":
 				return MobEffects.LEVITATION;
-			case "minecraft:luck"://does not exist yet as a flavor packet
+			case "luck_flavor_packet_level":
 				return MobEffects.LUCK;
-			case "minecraft:unluck"://does not exist yet as a flavor packet
+			case "unluck_flavor_packet_level":
 				return MobEffects.UNLUCK;
 			default:
 				return null;
