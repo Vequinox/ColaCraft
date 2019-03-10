@@ -7,11 +7,13 @@ import com.vequinox.colacraft.items.*;
 
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ModItems {
 	public static final List<Item> ITEMS = new ArrayList<Item>();
 	public static final Item CAN = new ItemCan("can", 200, 0);
-	public static final Item SODA = new ItemSoda("soda", 2, 0.6F, false);
+	public static final ItemSoda SODA = new ItemSoda("soda", 2, 0.6F, false);
 	public static final Item EMPTY_SMALL_VIAL = new ItemBase("empty_small_vial");
 	public static final Item EMPTY_VIAL = new ItemBase("empty_vial");
 	public static final Item EMPTY_LARGE_VIAL = new ItemBase("empty_large_vial");
@@ -29,20 +31,32 @@ public class ModItems {
 	public static final Item CRYSTALLIZED_REDSTONE = new ItemBase("crystallized_redstone");
 	public static final Item GHOST_REDSTONE = new ItemBase("ghost_redstone");
 	
-	public static final ItemFlavorPacket BLACK_FLAVOR_PACKET = new ItemFlavorPacket("black_flavor_packet", MobEffects.SLOWNESS);
-	public static final ItemFlavorPacket WHITE_FLAVOR_PACKET = new ItemFlavorPacket("white_flavor_packet", MobEffects.SPEED);
-	public static final ItemFlavorPacket RED_FLAVOR_PACKET = new ItemFlavorPacket("red_flavor_packet", MobEffects.INSTANT_HEALTH);
-	public static final ItemFlavorPacket BLUE_FLAVOR_PACKET = new ItemFlavorPacket("blue_flavor_packet", MobEffects.WATER_BREATHING);
-	public static final ItemFlavorPacket GREEN_FLAVOR_PACKET = new ItemFlavorPacket("green_flavor_packet", MobEffects.HUNGER);
-	public static final ItemFlavorPacket YELLOW_FLAVOR_PACKET = new ItemFlavorPacket("yellow_flavor_packet", MobEffects.POISON);
-	public static final ItemFlavorPacket BROWN_FLAVOR_PACKET = new ItemFlavorPacket("brown_flavor_packet", MobEffects.STRENGTH);
-	public static final ItemFlavorPacket ORANGE_FLAVOR_PACKET = new ItemFlavorPacket("orange_flavor_packet", MobEffects.FIRE_RESISTANCE);
-	public static final ItemFlavorPacket CYAN_FLAVOR_PACKET = new ItemFlavorPacket("cyan_flavor_packet", MobEffects.NAUSEA);
-	public static final ItemFlavorPacket PURPLE_FLAVOR_PACKET = new ItemFlavorPacket("purple_flavor_packet", MobEffects.WEAKNESS);
-	public static final ItemFlavorPacket GRAY_FLAVOR_PACKET = new ItemFlavorPacket("gray_flavor_packet", MobEffects.BLINDNESS);
-	public static final ItemFlavorPacket LIGHT_BLUE_FLAVOR_PACKET = new ItemFlavorPacket("light_blue_flavor_packet", MobEffects.HASTE);
-	public static final ItemFlavorPacket PINK_FLAVOR_PACKET = new ItemFlavorPacket("pink_flavor_packet", MobEffects.REGENERATION);
-	public static final ItemFlavorPacket LIME_FLAVOR_PACKET = new ItemFlavorPacket("lime_flavor_packet", MobEffects.NIGHT_VISION);
-	public static final ItemFlavorPacket MAGENTA_FLAVOR_PACKET = new ItemFlavorPacket("magenta_flavor_packet", MobEffects.MINING_FATIGUE);
-	public static final ItemFlavorPacket LIGHT_GRAY_FLAVOR_PACKET = new ItemFlavorPacket("light_gray_flavor_packet", MobEffects.WITHER);
+	public static final ItemFlavorPacket BLACK_FLAVOR_PACKET = new ItemFlavorPacket("black_flavor_packet");
+	public static final ItemFlavorPacket WHITE_FLAVOR_PACKET = new ItemFlavorPacket("white_flavor_packet");
+	public static final ItemFlavorPacket RED_FLAVOR_PACKET = new ItemFlavorPacket("red_flavor_packet");
+	public static final ItemFlavorPacket BLUE_FLAVOR_PACKET = new ItemFlavorPacket("blue_flavor_packet");
+	public static final ItemFlavorPacket GREEN_FLAVOR_PACKET = new ItemFlavorPacket("green_flavor_packet");
+	public static final ItemFlavorPacket YELLOW_FLAVOR_PACKET = new ItemFlavorPacket("yellow_flavor_packet");
+	public static final ItemFlavorPacket BROWN_FLAVOR_PACKET = new ItemFlavorPacket("brown_flavor_packet");
+	public static final ItemFlavorPacket ORANGE_FLAVOR_PACKET = new ItemFlavorPacket("orange_flavor_packet");
+	public static final ItemFlavorPacket CYAN_FLAVOR_PACKET = new ItemFlavorPacket("cyan_flavor_packet");
+	public static final ItemFlavorPacket PURPLE_FLAVOR_PACKET = new ItemFlavorPacket("purple_flavor_packet");
+	public static final ItemFlavorPacket GRAY_FLAVOR_PACKET = new ItemFlavorPacket("gray_flavor_packet");
+	public static final ItemFlavorPacket LIGHT_BLUE_FLAVOR_PACKET = new ItemFlavorPacket("light_blue_flavor_packet");
+	public static final ItemFlavorPacket PINK_FLAVOR_PACKET = new ItemFlavorPacket("pink_flavor_packet");
+	public static final ItemFlavorPacket LIME_FLAVOR_PACKET = new ItemFlavorPacket("lime_flavor_packet");
+	public static final ItemFlavorPacket MAGENTA_FLAVOR_PACKET = new ItemFlavorPacket("magenta_flavor_packet");
+	public static final ItemFlavorPacket LIGHT_GRAY_FLAVOR_PACKET = new ItemFlavorPacket("light_gray_flavor_packet");
+
+	public static final ItemFlavorPacket INSTANT_DAMAGE_FLAVOR_PACKET = new ItemFlavorPacket("instant_damage_flavor_packet");
+	public static final ItemFlavorPacket JUMP_BOOST_FLAVOR_PACKET = new ItemFlavorPacket("jump_boost_flavor_packet");
+	public static final ItemFlavorPacket RESISTANCE_FLAVOR_PACKET = new ItemFlavorPacket("resistance_flavor_packet");
+	public static final ItemFlavorPacket INVISIBILITY_FLAVOR_PACKET = new ItemFlavorPacket("invisibility_flavor_packet");
+	public static final ItemFlavorPacket HEALTH_BOOST_FLAVOR_PACKET = new ItemFlavorPacket("health_boost_flavor_packet");
+	public static final ItemFlavorPacket ABSORPTION_FLAVOR_PACKET = new ItemFlavorPacket("absorption_flavor_packet");
+	public static final ItemFlavorPacket SATURATION_FLAVOR_PACKET = new ItemFlavorPacket("saturation_flavor_packet");
+	public static final ItemFlavorPacket GLOWING_FLAVOR_PACKET = new ItemFlavorPacket("glowing_flavor_packet");
+	public static final ItemFlavorPacket LEVITATION_FLAVOR_PACKET = new ItemFlavorPacket("levitation_flavor_packet");
+	public static final ItemFlavorPacket LUCK_FLAVOR_PACKET = new ItemFlavorPacket("luck_flavor_packet");
+	public static final ItemFlavorPacket UNLUCK_FLAVOR_PACKET = new ItemFlavorPacket("unluck_flavor_packet");
 }

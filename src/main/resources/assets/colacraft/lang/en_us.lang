@@ -19,22 +19,34 @@ item.ghost_redstone.name=Ghost Redstone
 
 item.soda.name=Soda
 
-item.black_flavor_packet.name=Black Flavor Packet
-item.white_flavor_packet.name=White Flavor Packet
-item.red_flavor_packet.name=Red Flavor Packet
-item.blue_flavor_packet.name=Blue Flavor Packet
-item.green_flavor_packet.name=Green Flavor Packet
-item.yellow_flavor_packet.name=Yellow Flavor Packet
-item.brown_flavor_packet.name=Brown Flavor Packet
-item.orange_flavor_packet.name=Orange Flavor Packet
-item.cyan_flavor_packet.name=Cyan Flavor Packet
-item.purple_flavor_packet.name=Purple Flavor Packet
-item.gray_flavor_packet.name=Gray Flavor Packet
-item.light_blue_flavor_packet.name=Light Blue Flavor Packet
-item.pink_flavor_packet.name=Pink Flavor Packet
-item.lime_flavor_packet.name=Lime Flavor Packet
-item.magenta_flavor_packet.name=Magenta Flavor Packet
-item.light_gray_flavor_packet.name=Light Gray Flavor Packet
+item.black_flavor_packet.name=Flavor Packet of Lethargy
+item.white_flavor_packet.name=Flavor Packet of Alacrity
+item.red_flavor_packet.name=Flavor Packet of Constitution
+item.blue_flavor_packet.name=Flavor Packet of Aquatic Respiration
+item.green_flavor_packet.name=Flavor Packet of Appetence
+item.yellow_flavor_packet.name=Flavor Packet of Toxicity
+item.brown_flavor_packet.name=Flavor Packet of Fortitude
+item.orange_flavor_packet.name=Flavor Packet of Pyro Imuunity
+item.cyan_flavor_packet.name=Flavor Packet of Abhorrence
+item.purple_flavor_packet.name=Flavor Packet of Feebility
+item.gray_flavor_packet.name=Flavor Packet of Myopia
+item.light_blue_flavor_packet.name=Flavor Packet of Alacrity
+item.pink_flavor_packet.name=Flavor Packet of Reclamation
+item.lime_flavor_packet.name=Flavor Packet of Photoreception
+item.magenta_flavor_packet.name=Flavor Packet of Debility
+item.light_gray_flavor_packet.name=Flavor Packet of Atrophy
+item.instant_damage_flavor_packet.name=Flavor Packet of Harm
+item.jump_boost_flavor_packet.name=Flavor Packet of Leaping
+item.resistance_flavor_packet.name=Flavor Packet of Immunity
+item.invisibility_flavor_packet.name=Flavor Packet of Imperceptibility
+item.health_boost_flavor_packet.name=Flavor Packet of Vigor
+item.absorption_flavor_packet.name=Flavor Packet of Imbibity
+item.saturation_flavor_packet.name=Flavor Packet of Engorgement
+item.glowing_flavor_packet.name=Flavor Packet of Vibrancy
+item.levitation_flavor_packet.name=Flavor Packet of Suspension
+item.luck_flavor_packet.name=Flavor Packet of Prosperity
+item.unluck_flavor_packet.name=Flavor Packet of Tragedy
+
 
 tile.ore_aluminum.name=Aluminum Ore
 
