@@ -21,7 +21,6 @@ public class ItemSolution extends ItemBase{
 
 	public ItemSolution(String name, int waterParts, int maxPowderAmount) {
 		super(name);
-		ModItems.ITEMS.add(this);
 		this.waterParts = waterParts;
 		this.maxPowderAmount = maxPowderAmount;
 	}
