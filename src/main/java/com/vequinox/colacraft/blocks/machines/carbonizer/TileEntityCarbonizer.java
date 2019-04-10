@@ -32,6 +32,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -226,7 +227,7 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 		boolean canSmelt = true;
 		if(this.inventory.get(0).isEmpty() || this.inventory.get(1).isEmpty()) {
 			canSmelt = false;
-		}else if(this.inventory.get(0).getItem() != ModItems.CAN || !(this.inventory.get(1).getItem() instanceof ItemSolution)){
+		}else if(!(this.inventory.get(0).getItem() instanceof ItemCan) || !(this.inventory.get(1).getItem() instanceof ItemSolution)){
 			canSmelt = false;
 		}else if(!this.inventory.get(3).isEmpty()) {
 			ItemStack potentialSoda = getNewSoda(this.inventory.get(0), this.inventory.get(1));
@@ -239,7 +240,7 @@ public class TileEntityCarbonizer extends TileEntity implements IInventory, ITic
 	}
 
 	private ItemStack getNewSoda(ItemStack can, ItemStack solution){
-		ItemStack soda = new ItemStack(ModItems.SODA);
+		ItemStack soda = ((ItemCan)can.getItem()).getSodaType();
 		NBTTagCompound tagComp = StackHelper.getTag(soda);
 
 		int sugarAmount = solution.getTagCompound().getInteger("sugar_amount");

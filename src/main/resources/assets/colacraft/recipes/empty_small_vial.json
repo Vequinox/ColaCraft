@@ -1,0 +1,18 @@
+{
+  "pattern": [
+    "aba",
+    " a "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "a": {
+      "item": "colacraft:aluminum_ingot"
+    },
+    "b": {
+      "item": "minecraft:glass_bottle"
+    }
+  },
+  "result": {
+    "item": "colacraft:empty_small_vial"
+  }
+}

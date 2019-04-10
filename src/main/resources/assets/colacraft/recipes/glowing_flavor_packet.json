@@ -1,0 +1,22 @@
+{
+  "pattern": [
+    "psp",
+    "sis",
+    "psp"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "p": {
+      "item": "minecraft:paper"
+    },
+    "s": {
+      "item": "minecraft:sugar"
+    },
+    "i": {
+      "item": "minecraft:glowstone_dust"
+    }
+  },
+  "result": {
+    "item": "colacraft:glowing_flavor_packet"
+  }
+}

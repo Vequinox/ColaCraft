@@ -1,4 +1,9 @@
 item.can.name=Can
+item.gold_can.name=Gold Can
+item.holy_can.name=Holy Can
+item.demonic_can.name=Demonic Can
+item.ancient_can.name=Ancient Can
+
 item.aluminum_ingot.name=Aluminum Ingot
 
 item.empty_small_vial.name=Small Vial
@@ -10,6 +15,7 @@ item.large_vial_water.name=Large Vial of Water
 
 item.electrodust.name=Electrodust
 item.hydrodust.name=Hydrodust
+item.ghost_hydrodust.name=Ghost Hydrodust
 item.condensed_sugar.name=Condensed Sugar
 item.condensed_redstone.name=Condensed Redstone
 item.crystallized_sugar.name=Crystallized Sugar
@@ -18,6 +24,10 @@ item.ghost_sugar.name=Ghost Sugar
 item.ghost_redstone.name=Ghost Redstone
 
 item.soda.name=Soda
+item.gold_soda.name=Gold Soda
+item.holy_soda.name=Holy Soda
+item.demonic_soda.name=Demonic Soda
+item.ancient_soda.name=Ancient Soda
 
 item.black_flavor_packet.name=Flavor Packet of Lethargy
 item.white_flavor_packet.name=Flavor Packet of Alacrity
@@ -26,11 +36,11 @@ item.blue_flavor_packet.name=Flavor Packet of Aquatic Respiration
 item.green_flavor_packet.name=Flavor Packet of Appetence
 item.yellow_flavor_packet.name=Flavor Packet of Toxicity
 item.brown_flavor_packet.name=Flavor Packet of Fortitude
-item.orange_flavor_packet.name=Flavor Packet of Pyro Imuunity
+item.orange_flavor_packet.name=Flavor Packet of Pyro Immunity
 item.cyan_flavor_packet.name=Flavor Packet of Abhorrence
 item.purple_flavor_packet.name=Flavor Packet of Feebility
 item.gray_flavor_packet.name=Flavor Packet of Myopia
-item.light_blue_flavor_packet.name=Flavor Packet of Alacrity
+item.light_blue_flavor_packet.name=Flavor Packet of Apacity
 item.pink_flavor_packet.name=Flavor Packet of Reclamation
 item.lime_flavor_packet.name=Flavor Packet of Photoreception
 item.magenta_flavor_packet.name=Flavor Packet of Debility

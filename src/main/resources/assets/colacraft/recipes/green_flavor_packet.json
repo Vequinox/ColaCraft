@@ -1,0 +1,22 @@
+{
+  "pattern": [
+    "psp",
+    "sis",
+    "psp"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "p": {
+      "item": "minecraft:paper"
+    },
+    "s": {
+      "item": "minecraft:sugar"
+    },
+    "i": {
+      "item": "minecraft:rotten_flesh"
+    }
+  },
+  "result": {
+    "item": "colacraft:green_flavor_packet"
+  }
+}

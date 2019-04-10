@@ -1,0 +1,18 @@
+{
+  "pattern": [
+    "ebe",
+    " e "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "e": {
+      "item": "minecraft:emerald"
+    },
+    "b": {
+      "item": "minecraft:glass_bottle"
+    }
+  },
+  "result": {
+    "item": "colacraft:empty_large_vial"
+  }
+}

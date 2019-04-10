@@ -13,6 +13,8 @@ import com.vequinox.colacraft.util.StackHelper;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.EnumAction;
@@ -28,6 +30,8 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
+
 public class ItemSoda extends ItemFood implements IHasModel{
 	private String name;
 
@@ -39,6 +43,21 @@ public class ItemSoda extends ItemFood implements IHasModel{
 		setRegistryName(name);
 		setCreativeTab(Reference.TAB);
 		ModItems.ITEMS.add(this);
+	}
+
+	@Override
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+		NBTTagCompound tag = StackHelper.getTag(stack);
+
+		if(tag.hasKey("duration")){
+			tooltip.add("Duration: " + tag.getInteger("duration")/20 + " seconds");
+		}
+
+		for(String key : tag.getKeySet()){
+			if(key.contains("level")){
+				tooltip.add("LVL " + (tag.getInteger(key) + 1) + " " + getMobEffectName(key));
+			}
+		}
 	}
 
 	@Override
@@ -73,14 +92,14 @@ public class ItemSoda extends ItemFood implements IHasModel{
 		switch(this.name){
 			case "soda":
 				return ModItems.CAN;
-			//case "gold_soda":
-			//	return ModItems.GOLD_CAN;
-			//case "holy_soda":
-			//	return ModItems.HOLY_CAN;
-			//case "demonic_soda":
-			//	return ModItems.DEMONIC_CAN;
-			//case "ancient_soda":
-			//	return ModItems.ANCIENT_CAN;
+			case "gold_soda":
+				return ModItems.GOLD_CAN;
+			case "holy_soda":
+				return ModItems.HOLY_CAN;
+			case "demonic_soda":
+				return ModItems.DEMONIC_CAN;
+			case "ancient_soda":
+				return ModItems.ANCIENT_CAN;
 			default:
 				return ModItems.CAN;
 		}
@@ -142,6 +161,67 @@ public class ItemSoda extends ItemFood implements IHasModel{
 				return MobEffects.LUCK;
 			case "unluck_flavor_packet_level":
 				return MobEffects.UNLUCK;
+			default:
+				return null;
+		}
+	}
+
+	private String getMobEffectName(String key){
+		switch(key){
+			case "white_flavor_packet_level":
+				return I18n.format(MobEffects.SPEED.getName());
+			case "black_flavor_packet_level":
+				return I18n.format(MobEffects.SLOWNESS.getName());
+			case "light_blue_flavor_packet_level":
+				return I18n.format(MobEffects.HASTE.getName());
+			case "magenta_flavor_packet_level":
+				return I18n.format(MobEffects.MINING_FATIGUE.getName());
+			case "brown_flavor_packet_level":
+				return I18n.format(MobEffects.STRENGTH.getName());
+			case "red_flavor_packet_level":
+				return I18n.format(MobEffects.INSTANT_HEALTH.getName());
+			case "instant_damage_flavor_packet_level":
+				return I18n.format(MobEffects.INSTANT_DAMAGE.getName());
+			case "jump_boost_flavor_packet_level":
+				return I18n.format(MobEffects.JUMP_BOOST.getName());
+			case "cyan_flavor_packet_level":
+				return I18n.format(MobEffects.NAUSEA.getName());
+			case "pink_flavor_packet_level":
+				return I18n.format(MobEffects.REGENERATION.getName());
+			case "resistance_flavor_packet_level":
+				return I18n.format(MobEffects.RESISTANCE.getName());
+			case "orange_flavor_packet_level":
+				return I18n.format(MobEffects.FIRE_RESISTANCE.getName());
+			case "blue_flavor_packet_level":
+				return I18n.format(MobEffects.WATER_BREATHING.getName());
+			case "invisibility_flavor_packet_level":
+				return I18n.format(MobEffects.INVISIBILITY.getName());
+			case "gray_flavor_packet_level":
+				return I18n.format(MobEffects.BLINDNESS.getName());
+			case "lime_flavor_packet_level":
+				return I18n.format(MobEffects.NIGHT_VISION.getName());
+			case "green_flavor_packet_level":
+				return I18n.format(MobEffects.HUNGER.getName());
+			case "purple_flavor_packet_level":
+				return I18n.format(MobEffects.WEAKNESS.getName());
+			case "yellow_flavor_packet_level":
+				return I18n.format(MobEffects.POISON.getName());
+			case "light_gray_flavor_packet_level":
+				return I18n.format(MobEffects.WITHER.getName());
+			case "health_boost_flavor_packet_level":
+				return I18n.format(MobEffects.HEALTH_BOOST.getName());
+			case "absorption_flavor_packet_level":
+				return I18n.format(MobEffects.ABSORPTION.getName());
+			case "saturation_flavor_packet_level":
+				return I18n.format(MobEffects.SATURATION.getName());
+			case "glowing_flavor_packet_level":
+				return I18n.format(MobEffects.GLOWING.getName());
+			case "levitation_flavor_packet_level":
+				return I18n.format(MobEffects.LEVITATION.getName());
+			case "luck_flavor_packet_level":
+				return I18n.format(MobEffects.LUCK.getName());
+			case "unluck_flavor_packet_level":
+				return I18n.format(MobEffects.UNLUCK.getName());
 			default:
 				return null;
 		}

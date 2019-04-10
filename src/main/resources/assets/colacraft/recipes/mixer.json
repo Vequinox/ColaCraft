@@ -1,0 +1,22 @@
+{
+  "pattern": [
+    "FFF",
+    "afa",
+    "aaa"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "a": {
+      "item": "colacraft:aluminum_ingot"
+    },
+    "f": {
+      "item": "minecraft:furnace"
+    },
+    "F": {
+      "item": "minecraft:flint"
+    }
+  },
+  "result": {
+    "item": "colacraft:mixer"
+  }
+}

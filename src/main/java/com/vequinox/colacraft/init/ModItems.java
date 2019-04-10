@@ -5,28 +5,41 @@ import java.util.List;
 
 import com.vequinox.colacraft.items.*;
 
-import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ModItems {
 	public static final List<Item> ITEMS = new ArrayList<Item>();
+
 	public static final Item CAN = new ItemCan("can", 200, 0);
+	public static final Item GOLD_CAN = new ItemCan("gold_can", 300, 0);
+	public static final Item HOLY_CAN = new ItemCan("holy_can", 400, 0);
+	public static final Item DEMONIC_CAN = new ItemCan("demonic_can", 200, 1);
+	public static final Item ANCIENT_CAN = new ItemCan("ancient_can", 1000, 0);
+
 	public static final ItemSoda SODA = new ItemSoda("soda", 2, 0.6F, false);
-	public static final Item EMPTY_SMALL_VIAL = new ItemBase("empty_small_vial");
-	public static final Item EMPTY_VIAL = new ItemBase("empty_vial");
-	public static final Item EMPTY_LARGE_VIAL = new ItemBase("empty_large_vial");
+	public static final ItemSoda GOLD_SODA = new ItemSoda("gold_soda", 4, 1.2F, false);
+	public static final ItemSoda HOLY_SODA = new ItemSoda("holy_soda", 6, 1.6F, false);
+	public static final ItemSoda DEMONIC_SODA = new ItemSoda("demonic_soda", 8, -0.6F, false);
+	public static final ItemSoda ANCIENT_SODA = new ItemSoda("ancient_soda", 0, 0.0F, false);
+
+	public static final Item EMPTY_SMALL_VIAL = new ItemVial("empty_small_vial");
+	public static final Item EMPTY_VIAL = new ItemVial("empty_vial");
+	public static final Item EMPTY_LARGE_VIAL = new ItemVial("empty_large_vial");
 	public static final Item SMALL_VIAL_WATER = new ItemSolution("small_vial_water", 3, 70);
 	public static final Item VIAL_WATER = new ItemSolution("vial_water", 5, 100);
 	public static final Item LARGE_VIAL_WATER = new ItemSolution("large_vial_water", 7, 200);
 	
 	public static final Item ALUMINUM_INGOT = new ItemBase("aluminum_ingot");
+
 	public static final Item ELECTRODUST = new ItemBase("electrodust");
+
 	public static final Item HYDRODUST = new ItemBase("hydrodust");
+	public static final Item GHOST_HYDRODUST = new ItemBase("ghost_hydrodust");
+
 	public static final Item CONDENSED_SUGAR = new ItemBase("condensed_sugar");
 	public static final Item CRYSTALLIZED_SUGAR = new ItemBase("crystallized_sugar");
 	public static final Item GHOST_SUGAR = new ItemBase("ghost_sugar");
+
 	public static final Item CONDENSED_REDSTONE = new ItemBase("condensed_redstone");
 	public static final Item CRYSTALLIZED_REDSTONE = new ItemBase("crystallized_redstone");
 	public static final Item GHOST_REDSTONE = new ItemBase("ghost_redstone");

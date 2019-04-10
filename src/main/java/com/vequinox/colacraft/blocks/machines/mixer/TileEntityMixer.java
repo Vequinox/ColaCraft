@@ -32,6 +32,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -47,7 +48,6 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 	private String customName;
 	private ItemStack smelting = ItemStack.EMPTY;
 
-	private final int MAX_HYDRODUST_AMOUNT = 24;
 	private final int HYDRODUST_PER_WATER_LEVEL = 4;
 	
 	private int burnTime;
@@ -67,6 +67,7 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 		dusts.add(ModItems.CRYSTALLIZED_REDSTONE);
 		dusts.add(ModItems.CRYSTALLIZED_SUGAR);
 		dusts.add(ModItems.HYDRODUST);
+		dusts.add(ModItems.GHOST_HYDRODUST);
 		dusts.add(ModItems.GHOST_REDSTONE);
 		dusts.add(ModItems.GHOST_SUGAR);
 
@@ -284,6 +285,16 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 		
 		return canSmelt;
 	}
+
+	private int getHydrodustTotal(){
+		int hydrodustAmount = StackHelper.getTag(this.inventory.get(0)).getInteger("hydrodust_amount");
+		for(int i = 1; i < 4; i++){
+			if(this.inventory.get(i).getItem() == ModItems.HYDRODUST){
+				hydrodustAmount += this.inventory.get(i).getCount();
+			}
+		}
+		return hydrodustAmount;
+	}
 	
 	private int getPotentialPowderCount() {
 		int powderCount = 0;
@@ -294,7 +305,7 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 					powderCount += (this.inventory.get(i).getCount() * 8);
 				}else if(inventoryItem == ModItems.HYDRODUST){
 					powderCount += (this.inventory.get(i).getCount() * 4);
-				}else if(inventoryItem != ModItems.GHOST_REDSTONE && inventoryItem != ModItems.GHOST_SUGAR){
+				}else if(inventoryItem != ModItems.GHOST_REDSTONE && inventoryItem != ModItems.GHOST_SUGAR && inventoryItem != ModItems.GHOST_HYDRODUST){
 					powderCount += this.inventory.get(i).getCount();
 				}
 			}
@@ -364,6 +375,9 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 					totalPowderAmount += ingredient.getCount();
 				}else if(ingredient.getItem() == ModItems.HYDRODUST) {
 					hydrodustAmount += ingredient.getCount();
+					totalPowderAmount += ingredient.getCount() * 4;
+				}else if(ingredient.getItem() == ModItems.GHOST_HYDRODUST){
+					hydrodustAmount += ingredient.getCount();
 				}
 			}
 		}
@@ -379,15 +393,7 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 		solutionTag.setInteger("sugar_amount", solutionTag.getInteger("sugar_amount") + sugarAmount);
 		solutionTag.setInteger("redstone_amount", solutionTag.getInteger("redstone_amount") + redstoneAmount);
 		solutionTag.setInteger("gunpowder_amount", solutionTag.getInteger("gunpowder_amount") + gunpowderAmount);
-		
-		if(solutionTag.getInteger("hydro_amount") + hydrodustAmount > MAX_HYDRODUST_AMOUNT) {
-			int hydrodustAmountToAdd = MAX_HYDRODUST_AMOUNT - (solutionTag.getInteger("hydrodust_amount"));
-			solutionTag.setInteger("hydrodust_amount", MAX_HYDRODUST_AMOUNT);
-			solutionTag.setInteger("powder_parts", solutionTag.getInteger("powder_parts") + (hydrodustAmountToAdd * 4));
-		}else {
-			solutionTag.setInteger("hydrodust_amount", solutionTag.getInteger("hydrodust_amount") + hydrodustAmount);
-			solutionTag.setInteger("powder_parts", solutionTag.getInteger("powder_parts") + (hydrodustAmount * 4));
-		}
+		solutionTag.setInteger("hydrodust_amount", solutionTag.getInteger("hydrodust_amount") + hydrodustAmount);
 		
 		solutionTag.setInteger("powder_parts", solutionTag.getInteger("powder_parts") + totalPowderAmount);
 
@@ -419,15 +425,7 @@ public class TileEntityMixer extends TileEntity implements IInventory, ITickable
 			
 			for(ItemStack ingredient : ingredients) {
 				if (!ingredient.isEmpty()) {
-					if (ingredient.getItem() == ModItems.HYDRODUST) {
-						if (StackHelper.getTag(result).getInteger("hydrodust_amount") == MAX_HYDRODUST_AMOUNT) {
-							ingredient.shrink(MAX_HYDRODUST_AMOUNT - StackHelper.getTag(solution).getInteger("hydrodust_amount"));
-						} else {
-							ingredient.shrink(ingredient.getCount());
-						}
-					}else {
-						ingredient.shrink(ingredient.getCount());
-					}
+					ingredient.shrink(ingredient.getCount());
 				}
 			}
 			solution.shrink(1);

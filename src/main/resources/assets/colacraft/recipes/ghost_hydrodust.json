@@ -1,0 +1,20 @@
+{
+  "pattern": [
+    "ccc",
+    "cec",
+    "ccc"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "c": {
+      "item": "colacraft:hydrodust"
+    },
+    "e": {
+      "item": "minecraft:ender_pearl"
+    }
+  },
+  "result": {
+    "item": "colacraft:ghost_hydrodust",
+    "count": 8
+  }
+}
