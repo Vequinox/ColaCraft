@@ -7,6 +7,7 @@ import com.vequinox.colacraft.blocks.BlockBase;
 import com.vequinox.colacraft.init.ModBlocks;
 import com.vequinox.colacraft.util.Reference;
 
+import com.vequinox.colacraft.util.handlers.ConfigHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.ITileEntityProvider;
@@ -67,7 +68,7 @@ public class BlockMixer extends BlockBase implements ITileEntityProvider{
 		
 		TileEntity tileEntity = worldIn.getTileEntity(pos);
 		if(tileEntity instanceof TileEntityMixer) {
-			playerIn.openGui(Main.instance, Reference.GUI_MIXER, worldIn, pos.getX(), pos.getY(), pos.getZ());
+			playerIn.openGui(Main.instance, ConfigHandler.GUI_MIXER, worldIn, pos.getX(), pos.getY(), pos.getZ());
 			return true;
 		}
 		return false;

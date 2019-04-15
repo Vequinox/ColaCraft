@@ -23,12 +23,10 @@ public class GuiHandler implements IGuiHandler{
 			return null;
 		}
 		
-		
-		switch(ID) {
-			case 0:
-				return new ContainerCarbonizer(player.inventory, (TileEntityCarbonizer)tileEntity);
-			case 1:
-				return new ContainerMixer(player.inventory, (TileEntityMixer)tileEntity);
+		if(ID == ConfigHandler.GUI_CARBONIZER) {
+			return new ContainerCarbonizer(player.inventory, (TileEntityCarbonizer)tileEntity);
+		}else if(ID == ConfigHandler.GUI_MIXER) {
+			return new ContainerMixer(player.inventory, (TileEntityMixer) tileEntity);
 		}
 		
 		return null;
@@ -42,12 +40,10 @@ public class GuiHandler implements IGuiHandler{
 			return null;
 		}
 		
-		
-		switch(ID) {
-			case 0:
-				return new GuiCarbonizer(player.inventory, (TileEntityCarbonizer)tileEntity);
-			case 1:
-				return new GuiMixer(player.inventory, (TileEntityMixer)tileEntity);
+		if(ID == ConfigHandler.GUI_CARBONIZER) {
+			return new GuiCarbonizer(player.inventory, (TileEntityCarbonizer) tileEntity);
+		}else if(ID == ConfigHandler.GUI_MIXER) {
+			return new GuiMixer(player.inventory, (TileEntityMixer) tileEntity);
 		}
 		
 		return null;

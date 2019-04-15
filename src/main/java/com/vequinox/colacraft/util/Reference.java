@@ -9,9 +9,7 @@ public class Reference {
 	public static final String COMMON_PROXY_CLASS = "com.vequinox.colacraft.proxy.CommonProxy";
 	
 	public static final ColaCraftTab TAB = new ColaCraftTab();
-	
-	public static final int GUI_CARBONIZER = 0;
-	public static final int GUI_MIXER = 1;
+
 	public static final int GUI_MIXER_TIER_2 = 2;
 	public static final int GUI_MIXER_TIER_3 = 3;
 }

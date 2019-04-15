@@ -19,6 +19,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
+import org.lwjgl.input.Keyboard;
 
 import javax.annotation.Nullable;
 
@@ -44,28 +45,38 @@ public class ItemSolution extends ItemBase{
 	@Override
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		NBTTagCompound tag = StackHelper.getTag(stack);
+		int tooltipWaterParts = waterParts;
 
-		if(tag.hasKey("water_parts")){
-			tooltip.add(tag.getInteger("water_parts") + " part(s) Water");
-		}
-
-		for(String key : tag.getKeySet()){
-			if(key.contains("packet")){
-				tooltip.add(tag.getInteger(key) + " part(s) " + getMobEffectName(key));
+		if(Keyboard.isKeyDown(42)){
+			if(tag.hasKey("water_parts")){
+				tooltipWaterParts = tag.getInteger("water_parts");
 			}
-		}
+			tooltip.add(tooltipWaterParts + " part(s) Water");
 
-		tooltip.add("------------------------");
-
-		if(tag.hasKey("powder_parts")){
-			tooltip.add((maxPowderAmount - tag.getInteger("powder_parts")) + " unit(s) for Powder available");
-		}
-
-		for(String key : tag.getKeySet()){
-			if(key.contains("amount")){
-				tooltip.add(tag.getInteger(key) + " unit(s) of " + getPowderNameFromTagKey(key));
+			for(String key : tag.getKeySet()){
+				if(key.contains("packet")){
+					tooltip.add(tag.getInteger(key) + " part(s) " + getMobEffectName(key));
+				}
 			}
+
+			tooltip.add("------------------------");
+
+			if(tag.hasKey("powder_parts")){
+				tooltip.add((maxPowderAmount - tag.getInteger("powder_parts")) + " unit(s) for Powder available");
+			}else{
+				tooltip.add((maxPowderAmount + " unit(s) for Powder available"));
+			}
+
+			for(String key : tag.getKeySet()){
+				if(key.contains("amount")){
+					tooltip.add(tag.getInteger(key) + " unit(s) of " + getPowderNameFromTagKey(key));
+				}
+			}
+		}else{
+			tooltip.add("Hold [SHIFT] for more info");
 		}
+
+
 	}
 
 	private String getPowderNameFromTagKey(String tagKey){

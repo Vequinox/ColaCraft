@@ -29,6 +29,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.input.Keyboard;
 
 import javax.annotation.Nullable;
 
@@ -49,14 +50,18 @@ public class ItemSoda extends ItemFood implements IHasModel{
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
 		NBTTagCompound tag = StackHelper.getTag(stack);
 
-		if(tag.hasKey("duration")){
-			tooltip.add("Duration: " + tag.getInteger("duration")/20 + " seconds");
-		}
-
-		for(String key : tag.getKeySet()){
-			if(key.contains("level")){
-				tooltip.add("LVL " + (tag.getInteger(key) + 1) + " " + getMobEffectName(key));
+		if(Keyboard.isKeyDown(42)) {
+			if (tag.hasKey("duration")) {
+				tooltip.add("Duration: " + tag.getInteger("duration") / 20 + " seconds");
 			}
+
+			for (String key : tag.getKeySet()) {
+				if (key.contains("level")) {
+					tooltip.add("LVL " + (tag.getInteger(key) + 1) + " " + getMobEffectName(key));
+				}
+			}
+		}else{
+			tooltip.add("Hold [SHIFT] for more info");
 		}
 	}
 
@@ -65,13 +70,23 @@ public class ItemSoda extends ItemFood implements IHasModel{
 		if (!worldIn.isRemote){
 			if(StackHelper.hasTag(stack)) {
 				NBTTagCompound tagComp = stack.getTagCompound();
+
 				for (String key : tagComp.getKeySet()) {
+					System.out.println(key);
 					if(key.contains("level") && getMobEffect(key) != null){
-						player.addPotionEffect(new PotionEffect(getMobEffect(key), tagComp.getInteger("duration"), tagComp.getInteger(key)));
+						int duration = tagComp.getInteger("duration");
+
+						if(key.contains("red") || key.contains("instant_damage")){
+							duration = 20;
+						}
+
+						player.addPotionEffect(new PotionEffect(getMobEffect(key), duration, tagComp.getInteger(key)));
 					}
 				}
 			}
+
 			Item emptyCan = ((ItemSoda)stack.getItem()).getCanType();
+
 			if(!player.inventory.addItemStackToInventory(new ItemStack(emptyCan))){
 				player.dropItem(new ItemStack(emptyCan), false);
 			}
