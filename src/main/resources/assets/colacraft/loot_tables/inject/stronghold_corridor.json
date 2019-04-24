@@ -1,0 +1,162 @@
+{
+  "pools": [{
+    "name": "main",
+    "rolls": 1,
+    "entries": [
+      {
+        "type": "item",
+        "name": "colacraft:can",
+        "entryName": "can",
+        "functions": [
+          {
+            "function": "set_count",
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          }
+        ],
+        "weight": 2
+      },
+      {
+        "type": "item",
+        "name": "colacraft:gold_can",
+        "entryName": "gold_can",
+        "functions": [
+          {
+            "function": "set_count",
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          }
+        ],
+        "weight": 2
+      },
+      {
+        "type": "item",
+        "name": "colacraft:holy_can",
+        "entryName": "holy_can",
+        "functions": [
+          {
+            "function": "set_count",
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          }
+        ],
+        "weight": 4
+      },
+      {
+        "type": "item",
+        "name": "colacraft:demonic_can",
+        "entryName": "demonic_can",
+        "functions": [
+          {
+            "function": "set_count",
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          }
+        ],
+        "weight": 4
+      },
+      {
+        "type": "item",
+        "name": "colacraft:ancient_can",
+        "entryName": "ancient_can",
+        "functions": [
+          {
+            "function": "set_count",
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          }
+        ],
+        "weight": 7
+      },
+      {
+        "type": "item",
+        "name": "colacraft:empty_small_vial",
+        "entryName": "empty_small_vial",
+        "functions": [
+          {
+            "function": "set_count",
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          }
+        ],
+        "weight": 1
+      },
+      {
+        "type": "item",
+        "name": "colacraft:empty_vial",
+        "entryName": "empty_vial",
+        "functions": [
+          {
+            "function": "set_count",
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          }
+        ],
+        "weight": 1
+      },
+      {
+        "type": "item",
+        "name": "colacraft:empty_large_vial",
+        "entryName": "empty_large_vial",
+        "functions": [
+          {
+            "function": "set_count",
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          }
+        ],
+        "weight": 4
+      },
+      {
+        "type": "item",
+        "name": "colacraft:pink_flavor_packet",
+        "entryName": "pink_flavor_packet",
+        "functions": [
+          {
+            "function": "set_count",
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          }
+        ],
+        "weight": 5
+      },
+      {
+        "type": "item",
+        "name": "colacraft:light_gray_flavor_packet",
+        "entryName": "light_gray_flavor_packet",
+        "functions": [
+          {
+            "function": "set_count",
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          }
+        ],
+        "weight": 10
+      },
+      {
+        "type": "empty",
+        "weight": 60
+      }
+    ]
+  }]
+}

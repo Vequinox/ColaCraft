@@ -46,7 +46,7 @@
             }
           }
         ],
-        "weight": 2
+        "weight": 3
       },
       {
         "type": "item",
@@ -61,7 +61,7 @@
             }
           }
         ],
-        "weight": 2
+        "weight": 1
       },
       {
         "type": "item",
@@ -91,7 +91,7 @@
             }
           }
         ],
-        "weight": 4
+        "weight": 2
       },
       {
         "type": "item",
@@ -106,7 +106,7 @@
             }
           }
         ],
-        "weight": 1
+        "weight": 2
       },
       {
         "type": "item",
@@ -121,7 +121,7 @@
             }
           }
         ],
-        "weight": 1
+        "weight": 2
       },
       {
         "type": "item",
@@ -136,7 +136,7 @@
             }
           }
         ],
-        "weight": 1
+        "weight": 2
       },
       {
         "type": "item",
@@ -151,7 +151,7 @@
             }
           }
         ],
-        "weight": 1
+        "weight": 2
       },
       {
         "type": "item",
@@ -170,8 +170,8 @@
       },
       {
         "type": "item",
-        "name": "colacraft:condensed_redstone",
-        "entryName": "condensed_redstone",
+        "name": "colacraft:condensed_sugar",
+        "entryName": "condensed_sugar",
         "functions": [
           {
             "function": "set_count",
@@ -185,8 +185,23 @@
       },
       {
         "type": "item",
-        "name": "colacraft:crystallized_redstone",
-        "entryName": "crystallized_redstone",
+        "name": "colacraft:crystallized_sugar",
+        "entryName": "crystallized_sugar",
+        "functions": [
+          {
+            "function": "set_count",
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          }
+        ],
+        "weight": 2
+      },
+      {
+        "type": "item",
+        "name": "colacraft:ghost_sugar",
+        "entryName": "ghost_sugar",
         "functions": [
           {
             "function": "set_count",
@@ -200,8 +215,8 @@
       },
       {
         "type": "item",
-        "name": "colacraft:ghost_redstone",
-        "entryName": "ghost_redstone",
+        "name": "colacraft:gray_flavor_packet",
+        "entryName": "gray_flavor_packet",
         "functions": [
           {
             "function": "set_count",
@@ -215,8 +230,8 @@
       },
       {
         "type": "item",
-        "name": "colacraft:white_flavor_packet",
-        "entryName": "white_flavor_packet",
+        "name": "colacraft:unluck_flavor_packet",
+        "entryName": "unluck_flavor_packet",
         "functions": [
           {
             "function": "set_count",
@@ -226,12 +241,12 @@
             }
           }
         ],
-        "weight": 2
+        "weight": 1
       },
       {
         "type": "item",
-        "name": "colacraft:green_flavor_packet",
-        "entryName": "green_flavor_packet",
+        "name": "colacraft:glowing_flavor_packet",
+        "entryName": "glowing_flavor_packet",
         "functions": [
           {
             "function": "set_count",
@@ -241,12 +256,12 @@
             }
           }
         ],
-        "weight": 2
+        "weight": 1
       },
       {
         "type": "item",
-        "name": "colacraft:brown_flavor_packet",
-        "entryName": "brown_flavor_packet",
+        "name": "colacraft:luck_flavor_packet",
+        "entryName": "luck_flavor_packet",
         "functions": [
           {
             "function": "set_count",
@@ -256,27 +271,12 @@
             }
           }
         ],
-        "weight": 2
+        "weight": 1
       },
       {
         "type": "item",
-        "name": "colacraft:purple_flavor_packet",
-        "entryName": "purple_flavor_packet",
-        "functions": [
-          {
-            "function": "set_count",
-            "count": {
-              "min": 1,
-              "max": 3
-            }
-          }
-        ],
-        "weight": 2
-      },
-      {
-        "type": "item",
-        "name": "colacraft:light_blue_flavor_packet",
-        "entryName": "light_blue_flavor_packet",
+        "name": "colacraft:lime_flavor_packet",
+        "entryName": "lime_flavor_packet",
         "functions": [
           {
             "function": "set_count",

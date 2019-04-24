@@ -16,7 +16,7 @@
             }
           }
         ],
-        "weight": 11
+        "weight": 12
       },
       {
         "type": "item",
@@ -31,7 +31,7 @@
             }
           }
         ],
-        "weight": 3
+        "weight": 1
       },
       {
         "type": "item",
@@ -46,7 +46,7 @@
             }
           }
         ],
-        "weight": 2
+        "weight": 1
       },
       {
         "type": "item",
@@ -61,7 +61,7 @@
             }
           }
         ],
-        "weight": 2
+        "weight": 1
       },
       {
         "type": "item",
@@ -76,7 +76,7 @@
             }
           }
         ],
-        "weight": 1
+        "weight": 4
       },
       {
         "type": "item",
@@ -91,7 +91,7 @@
             }
           }
         ],
-        "weight": 4
+        "weight": 1
       },
       {
         "type": "item",
@@ -106,7 +106,7 @@
             }
           }
         ],
-        "weight": 1
+        "weight": 2
       },
       {
         "type": "item",
@@ -121,27 +121,12 @@
             }
           }
         ],
-        "weight": 1
+        "weight": 3
       },
       {
         "type": "item",
-        "name": "colacraft:aluminum_ingot",
-        "entryName": "aluminum_ingot",
-        "functions": [
-          {
-            "function": "set_count",
-            "count": {
-              "min": 1,
-              "max": 5
-            }
-          }
-        ],
-        "weight": 1
-      },
-      {
-        "type": "item",
-        "name": "colacraft:hydrodust",
-        "entryName": "hydrodust",
+        "name": "colacraft:absorption_flavor_packet",
+        "entryName": "absorption_flavor_packet",
         "functions": [
           {
             "function": "set_count",
@@ -155,8 +140,8 @@
       },
       {
         "type": "item",
-        "name": "colacraft:ghost_hydrodust",
-        "entryName": "ghost_hydrodust",
+        "name": "colacraft:blue_flavor_packet",
+        "entryName": "blue_flavor_packet",
         "functions": [
           {
             "function": "set_count",
@@ -166,12 +151,12 @@
             }
           }
         ],
-        "weight": 1
+        "weight": 3
       },
       {
         "type": "item",
-        "name": "colacraft:condensed_redstone",
-        "entryName": "condensed_redstone",
+        "name": "colacraft:yellow_flavor_packet",
+        "entryName": "yellow_flavor_packet",
         "functions": [
           {
             "function": "set_count",
@@ -181,12 +166,12 @@
             }
           }
         ],
-        "weight": 1
+        "weight": 4
       },
       {
         "type": "item",
-        "name": "colacraft:crystallized_redstone",
-        "entryName": "crystallized_redstone",
+        "name": "colacraft:cyan_flavor_packet",
+        "entryName": "cyan_flavor_packet",
         "functions": [
           {
             "function": "set_count",
@@ -196,12 +181,12 @@
             }
           }
         ],
-        "weight": 1
+        "weight": 3
       },
       {
         "type": "item",
-        "name": "colacraft:ghost_redstone",
-        "entryName": "ghost_redstone",
+        "name": "colacraft:resistance_flavor_packet",
+        "entryName": "resistance_flavor_packet",
         "functions": [
           {
             "function": "set_count",
@@ -211,82 +196,7 @@
             }
           }
         ],
-        "weight": 1
-      },
-      {
-        "type": "item",
-        "name": "colacraft:white_flavor_packet",
-        "entryName": "white_flavor_packet",
-        "functions": [
-          {
-            "function": "set_count",
-            "count": {
-              "min": 1,
-              "max": 3
-            }
-          }
-        ],
-        "weight": 2
-      },
-      {
-        "type": "item",
-        "name": "colacraft:green_flavor_packet",
-        "entryName": "green_flavor_packet",
-        "functions": [
-          {
-            "function": "set_count",
-            "count": {
-              "min": 1,
-              "max": 3
-            }
-          }
-        ],
-        "weight": 2
-      },
-      {
-        "type": "item",
-        "name": "colacraft:brown_flavor_packet",
-        "entryName": "brown_flavor_packet",
-        "functions": [
-          {
-            "function": "set_count",
-            "count": {
-              "min": 1,
-              "max": 3
-            }
-          }
-        ],
-        "weight": 2
-      },
-      {
-        "type": "item",
-        "name": "colacraft:purple_flavor_packet",
-        "entryName": "purple_flavor_packet",
-        "functions": [
-          {
-            "function": "set_count",
-            "count": {
-              "min": 1,
-              "max": 3
-            }
-          }
-        ],
-        "weight": 2
-      },
-      {
-        "type": "item",
-        "name": "colacraft:light_blue_flavor_packet",
-        "entryName": "light_blue_flavor_packet",
-        "functions": [
-          {
-            "function": "set_count",
-            "count": {
-              "min": 1,
-              "max": 3
-            }
-          }
-        ],
-        "weight": 1
+        "weight": 4
       },
       {
         "type": "empty",

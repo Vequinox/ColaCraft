@@ -1,0 +1,162 @@
+{
+  "pools": [{
+    "name": "main",
+    "rolls": 1,
+    "entries": [
+      {
+        "type": "item",
+        "name": "colacraft:can",
+        "entryName": "can",
+        "functions": [
+          {
+            "function": "set_count",
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          }
+        ],
+        "weight": 17
+      },
+      {
+        "type": "item",
+        "name": "colacraft:gold_can",
+        "entryName": "gold_can",
+        "functions": [
+          {
+            "function": "set_count",
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          }
+        ],
+        "weight": 1
+      },
+      {
+        "type": "item",
+        "name": "colacraft:holy_can",
+        "entryName": "holy_can",
+        "functions": [
+          {
+            "function": "set_count",
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          }
+        ],
+        "weight": 1
+      },
+      {
+        "type": "item",
+        "name": "colacraft:empty_small_vial",
+        "entryName": "empty_small_vial",
+        "functions": [
+          {
+            "function": "set_count",
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          }
+        ],
+        "weight": 5
+      },
+      {
+        "type": "item",
+        "name": "colacraft:empty_vial",
+        "entryName": "empty_vial",
+        "functions": [
+          {
+            "function": "set_count",
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          }
+        ],
+        "weight": 1
+      },
+      {
+        "type": "item",
+        "name": "colacraft:hydrodust",
+        "entryName": "hydrodust",
+        "functions": [
+          {
+            "function": "set_count",
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          }
+        ],
+        "weight": 5
+      },
+      {
+        "type": "item",
+        "name": "colacraft:condensed_sugar",
+        "entryName": "condensed_sugar",
+        "functions": [
+          {
+            "function": "set_count",
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          }
+        ],
+        "weight": 4
+      },
+      {
+        "type": "item",
+        "name": "colacraft:crystallized_sugar",
+        "entryName": "crystallized_sugar",
+        "functions": [
+          {
+            "function": "set_count",
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          }
+        ],
+        "weight": 1
+      },
+      {
+        "type": "item",
+        "name": "colacraft:condensed_redstone",
+        "entryName": "condensed_redstone",
+        "functions": [
+          {
+            "function": "set_count",
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          }
+        ],
+        "weight": 4
+      },
+      {
+        "type": "item",
+        "name": "colacraft:crystallized_redstone",
+        "entryName": "crystallized_redstone",
+        "functions": [
+          {
+            "function": "set_count",
+            "count": {
+              "min": 1,
+              "max": 3
+            }
+          }
+        ],
+        "weight": 1
+      },
+      {
+        "type": "empty",
+        "weight": 60
+      }
+    ]
+  }]
+}
