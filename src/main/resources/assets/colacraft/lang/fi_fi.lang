@@ -1,0 +1,81 @@
+# File version 2019.1
+# Translate by Syorito Hatsuki
+# http://fstudio.space/
+
+# Item`s
+item.can.name=Tölkki
+item.gold_can.name=Kultainen Tölkki
+item.holy_can.name=Pyhä Tölkki
+item.demonic_can.name=Demoninen Tölkki
+item.ancient_can.name=Muinainen Tölkki
+
+# Ingot`s
+item.aluminum_ingot.name=Alumiini Harkko
+
+# Vial`s
+item.empty_small_vial.name=Pieni säiliö
+item.empty_vial.name=Säiliö
+item.empty_large_vial.name=Suuri säiliö
+item.small_vial_water.name=Pieni vesipullo
+item.vial_water.name=Vesi säiliö
+item.large_vial_water.name=Suuri vesipullo
+
+# Ingredient`s
+item.electrodust.name=Electropöly
+item.hydrodust.name=Hydropöly
+item.ghost_hydrodust.name=Aave Hydropöly
+item.condensed_sugar.name=Tiivistetty Sokeri
+item.condensed_redstone.name=Tiivistetty Punakivi
+item.crystallized_sugar.name=Kiteytetty Sokeri
+item.crystallized_redstone.name=Kristalli Punakivi
+item.ghost_sugar.name=Aave Sokeri
+item.ghost_redstone.name=Aave Punakivi
+
+# Soda`s
+item.soda.name=Sooda
+item.gold_soda.name=Kultainen Sooda
+item.holy_soda.name=Pyhä Sooda
+item.demonic_soda.name=Demoninen Sooda
+item.ancient_soda.name=Muinainen Sooda
+
+# Flavor Packet`s
+item.black_flavor_packet.name=Maku Pussi: Uneliaisuus
+item.white_flavor_packet.name=Maku Pussi: Ripeys
+item.red_flavor_packet.name=Maku Pussi: Kokoonpano
+item.blue_flavor_packet.name=Maku Pussi: Vesihengitys
+item.green_flavor_packet.name=Maku Pussi: Ruokahalu
+item.yellow_flavor_packet.name=Maku Pussi: Myrkyllisyys
+item.brown_flavor_packet.name=Maku Pussi: Rohkeus
+item.orange_flavor_packet.name=Maku Pussi: Pyro-immuniteetti
+item.cyan_flavor_packet.name=Maku Pussi: Kammo
+item.purple_flavor_packet.name=Maku Pussi: Käyttökelpoisuus
+item.gray_flavor_packet.name=Maku Pussi: Likinäköisyys
+item.light_blue_flavor_packet.name=Maku Pussi: Apacity
+item.pink_flavor_packet.name=Maku Pussi: Talteenotto
+item.lime_flavor_packet.name=Maku Pussi: Photoreception
+item.magenta_flavor_packet.name=Maku Pussi: Heikkous
+item.light_gray_flavor_packet.name=Maku Pussi: Surkastuminen
+item.instant_damage_flavor_packet.name=Maku Pussi: Vahingoittaa
+item.jump_boost_flavor_packet.name=Maku Pussi: Loikki
+item.resistance_flavor_packet.name=Maku Pussi: Immuniteetti
+item.invisibility_flavor_packet.name=Maku Pussi: Imperceptibility
+item.health_boost_flavor_packet.name=Maku Pussi: Elinvoima
+item.absorption_flavor_packet.name=Maku Pussi: Imbibity
+item.saturation_flavor_packet.name=Maku Pussi: Turpoamista
+item.glowing_flavor_packet.name=Maku Pussi: Eloisuus
+item.levitation_flavor_packet.name=Maku Pussi: Jousitus
+item.luck_flavor_packet.name=Maku Pussi: Vauraus
+item.unluck_flavor_packet.name=Maku Pussi: Tragedia
+
+# Block`s
+tile.ore_aluminum.name=Alumiini malmi
+
+tile.carbonizer.name=Carbonizer
+tile.mixer.name=Mikseri
+
+# Menu`s
+container.carbonizer=Carbonizer
+container.mixer=Mikseri
+
+# Creative Tab`s
+itemGroup.colacraft=Cola Craft
